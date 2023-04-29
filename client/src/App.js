@@ -3,8 +3,17 @@ import { Routes, Route } from 'react-router-dom';
 import { MainPage } from './pages/MainPage.jsx';
 import { LoginPage } from './pages/LoginPage.jsx';
 import { RegisterPage } from './pages/RegisterPage.jsx';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { fetchAuthMe } from './redux/slices/auth.js';
 
 function App() {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(fetchAuthMe());
+  }, []);
+
   return (
     <Layout>
       <Routes>
