@@ -1,0 +1,11 @@
+.main{
+  width: 100%;
+  min-height: calc(100vh - 182px);
+  background-image: url('../assets/img/background.gif');
+}
+
+.main__container{
+  width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+}

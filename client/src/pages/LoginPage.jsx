@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogin, selectIsAuth } from '../redux/slices/auth.js';
+import { Popup } from '../components/Popup.jsx';
 
 export const LoginPage = () => {
+  const [popupActive, setPopupActive] = useState(false)
   const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm(
@@ -54,8 +56,9 @@ export const LoginPage = () => {
           <span>{errors.password?.message}</span>
         </label>
         <button type="submit">Submit</button>
-        <Link to="/auth/register">регистрация</Link>
+        <Link to="/auth/register">Регистрация</Link>
       </form>
+      <Popup />
     </>
   )
 }

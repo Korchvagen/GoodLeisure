@@ -1,0 +1,21 @@
+.footer{
+  width: 100vw;
+  height: 90px;
+  background-color: #2D2D2D;
+  border-top: 1px #000000 solid;
+}
+
+.footer__container{
+  width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  color: #C9C9C9;
+
+  a{
+    color: #C9C9C9;
+    text-decoration: none;
+    margin-left: 40px;
+  }
+}

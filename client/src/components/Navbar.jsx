@@ -1,6 +1,8 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, selectIsAuth } from '../redux/slices/auth.js';
+import { Link } from 'react-router-dom';
+import '../styles/navbar.scss';
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/slices/auth.js';
 
 export const Navbar = () => {
   const dispatch = useDispatch();
@@ -11,8 +13,13 @@ export const Navbar = () => {
   };
 
   return (
-    <>
-      { window.localStorage.key('token') && <button onClick={onClickLogout}>Выйти</button>}
-    </>
+    <nav className='nav'>
+      <ul className='nav__list'>
+        <Link className='nav__list__item' to="/">
+          <div className='list__item__image'></div>
+          <span className='list__item__text'>Главная</span>
+        </Link>
+      </ul>
+    </nav>
   )
 }

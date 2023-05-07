@@ -1,0 +1,20 @@
+.header{
+  width: 100vw;
+  height: 90px;
+  background-color: #2D2D2D;
+  border-bottom: 1px #000000 solid;
+}
+
+.header__container{
+  width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__container__right-side{
+  display: flex;
+  align-items: center ;
+}

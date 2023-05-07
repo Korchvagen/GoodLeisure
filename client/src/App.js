@@ -6,6 +6,7 @@ import { RegisterPage } from './pages/RegisterPage.jsx';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchAuthMe } from './redux/slices/auth.js';
+import "./styles/index.scss";
 
 function App() {
   const dispatch = useDispatch();

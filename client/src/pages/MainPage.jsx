@@ -1,8 +1,6 @@
-import axios from '../utils/axios.js';
 import React from 'react'
+import { Interests } from '../components/Interests.jsx';
 
 export const MainPage = () => {
-  return (
-    <div>MainPage</div>
-  )
+  
 }

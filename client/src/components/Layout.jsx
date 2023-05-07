@@ -1,11 +1,16 @@
-import React from 'react'
-import { Navbar } from './Navbar.jsx';
+import React from 'react';
+import { Header } from './Header.jsx';
+import { Main } from './Main.jsx';
+import { Footer } from './Footer.jsx';
 
 export const Layout = ({ children }) => {
   return (
-    <React.Fragment>
-      <Navbar />
-      { children }
-    </React.Fragment>
+    <>
+      <Header />
+      <Main>
+        {children}
+      </Main>
+      <Footer />
+    </>
   )
 }

@@ -1,0 +1,14 @@
+.languages-container{
+  display: flex;
+  font-size: 20px;
+  color: #C9C9C9;
+}
+
+.languages-container span:nth-child(2),
+.languages-container__en{
+  margin-left: 5px;
+}
+
+.languages-container span.active{
+  color: #E7CC40;
+}

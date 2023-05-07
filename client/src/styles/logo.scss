@@ -1,0 +1,17 @@
+.logo-container{
+  display: flex;
+  align-items: center;
+}
+
+.logo-container__image{
+  width: 50px;
+  height: 50px;
+  background-image: url('../assets/img/logo.png');
+  background-size: cover;
+}
+
+.logo-container__title{
+  margin: 0;
+  color: #C9C9C9;
+  margin-left: 15px;
+}

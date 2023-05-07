@@ -72,7 +72,7 @@ const authSlice = createSlice({
   }
 });
 
-export const selectIsAuth = (state) => Boolean(state.auth.data?.token);
+export const selectIsAuth = (state) => Boolean(state.auth.data?.email);
 
 export const selectRegisterErrors = (state) => state.auth.data?.errors;
 
