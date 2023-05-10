@@ -3,7 +3,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogin, selectIsAuth } from '../redux/slices/auth.js';
-import { Popup } from '../components/Popup.jsx';
+import { Popup } from '../components/popup/Popup.jsx';
+import { AccountRecovery } from '../components/popup/AccountRecovery.jsx';
 
 export const LoginPage = () => {
   const [popupActive, setPopupActive] = useState(false)
@@ -20,8 +21,8 @@ export const LoginPage = () => {
 
   const onSubmit = async (values) => {
     const data = await dispatch(fetchLogin(values));
-    
-    if(data.payload.message){
+
+    if (data.payload.message) {
       document.getElementById('loginError').textContent = data.payload.message;
     }
 
@@ -29,7 +30,7 @@ export const LoginPage = () => {
       window.localStorage.setItem('token', data.payload.token);
     }
   };
-  
+
   if (isAuth) {
     return <Navigate to="/" />;
   }
@@ -55,10 +56,13 @@ export const LoginPage = () => {
           />
           <span>{errors.password?.message}</span>
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">Войти</button>
+        <a onClick={() => setPopupActive(true)}>Забыли пароль?</a>
         <Link to="/auth/register">Регистрация</Link>
       </form>
-      <Popup />
+      <Popup active={popupActive} setActive={setPopupActive}>
+        <AccountRecovery />
+      </Popup>
     </>
   )
 }

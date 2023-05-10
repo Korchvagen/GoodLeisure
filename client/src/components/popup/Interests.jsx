@@ -1,13 +1,13 @@
 import React from 'react';
 import { InterestButton } from './InterestButton.jsx';
-import "../styles/interests.scss"
+import "../../styles/popup-content.scss"
 
 export function Interests(){
   return (
-    <div className='interests-container'>
-      <h2 className='title'>Выбор интересов</h2>
-      <p className='text'>Выберите то, чем вы увлекаетесь, чтобы мы помогли Вам определиться, как провести свободное время</p>
-      <div className='buttons-conteiner'>
+    <div className='popup-content'>
+      <h2 className='popup-content__title'>Выбор интересов</h2>
+      <p className='container__text'>Выберите то, чем вы увлекаетесь, чтобы мы помогли Вам определиться, как провести свободное время</p>
+      <div className='container__buttons'>
         <InterestButton text={"Еда"}/>
         <InterestButton text={"Спорт"}/>
         <InterestButton text={"Природа"}/>
@@ -24,7 +24,7 @@ export function Interests(){
         <InterestButton text={"Ночная жизнь"}/>
         <InterestButton text={"Танцы"}/>
       </div>
-      <button className='save-button'>Сохранить</button>
+      <button className='popup-content-container__button'>Сохранить</button>
     </div>
   );
 }

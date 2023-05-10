@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import { loginValidation, registerValidation } from "./validations.js";
+import { emailValidation, loginValidation, registerValidation } from "./validations.js";
 import checkAuth from "./utils/checkAuth.js";
-import { login, register, getMe, userPosition } from "./Controllers/UserControllers.js"
+import { login, register, sendCode, getMe, userPosition } from "./Controllers/UserControllers.js"
 
 const app = express();
 dotenv.config();
@@ -18,6 +18,8 @@ app.use(express.json());
 app.post('/auth/login', loginValidation, login);
 
 app.post('/auth/register', registerValidation, register);
+
+app.post('/auth/recovery/email', emailValidation, sendCode);
 
 app.get('/auth/me', checkAuth, getMe);
 

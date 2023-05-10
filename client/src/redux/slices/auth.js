@@ -18,6 +18,12 @@ export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (param
   return data;
 });
 
+export const fetchRecoveryCode = createAsyncThunk('auth/fetchRecoveryCode', async (params) => {
+  const { data } = await axios.post('/auth/recovery/email', params).catch(error => error.response);
+  
+  return data;
+});
+
 export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async () => {
   const { data } = await axios.get('/auth/me');
 
@@ -57,6 +63,18 @@ const authSlice = createSlice({
       state.data = null;
       state.status = action.payload.message;
     },
+    [fetchRecoveryCode.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchRecoveryCode.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchRecoveryCode.rejected]: (state, action) => {
+      state.data = null;
+      state.status = action.payload.message;
+    },
     [fetchAuthMe.pending]: (state) => {
       state.data = null;
       state.status = 'loading';
@@ -75,6 +93,10 @@ const authSlice = createSlice({
 export const selectIsAuth = (state) => Boolean(state.auth.data?.email);
 
 export const selectRegisterErrors = (state) => state.auth.data?.errors;
+
+export const selectCode = (state) => state.auth.data?.code;
+
+export const selectEmail = (state) => state.auth.data?.email;
 
 export const authReducer = authSlice.reducer;
 

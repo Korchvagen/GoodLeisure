@@ -14,6 +14,7 @@ export const Navbar = () => {
 
   return (
     <nav className='nav'>
+      <button onClick={onClickLogout}>Выйти</button>
       <ul className='nav__list'>
         <Link className='nav__list__item' to="/">
           <div className='list__item__image'></div>
