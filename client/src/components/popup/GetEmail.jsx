@@ -1,9 +1,9 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { fetchRecoveryCode } from '../../redux/slices/auth.js';
+import { fetchEmail } from '../../redux/slices/auth.js';
 
-export function GetEmail({ changeComponent }) {
+export function GetEmail({ changeComponentEmail, changeComponentCode }) {
   const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm(
@@ -15,23 +15,31 @@ export function GetEmail({ changeComponent }) {
   );
 
   const onSubmit = async (email) => {
-    const data = await dispatch(fetchRecoveryCode(email));
+    const data = await dispatch(fetchEmail(email));
 
     if (!data.payload.success) {
-      document.getElementById('sendError').textContent = data.payload.message;
-    }
+      document.querySelector('.errorMessage').textContent = data.payload.message;
+    } else {
+      window.localStorage.setItem('code', data.payload.code);
+      window.localStorage.setItem('email', data.payload.email);
 
-    changeComponent(false);
+      changeComponentEmail(false);
+      changeComponentCode(true);
+    }
+  };
+
+  const hideError = () => {
+    document.querySelectorAll('.errorMessage').forEach(el => el.textContent = "");
   };
 
   return (
     <>
       <p className='container__text email-text'>Укажите электронную почту от утерянной учетной записи, чтобы мы отправили Вам код восстановления.</p>
       <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
+        <p className='errorMessage'></p>
         <label htmlFor="email">Электронная почта</label>
-        <input id='email' type='text' {...register('email', { required: 'Укажите почту' })} />
-        <span id='sendError'></span>
-        <span>{errors.email?.message}</span>
+        <input id='email' type='text' {...register('email', { required: 'Укажите почту' })} onChange={hideError}/>
+        <span className='errorMessage'>{errors.email?.message}</span>
         <button type='submit' className='popup-form__button'>Продолжить</button>
       </form>
     </>

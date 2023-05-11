@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt, { hash } from "bcrypt";
 import IpBase from "@everapi/ipbase-js";
 
 import { validationResult } from "express-validator";
@@ -108,6 +108,7 @@ export const sendCode = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(
         {
+          success: false,
           message: 'Неверный логин'
         }
       );
@@ -117,6 +118,7 @@ export const sendCode = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
+        success: false,
         message: 'Неверный логин'
       });
     }
@@ -131,14 +133,83 @@ export const sendCode = async (req, res) => {
       });
     }
 
+    const salt = await bcrypt.genSalt(10);
+    const hashedCode = await bcrypt.hash(code.toString(), salt);
+
     res.json({
       success: result,
-      code: code,
+      code: hashedCode,
       email: req.body.email
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Не удалось проверить почту'
+      success: false,
+      message: 'Произошла ошибка при отправке письма'
+    });
+  }
+}
+
+export const checkCode = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json(
+        {
+          success: false,
+          message: 'Неверный код'
+        }
+      );
+    }
+
+    const isValidCode = await bcrypt.compare(req.body.code, req.body.stateCode);
+
+    if (!isValidCode) {
+      return res.status(400).json({
+        success: false,
+        message: 'Неверный код'
+      });
+    }
+
+    res.json({
+      success: true
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: 'Произошла ошибка при проверке кода'
+    });
+  }
+}
+
+export const newPassword = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).send(errors);
+    }
+
+    const user = await UserModel.findOne( { email: req.body.email });
+
+    if(!user){
+      return res.status(404).json({
+        success: false,
+        message: 'Пользователь не найден'
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedNewPassword = await bcrypt.hash(req.body.newPassword, salt);
+
+    await UserModel.updateOne({ _id: user._id }, { password: hashedNewPassword });
+
+    res.json({
+      success: true
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Произошла ошибка при изменении пароля'
     });
   }
 }

@@ -2,11 +2,10 @@ import React from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { selectIsAuth, fetchRegister, selectRegisterErrors } from '../redux/slices/auth.js';
-import { RegisterErros } from '../components/RegisterErrors.jsx';
+import { fetchRegister, selectRegisterErrors } from '../redux/slices/auth.js';
+import { ErrorMessage } from '../components/ErrorMessage.jsx';
 
 export const RegisterPage = () => {
-  const isAuth = useSelector(selectIsAuth);
   const registerErrors = useSelector(selectRegisterErrors);
   const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm(
@@ -26,7 +25,7 @@ export const RegisterPage = () => {
     }
   };
 
-  if (isAuth) {
+  if (window.localStorage.getItem('token')) {
     return <Navigate to="/" />;
   }
 
@@ -34,7 +33,7 @@ export const RegisterPage = () => {
     <>
       <h1>Регистрация</h1>
       {
-        registerErrors && <RegisterErros errors={registerErrors}/>
+        registerErrors && <ErrorMessage errors={registerErrors}/>
       }
       <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column' }}>
         <label>

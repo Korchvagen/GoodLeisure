@@ -18,8 +18,20 @@ export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (param
   return data;
 });
 
-export const fetchRecoveryCode = createAsyncThunk('auth/fetchRecoveryCode', async (params) => {
+export const fetchEmail = createAsyncThunk('auth/fetchEmail', async (params) => {
   const { data } = await axios.post('/auth/recovery/email', params).catch(error => error.response);
+  
+  return data;
+});
+
+export const fetchCode = createAsyncThunk('auth/fetchCode', async (params) => {
+  const { data } = await axios.post('/auth/recovery/code', params).catch(error => error.response);
+  
+  return data;
+});
+
+export const fetchNewPassword = createAsyncThunk('auth/fetchNewPassword', async (params) => {
+  const { data } = await axios.patch('/auth/recovery/password', params).catch(error => error.response);
   
   return data;
 });
@@ -63,15 +75,39 @@ const authSlice = createSlice({
       state.data = null;
       state.status = action.payload.message;
     },
-    [fetchRecoveryCode.pending]: (state) => {
+    [fetchEmail.pending]: (state) => {
       state.data = null;
       state.status = 'loading';
     },
-    [fetchRecoveryCode.fulfilled]: (state, action) => {
+    [fetchEmail.fulfilled]: (state, action) => {
       state.data = action.payload;
       state.status = 'loaded'
     },
-    [fetchRecoveryCode.rejected]: (state, action) => {
+    [fetchEmail.rejected]: (state, action) => {
+      state.data = null;
+      state.status = action.payload.message;
+    },
+    [fetchCode.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchCode.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchCode.rejected]: (state, action) => {
+      state.data = null;
+      state.status = action.payload.message;
+    },
+    [fetchNewPassword.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchNewPassword.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchNewPassword.rejected]: (state, action) => {
       state.data = null;
       state.status = action.payload.message;
     },
@@ -90,13 +126,9 @@ const authSlice = createSlice({
   }
 });
 
-export const selectIsAuth = (state) => Boolean(state.auth.data?.email);
-
 export const selectRegisterErrors = (state) => state.auth.data?.errors;
 
-export const selectCode = (state) => state.auth.data?.code;
-
-export const selectEmail = (state) => state.auth.data?.email;
+export const selectNewPAsswordErrors = (state) => state.auth.data?.errors;
 
 export const authReducer = authSlice.reducer;
 

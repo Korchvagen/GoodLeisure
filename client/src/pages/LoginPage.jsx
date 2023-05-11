@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchLogin, selectIsAuth } from '../redux/slices/auth.js';
+import { useDispatch } from 'react-redux';
+import { fetchLogin } from '../redux/slices/auth.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { AccountRecovery } from '../components/popup/AccountRecovery.jsx';
 
 export const LoginPage = () => {
   const [popupActive, setPopupActive] = useState(false)
-  const isAuth = useSelector(selectIsAuth);
   const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm(
     {
@@ -31,7 +30,7 @@ export const LoginPage = () => {
     }
   };
 
-  if (isAuth) {
+  if (window.localStorage.getItem('token')) {
     return <Navigate to="/" />;
   }
 
@@ -61,7 +60,7 @@ export const LoginPage = () => {
         <Link to="/auth/register">Регистрация</Link>
       </form>
       <Popup active={popupActive} setActive={setPopupActive}>
-        <AccountRecovery />
+        <AccountRecovery setActive={setPopupActive}/>
       </Popup>
     </>
   )

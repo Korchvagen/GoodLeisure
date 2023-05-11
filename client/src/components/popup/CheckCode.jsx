@@ -1,49 +1,67 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRecoveryCode, selectEmail } from '../../redux/slices/auth.js';
+import { fetchCode, selectEmail, fetchEmail } from '../../redux/slices/auth.js';
+import { startTimer } from '../../scripts/timer.js';
 
-export function CheckCode() {
+export function CheckCode({ changeComponentCode }) {
+  useEffect(() => {
+    startTimer();
+  }, []);
+
   const dispatch = useDispatch();
-  const email = useSelector(selectEmail);
 
   const { register, handleSubmit, formState: { errors } } = useForm(
     {
       defaultValues: {
-        email: ''
+        code: ''
       }
     }
   );
 
-  const onSubmit = async (email) => {
-    const data = await dispatch(fetchRecoveryCode(email));
+  const onSubmit = async (values) => {
+    values.stateCode = window.localStorage.getItem('code');
+    
+    const data = await dispatch(fetchCode(values));
 
     if (!data.payload.success) {
-      document.getElementById('sendError').textContent = data.payload.message;
+      document.querySelector('.errorMessage').textContent = data.payload.message
+    } else {
+      window.localStorage.removeItem('code');
+
+      changeComponentCode(false)
     }
-
-
   };
 
   const resendCode = async () => {
-    const data = await dispatch(fetchRecoveryCode(email));
+    const repeatEmail = { email: window.localStorage.getItem('email') };
+    const data = await dispatch(fetchEmail(repeatEmail));
 
     if (!data.payload.success) {
-      document.getElementById('sendError').textContent = data.payload.message;
+      document.querySelector('.errorMessage').textContent = data.payload.message;
+    } else {
+      window.localStorage.setItem('code', data.payload.code);
+
+      startTimer();
     }
+  };
+
+  const hideError = () => {
+    document.querySelectorAll('.errorMessage').forEach(el => el.textContent = "");
   };
 
   return (
     <>
       <p className='container__text code-text'>Вам на почту был отправлен код восстановления. Если вы его не получили, запросите код ещё раз.</p>
-      <form className='container__form'>
-        <label htmlFor="email">Код восстановления</label>
-        <input id='email' type='text' {...register('email', { required: 'Укажите почту' })} />
-        <span id='sendError'></span>
-        <span>{errors.email?.message}</span>
+      <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
+        <p className='errorMessage'></p>
+        <label htmlFor="code">Код восстановления</label>
+        <input id='code' type='text' {...register('code', { required: 'Укажите код подтверждения' })} onChange={hideError}/>
+        <span className='errorMessage'>{errors.code?.message}</span>
+        <p id='timer'></p>
         <button type='submit' className='popup-form__button'>Продолжить</button>
-        <button className='popup-form__button repeat-button' onClick={resendCode}>Повторить отправку кода</button>
       </form>
+      <button className='popup-form__button repeat-button' onClick={resendCode}>Повторить отправку кода</button>
     </>
   );
 }
