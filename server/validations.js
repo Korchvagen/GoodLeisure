@@ -7,7 +7,14 @@ export const loginValidation = [
 
 export const registerValidation = [
   body('email', 'Неверный формат почты').isEmail(),
-  body('password', 'Пароль должен быть не менее 8 символов').isLength({ min: 8})
+  body('password', 'Пароль должен быть не менее 8 символов').isLength({ min: 8}),
+  body('confirmPassword', '').custom((value, { req }) => {
+    if(value !== req.body.password){
+      throw new Error('Пароли не совпадают');
+    }
+
+    return true;
+  })
 ];
 
 export const emailValidation = [
@@ -20,7 +27,7 @@ export const codeValidation = [
 
 export const newPasswordValidation = [
   body('newPassword', 'Пароль должен быть не менее 8 символов').isLength({ min: 8}),
-  body('confirmNewPssword', '').custom((value, { req }) => {
+  body('confirmNewPassword', '').custom((value, { req }) => {
     if(value !== req.body.newPassword){
       throw new Error('Пароли не совпадают');
     }

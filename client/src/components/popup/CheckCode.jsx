@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchCode, selectEmail, fetchEmail } from '../../redux/slices/auth.js';
+import { useDispatch } from 'react-redux';
+import { fetchCode, fetchEmail } from '../../redux/slices/auth.js';
 import { startTimer } from '../../scripts/timer.js';
 
 export function CheckCode({ changeComponentCode }) {
@@ -25,7 +25,7 @@ export function CheckCode({ changeComponentCode }) {
     const data = await dispatch(fetchCode(values));
 
     if (!data.payload.success) {
-      document.querySelector('.errorMessage').textContent = data.payload.message
+      document.querySelector('.error-message').textContent = data.payload.message
     } else {
       window.localStorage.removeItem('code');
 
@@ -38,7 +38,7 @@ export function CheckCode({ changeComponentCode }) {
     const data = await dispatch(fetchEmail(repeatEmail));
 
     if (!data.payload.success) {
-      document.querySelector('.errorMessage').textContent = data.payload.message;
+      document.querySelector('.error-message').textContent = data.payload.message;
     } else {
       window.localStorage.setItem('code', data.payload.code);
 
@@ -47,17 +47,17 @@ export function CheckCode({ changeComponentCode }) {
   };
 
   const hideError = () => {
-    document.querySelectorAll('.errorMessage').forEach(el => el.textContent = "");
+    document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
   };
 
   return (
     <>
       <p className='container__text code-text'>Вам на почту был отправлен код восстановления. Если вы его не получили, запросите код ещё раз.</p>
       <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
-        <p className='errorMessage'></p>
+        <p className='error-message'></p>
         <label htmlFor="code">Код восстановления</label>
         <input id='code' type='text' {...register('code', { required: 'Укажите код подтверждения' })} onChange={hideError}/>
-        <span className='errorMessage'>{errors.code?.message}</span>
+        <span className='error-message'>{errors.code?.message}</span>
         <p id='timer'></p>
         <button type='submit' className='popup-form__button'>Продолжить</button>
       </form>

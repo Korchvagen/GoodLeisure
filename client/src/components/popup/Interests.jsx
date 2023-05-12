@@ -1,6 +1,6 @@
 import React from 'react';
 import { InterestButton } from './InterestButton.jsx';
-import "../../styles/popup-content.scss"
+import "../../styles/popup/popup-content.scss"
 
 export function Interests(){
   return (

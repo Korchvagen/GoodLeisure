@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../styles/popup.scss"
+import "../../styles/popup/popup.scss"
 
 export function Popup({active, setActive, children}){
   return (

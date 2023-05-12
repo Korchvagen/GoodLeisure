@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import bcrypt, { hash } from "bcrypt";
+import bcrypt from "bcrypt";
 import IpBase from "@everapi/ipbase-js";
 
 import { validationResult } from "express-validator";
@@ -64,6 +64,14 @@ export const register = async (req, res) => {
 
     if (!errors.isEmpty()) {
       return res.status(400).send(errors);
+    }
+
+    const isLoginExist = await UserModel.findOne({ email: req.body.email });
+
+    if(isLoginExist){
+      return res.status(400).json({
+        message: 'Пользователь уже зарегистрирован'
+      });
     }
 
     const reqPassword = req.body.password;
