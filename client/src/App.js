@@ -7,12 +7,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchAuthMe } from './redux/slices/auth.js';
 import "./styles/index.scss";
+import { fetchInterests } from './redux/slices/interests.js';
 
 function App() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(fetchAuthMe());
+    dispatch(fetchInterests())
   }, []);
 
   return (

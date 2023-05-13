@@ -18,7 +18,7 @@ export const registerValidation = [
 ];
 
 export const emailValidation = [
-  body('email', 'Неверный формат почты').isEmail()
+  body('recoveryEmail', 'Неверный формат почты').isEmail()
 ];
 
 export const codeValidation = [
@@ -35,3 +35,7 @@ export const newPasswordValidation = [
     return true;
   })
 ];
+
+export const interestsCreateValidation = [
+  body('interests', 'Неверный формат интересов').isLength({ min: 1 }).isArray()
+]

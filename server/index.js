@@ -3,9 +3,10 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-import { loginValidation, registerValidation, emailValidation, codeValidation, newPasswordValidation } from "./validations.js";
+import * as Validator from "./validations.js";
 import checkAuth from "./utils/checkAuth.js";
-import { login, register, sendCode, checkCode, newPassword, getMe, userPosition } from "./Controllers/UserControllers.js"
+import * as UserController from "./Controllers/UserController.js";
+import * as InterestController from "./Controllers/InterestController.js";
 
 const app = express();
 dotenv.config();
@@ -15,19 +16,23 @@ const DB_URI = process.env.DB_URI;
 app.use(cors());
 app.use(express.json());
 
-app.post('/auth/login', loginValidation, login);
+app.post('/auth/login', Validator.loginValidation, UserController.login);
 
-app.post('/auth/register', registerValidation, register);
+app.post('/auth/register', Validator.registerValidation, UserController.register);
 
-app.post('/auth/recovery/email', emailValidation, sendCode);
+app.post('/auth/recovery/email', Validator.emailValidation, UserController.sendCode);
 
-app.post('/auth/recovery/code', codeValidation, checkCode);
+app.post('/auth/recovery/code', Validator.codeValidation, UserController.checkCode);
 
-app.patch('/auth/recovery/password', newPasswordValidation, newPassword);
+app.patch('/auth/recovery/password', Validator.newPasswordValidation, UserController.newPassword);
 
-app.get('/auth/me', checkAuth, getMe);
+app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.get('/position', userPosition);
+app.get('/position', UserController.userPosition);
+
+app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.create)
+
+app.get('/interests', checkAuth, InterestController.getInterests)
 
 async function start(){
   try{

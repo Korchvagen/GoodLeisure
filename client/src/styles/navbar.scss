@@ -5,6 +5,8 @@
 .nav__list{
   list-style: none;
   margin: 0;
+  display: flex;
+  column-gap: 40px;
 }
 
 .nav__list__item{
@@ -16,9 +18,24 @@
 .list__item__image{
   width: 40px;
   height: 40px;
-  background-image: url('../assets/icons/main-icon.png');
   background-size: cover;
   margin-right: 10px;
+}
+
+.entrance-image{
+  background-image: url('../assets/icons/enter.svg');
+}
+
+.main-image{
+  background-image: url('../assets/icons/main.svg');
+}
+
+.favorites-image{
+  background-image: url('../assets/icons/favorites.svg');
+}
+
+.profile-image{
+  background-image: url('../assets/icons/profile.svg');
 }
 
 .list__item__text{

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Logo } from './Logo.jsx';
-import { Navbar } from './Navbar.jsx';
+import { Navbar } from './navbar/Navbar.jsx';
 import { Languages } from './Languages.jsx';
 import '../styles/header.scss';
 

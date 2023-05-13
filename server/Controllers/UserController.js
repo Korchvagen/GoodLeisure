@@ -122,17 +122,17 @@ export const sendCode = async (req, res) => {
       );
     }
 
-    const user = await UserModel.findOne({ email: req.body.email });
+    const user = await UserModel.findOne({ email: req.body.recoveryEmail });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(400).json({
         success: false,
         message: 'Неверный логин'
       });
     }
 
     const code = Math.floor(Math.random() * (999999 - 100000 + 1)) + 100000;
-    const result = sendConfirmationCode(req.body.email, code);
+    const result = sendConfirmationCode(req.body.recoveryEmail, code);
     
     if(!result){
       return res.status(400).json({
@@ -147,7 +147,7 @@ export const sendCode = async (req, res) => {
     res.json({
       success: result,
       code: hashedCode,
-      email: req.body.email
+      email: req.body.recoveryEmail
     });
   } catch (err) {
     res.status(500).json({

@@ -126,6 +126,8 @@ const authSlice = createSlice({
   }
 });
 
+export const selectAuth = (state) => Boolean(state.auth.data?._id);
+
 export const selectRegisterErrors = (state) => state.auth.data?.errors;
 
 export const selectNewPAsswordErrors = (state) => state.auth.data?.errors;

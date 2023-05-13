@@ -26,10 +26,12 @@
 }
 
 .container__buttons {
+  width: 850px;
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
-  column-gap: 50px;
-  row-gap: 40px;
+  column-gap: 20px;
+  row-gap: 30px;
   margin-top: 30px;
 }
 
@@ -41,6 +43,12 @@
   background-color: #ffffff;
   font-size: 22px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.interest-button.active{
+  background-color: #404040;
+  color: #C9C9C9;
 }
 
 .container__form {
@@ -75,6 +83,11 @@
   font-size: 25px;
   margin-top: 20px;
   cursor: pointer;
+}
+
+.save-btn{
+  width: 250px;
+  margin-top: 30px;
 }
 
 .popup-form__button {
