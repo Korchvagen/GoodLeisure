@@ -24,7 +24,6 @@ export const create = async (req, res) => {
       "interests": interests.interests
     });
   } catch(err) {
-    console.log(err);
     res.status(500).json({
       message: "Не удалось сохранить интересы"
     });
@@ -33,8 +32,8 @@ export const create = async (req, res) => {
 
 export const getInterests = async (req, res) => {
   try {
-    const interests = await InterestModel.findOne({ user_id: req.userId });
-
+    const { interests } = await InterestModel.findOne({ user_id: req.userId });
+    
     if (!interests) {
       return res.status(404).json({
         message: 'Интересы не найдены'
@@ -42,7 +41,7 @@ export const getInterests = async (req, res) => {
     }
 
     res.json({
-      "interests": interests.interests
+      interests: interests
     });
   } catch (err) {
     res.status(500).json({

@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import IpBase from "@everapi/ipbase-js";
 
 import { validationResult } from "express-validator";
 
@@ -240,16 +239,4 @@ export const getMe = async (req, res) => {
       message: 'Не удалось получить данные'
     });
   }
-}
-
-export const userPosition = async (req, res) => {
-  const ipBase = new IpBase('bVWKaXAJzvtZfQptajsDqaMB63iGqKNdTjBqkWMt');
-  const ip = req.ip;
-
-  ipBase.info({
-    ip: '37.215.62.128',
-    language: 'ru'
-  }).then(response => {
-    console.log(response.data.location.city);
-  });
 }

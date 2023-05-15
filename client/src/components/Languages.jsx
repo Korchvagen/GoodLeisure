@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/languages.scss';
+import '../styles/structure/header/languages.scss';
 
 export function Languages(){
   return (

@@ -5,8 +5,10 @@ import cors from 'cors';
 
 import * as Validator from "./validations.js";
 import checkAuth from "./utils/checkAuth.js";
-import * as UserController from "./Controllers/UserController.js";
-import * as InterestController from "./Controllers/InterestController.js";
+import getUserPosition from "./utils/getUserPosition.js";
+import * as UserController from "./controllers/UserController.js";
+import * as InterestController from "./controllers/InterestController.js";
+import * as LeisureController from "./controllers/LeisureController.js";
 
 const app = express();
 dotenv.config();
@@ -28,11 +30,12 @@ app.patch('/auth/recovery/password', Validator.newPasswordValidation, UserContro
 
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.get('/position', UserController.userPosition);
-
 app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.create)
 
 app.get('/interests', checkAuth, InterestController.getInterests)
+
+app.get('/leisures/proposed', checkAuth, LeisureController.getProposedLeisures)
+// getUserPosition
 
 async function start(){
   try{

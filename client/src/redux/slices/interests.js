@@ -51,4 +51,6 @@ const interestsSlice = createSlice({
 
 export const selectIsNewUser = (state) => !state.interests.data?.interests;
 
+export const selectInterests = (state) => state.interests.data?.interests;
+
 export const interestsReducer = interestsSlice.reducer;

@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { fetchLogin } from '../redux/slices/auth.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { AccountRecovery } from '../components/popup/AccountRecovery.jsx';
-import '../styles/auth.scss';
+import '../styles/pages/auth.scss';
+import { fetchInterests } from '../redux/slices/interests.js';
 
 export const LoginPage = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -49,6 +50,8 @@ export const LoginPage = () => {
 
     if ('token' in data.payload) {
       window.localStorage.setItem('token', data.payload.token);
+
+      dispatch(fetchInterests());
     }
   };
 

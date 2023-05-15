@@ -27,6 +27,10 @@ export function Interests() {
   const submitInterests = async () => {
     const values = { interests: chosenInterest };
     const data = await dispatch(fetchCreateInterests(values));
+
+    if(data.payload.interests){
+      
+    }
   }
 
   return (

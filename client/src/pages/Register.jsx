@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { fetchRegister, selectRegisterErrors } from '../redux/slices/auth.js';
 import { ErrorMessage } from '../components/ErrorMessage.jsx';
-import '../styles/auth.scss';
+import '../styles/pages/auth.scss';
 
 export const RegisterPage = () => {
   useEffect(() => {
@@ -79,6 +79,9 @@ export const RegisterPage = () => {
     <div className='register-page-wrapper'>
       <div className="left-side">
         <div className='left-side__greeting-img register-img'></div>
+        <p className='left-side__text register-text'>В основу подбора мест досуга ложится автоматическое определение Вашего местоположения.
+          Вы можете указать название Вашего населенного пункта в разделе Личный кабинет.
+        </p>
       </div>
       <div className="right-side">
         <div className='register-container'>
@@ -89,7 +92,7 @@ export const RegisterPage = () => {
           }
           <form className='register-container__form' onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="email">Электронная почта</label>
-            <input type="text" id='email' {...register('email', { required: 'Укажите почту' })} onChange={hideError}/>
+            <input type="text" id='email' {...register('email', { required: 'Укажите почту' })} onChange={hideError} />
             <span className='error-message error-email'>{errors.email?.message}</span>
             <label htmlFor="password">Пароль</label>
             <div className='input-container'>

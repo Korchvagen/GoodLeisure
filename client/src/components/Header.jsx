@@ -2,7 +2,7 @@ import React from 'react';
 import { Logo } from './Logo.jsx';
 import { Navbar } from './navbar/Navbar.jsx';
 import { Languages } from './Languages.jsx';
-import '../styles/header.scss';
+import '../styles/structure/header/header.scss';
 
 export function Header() {
   return (

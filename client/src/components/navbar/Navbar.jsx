@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectAuth } from '../../redux/slices/auth.js';
 import { NotAuthLinks } from './NotAuthLinks.jsx';
 import { AuthLinks } from './AuthLinks.jsx';
-import '../../styles/navbar.scss';
+import '../../styles/structure/header/navbar.scss';
 
 export const Navbar = () => {
   const isAuth = useSelector(selectAuth);

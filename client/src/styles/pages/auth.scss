@@ -17,13 +17,14 @@
 .left-side__greeting-img{
   width: 100%;
   height: 400px;
-  background-image: url('../assets/img/auth-img.png');
+  background-image: url('../../assets/img/auth-img.png');
   background-size: cover;
 }
 
 .register-img{
   height: 600px;
-  background-image: url('../assets/img/register-img.png');
+  background-image: url('../../assets/img/register-img.png');
+  margin-top: -60px;
 }
 
 .left-side__text{
@@ -31,6 +32,10 @@
   margin-top: 50px;
   color: #C9C9C9;
   font-size: 20px;
+}
+
+.register-text{
+  margin-top: -80px;
 }
 
 .login-container,

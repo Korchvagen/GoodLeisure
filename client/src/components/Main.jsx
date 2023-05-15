@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/main.scss';
+import '../styles/structure/main.scss';
 
 export function Main({ children }) {
   return (
