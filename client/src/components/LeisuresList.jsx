@@ -7,7 +7,7 @@ import { ProposedLeisure } from './ProposedLeisure';
 export function LeisuresList({ index, data }) {
   const interests = useSelector(selectInterests);
   const leisureList = data.features.map(feature => (
-    <ProposedLeisure key={feature.properties.CompanyMetaData.id} category={interests[index]} data={feature} />
+    <ProposedLeisure key={feature.properties.CompanyMetaData.id} category={interests[index]} leisure={feature} />
   ));
   console.log(leisureList);
 

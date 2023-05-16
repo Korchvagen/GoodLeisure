@@ -9,6 +9,7 @@ import { fetchAuthMe } from './redux/slices/auth.js';
 import { fetchInterests } from './redux/slices/interests.js';
 import { SelectionPage } from './pages/Selection.jsx';
 import "./styles/index.scss";
+import { fetchFavorites } from './redux/slices/favorites.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function App() {
   React.useEffect(() => {
     dispatch(fetchAuthMe());
     dispatch(fetchInterests());
+    dispatch(fetchFavorites());
   }, []);
 
   return (

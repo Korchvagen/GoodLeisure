@@ -18,10 +18,10 @@ export const create = async (req, res) => {
       user_id: req.userId
     });
 
-    const interests = await doc.save();
+    const { interests } = await doc.save();
 
     res.json({
-      "interests": interests.interests
+      interests: interests
     });
   } catch(err) {
     res.status(500).json({

@@ -9,6 +9,7 @@ import getUserPosition from "./utils/getUserPosition.js";
 import * as UserController from "./controllers/UserController.js";
 import * as InterestController from "./controllers/InterestController.js";
 import * as LeisureController from "./controllers/LeisureController.js";
+import * as FavoriteController from "./controllers/FavoriteController.js";
 
 const app = express();
 dotenv.config();
@@ -30,12 +31,17 @@ app.patch('/auth/recovery/password', Validator.newPasswordValidation, UserContro
 
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.create)
+app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.create);
 
-app.get('/interests', checkAuth, InterestController.getInterests)
+app.get('/interests', checkAuth, InterestController.getInterests);
 
-app.get('/leisures/proposed', checkAuth, LeisureController.getProposedLeisures)
+app.get('/leisures/proposed', checkAuth, LeisureController.getProposedLeisures);
 // getUserPosition
+app.get('/favorites', checkAuth, FavoriteController.getFavorites);
+
+app.post('/favorites', checkAuth, FavoriteController.addFavoriteLeisure);
+
+app.patch('/favorites', checkAuth, FavoriteController.removeFavoriteLeisure);
 
 async function start(){
   try{

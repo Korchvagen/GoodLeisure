@@ -11,16 +11,10 @@ import { ProposedLeisure } from '../components/ProposedLeisure.jsx';
 
 
 export const SelectionPage = () => {
-  const interests = useSelector(selectInterests);
   const dispatch = useDispatch();
   const [proposedLeisures, setProposedLeisures] = useState([]);
 
   useEffect(() => {
-    // const getData = async () => {
-    //   const response = await axios.get(`https://search-maps.yandex.ru/v1/?text=Минск,еда&type=biz&lang=ru_RU&apikey=ad914ddf-71d6-4cfa-bb00-632c413e4113`)
-    //   console.log(response.data.features);
-    // };
-    // getData();
     const fetchLeisures = async () => {
       // const data = await dispatch(fetchProposedLeisures());
 
@@ -45,18 +39,18 @@ export const SelectionPage = () => {
           <Link className='navigation__skip-link'>Пропустить</Link>
         </div>
         <div className="selection-container__content">
+          <div className="leisure-list-container">
           {/* {
             proposedLeisures.map((category, index) => (
               <LeisuresList key={index} index={index} data={category}/>
             ))
           } */}
-          <div className="leisure-list-container">
-            <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080da jwhdu1 jdфцв"} category={"Литература"} />
-            <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwddu1 jda jwbdk1 "} category={"Спорт"} />
-            <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 hdu1 jda jwbdk1 "} category={"Еда"} />
-            <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Искусство"} />
-            <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891  jda jwbdk1 "} category={"Кино"} />
-            <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Музыка"} />
+            <ProposedLeisure id={"1512830981"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080da jwhdu1 jdфцв"} category={"Литература"} />
+            <ProposedLeisure id={"90177522222"} text={"hawdbhab dhabwhdb ahwdbhabwddu1 jda jwbdk1 "} category={"Спорт"} />
+            <ProposedLeisure id={"1022724181"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 hdu1 jda jwbdk1 "} category={"Еда"} />
+            <ProposedLeisure id={"233587203205"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Искусство"} />
+            <ProposedLeisure id={"66478054992"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891  jda jwbdk1 "} category={"Кино"} />
+            <ProposedLeisure id={"1232432804"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Музыка"} />
             <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 вфцвфцв"} category={"Технологии"} />
             <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 вфцвфцвцфв"} category={"Игры"} />
             <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080jda jwbdk1 "} category={"Развлечения"} />

@@ -6,9 +6,6 @@ export const getProposedLeisures = async (req, res) => {
     
     const responses = await Promise.all(interests.map(interest => fetch(`https://search-maps.yandex.ru/v1/?text=Минск,${interest}&type=biz&lang=ru_RU&apikey=${process.env.API_KEY}`)));
     const data = await Promise.all(responses.map(response => response.json()));
-    console.log(data);
-    console.log(data.data);
-    // console.log(data.data.features);
 
     res.send(data);
   } catch (err) {

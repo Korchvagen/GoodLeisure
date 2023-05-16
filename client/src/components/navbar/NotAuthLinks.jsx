@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../../scripts/changeNavbar.js';
 
 export const NotAuthLinks = () => {
   const [navbarLinks, setNavbarLinks] = useState(true);
