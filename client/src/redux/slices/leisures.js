@@ -31,4 +31,6 @@ const leisuresSlice = createSlice({
   }
 });
 
+export const selectLeisures = (state) => state.leisures.data?.leisures;
+
 export const leisuresReducer = leisuresSlice.reducer;

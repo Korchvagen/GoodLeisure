@@ -5,12 +5,17 @@
   row-gap: 10px;
   position: relative;
   font-size: 22px;
+  max-width: 500px;
 }
 
 .popup-favorite-btn{
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -20px;
+  top: -20px;
+}
+
+.leisure-container__favorite-btn.popup-favorite-btn.active{
+  background-image: url('../../assets/icons/favorite.svg');
 }
 
 .leisure-site-btn{

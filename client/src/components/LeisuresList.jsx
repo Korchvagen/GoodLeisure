@@ -9,7 +9,6 @@ export function LeisuresList({ index, data }) {
   const leisureList = data.features.map(feature => (
     <ProposedLeisure key={feature.properties.CompanyMetaData.id} category={interests[index]} leisure={feature} />
   ));
-  console.log(leisureList);
 
   return (
     <div>
