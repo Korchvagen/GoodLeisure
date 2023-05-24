@@ -31,11 +31,15 @@ app.patch('/auth/recovery/password', Validator.newPasswordValidation, UserContro
 
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.create);
+app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.createInterests);
 
 app.get('/interests', checkAuth, InterestController.getInterests);
 
+app.patch('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.editInterests);
+
 app.post('/leisures', checkAuth, LeisureController.getLeisures);
+
+app.post('/leisures/favorites', checkAuth, LeisureController.getFavoriteLeisures);
 // getUserPosition
 app.get('/favorites', checkAuth, FavoriteController.getFavorites);
 

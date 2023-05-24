@@ -12,7 +12,7 @@ export const AuthLinks = () => {
         <div className='list__item__image favorites-image'></div>
         <span className='list__item__text'>Избранное</span>
       </Link>
-      <Link className='nav__list__item' to="/propfile">
+      <Link className='nav__list__item' to="/profile">
         <div className='list__item__image profile-image'></div>
         <span className='list__item__text'>Личный кабинет</span>
       </Link>

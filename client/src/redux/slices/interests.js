@@ -18,6 +18,12 @@ export const fetchInterests = createAsyncThunk('interests/fetchInterests', async
   return data;
 });
 
+export const fetchEditInterests = createAsyncThunk('interests/fetchEditInterests', async (params) => {
+  const { data } = await axios.patch('/interests', params).catch(error => error.response);
+  
+  return data;
+});
+
 const interestsSlice = createSlice({
   name: 'interests',
   initialState,
@@ -45,6 +51,18 @@ const interestsSlice = createSlice({
     [fetchInterests.rejected]: (state, action) => {
       state.data = null;
       state.status = action.message;
+    },
+    [fetchEditInterests.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchEditInterests.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchEditInterests.rejected]: (state, action) => {
+      state.data = null;
+      state.status = action.message;
     }
   }
 });
@@ -52,5 +70,7 @@ const interestsSlice = createSlice({
 export const selectIsNewUser = (state) => !state.interests.data?.interests;
 
 export const selectInterests = (state) => state.interests.data?.interests;
+
+export const selectInterestsError = (state) => state.interests.data?.message;
 
 export const interestsReducer = interestsSlice.reducer;

@@ -12,6 +12,8 @@ import "./styles/index.scss";
 import { fetchFavorites } from './redux/slices/favorites.js';
 import { PickingPage } from './pages/Picking.jsx';
 import { ChosenLeisurePage } from './pages/ChosenLeisure.jsx';
+import { FavoritesPage } from './pages/Favorites.jsx';
+import { ProfilePage } from './pages/Profile.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +33,8 @@ function App() {
         <Route path='/selection' element={ <SelectionPage />}/>
         <Route path='/criteria' element={ <PickingPage /> }/>
         <Route path='/chosenLeisure' element={ <ChosenLeisurePage /> }/>
+        <Route path='/favorites' element={ <FavoritesPage /> }/>
+        <Route path='/profile' element={ <ProfilePage /> }/>
       </Routes>
     </Layout>
   );

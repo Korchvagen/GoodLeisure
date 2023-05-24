@@ -12,6 +12,12 @@ export const fetchLeisures = createAsyncThunk('leisures/fetchLeisures', async (p
   return data;
 });
 
+export const fetchFavoriteLeisures = createAsyncThunk('leisures/fetchFavoriteLeisures', async (params) => {
+  const { data } = await axios.post('/leisures/favorites', params).catch(error => error.response);
+  
+  return data;
+});
+
 const leisuresSlice = createSlice({
   name: 'leisures',
   initialState,
@@ -25,6 +31,18 @@ const leisuresSlice = createSlice({
       state.status = 'loaded'
     },
     [fetchLeisures.rejected]: (state, action) => {
+      state.data = null;
+      state.status = action.message;
+    },
+    [fetchFavoriteLeisures.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchFavoriteLeisures.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchFavoriteLeisures.rejected]: (state, action) => {
       state.data = null;
       state.status = action.message;
     }

@@ -1,16 +1,16 @@
-.selection-page-wrapper{
+.leisures-page-wrapper{
   padding: 0 150px;
   padding-top: 50px;
 }
 
-.selection-container{
+.leisures-container{
   width: 100%;
   background-color: #E7CC40;
   border: 1px #000000 solid;
   border-radius: 20px;
 }
 
-.selection-container__navigation{
+.leisures-container__navigation{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,13 +38,13 @@
   border-bottom: 2px #000000 solid;
 }
 
-.selection-container__content{
+.leisures-container__content{
   padding: 10px 0;
   padding-left: 100px;
   padding-right: 10px;
 }
 
-.selection-container__content.map{
+.leisures-container__content.map{
   padding: 0;
   height: 550px;
 }
