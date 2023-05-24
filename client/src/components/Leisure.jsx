@@ -6,7 +6,7 @@ import { fetchAddFavorite, fetchRemoveFavorite, selectFavoriteError, selectFavor
 import '../styles/leisure.scss';
 import { setActiveFavorites } from '../scripts/setActiveFavorites.js';
 
-export function ProposedLeisure({ category, leisure }) {
+export function Leisure({ category, leisure }) {
   const dispatch = useDispatch();
   const favoriteError = useSelector(selectFavoriteError);
   const favorites = useSelector(selectFavorites);

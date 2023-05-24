@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { fetchLeisures } from '../redux/slices/leisures.js';
+import { fetchLeisures, selectLeisures } from '../redux/slices/leisures.js';
 import '../styles/pages/leisures.scss';
 import axios from 'axios';
 import { fetchInterests, selectInterests } from '../redux/slices/interests.js';
@@ -11,24 +11,27 @@ import { LeisureMap } from '../components/LeisureMap.jsx';
 import { ProposedLeisure } from '../components/Leisure.jsx';
 
 
-export const SelectionPage = () => {
+export const ChosenLeisurePage = () => {
   const dispatch = useDispatch();
-  const interests = useSelector(selectInterests);
-  const [proposedLeisures, setProposedLeisures] = useState([]);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search);
+  const [category, setCategory] = useState([params.get('leisure')]);
+  console.log(category)
+  const [leisures, setLeisures] = useState([]);
   const [listWindow, setListWindow] = useState(true);
 
-  useEffect(() => {
-    const getLeisures = async () => {
-      const values = { interests: interests };
-      const data = await dispatch(fetchLeisures(values));
+  // useEffect(() => {
+  //   const getLeisures = async () => {
+  //     const values = { interests: category };
+  //     const data = await dispatch(fetchLeisures(values));
 
-      if (data.payload?.leisures) {
-        setProposedLeisures(data.payload.leisures);
-      }
-    };
+  //     if (data.payload?.leisures) {
+  //       setLeisures(data.payload.leisures);
+  //     }
+  //   };
 
-    getLeisures();
-  }, [interests]);
+  //   getLeisures();
+  // }, [category]);
 
   const handleLinkClick = (e) => {
     if (e.target.classList.contains('leisure-map')) {
@@ -51,10 +54,10 @@ export const SelectionPage = () => {
       <div className="selection-container">
         <div className='selection-container__navigation'>
           <div className='navigation__left-links'>
-            <Link className='left-links__item leisure-List active' onClick={handleLinkClick}>Список</Link>
-            <Link className='left-links__item leisure-map' onClick={handleLinkClick}>Карта</Link>
+            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>Список</button>
+            <button className='left-links__item leisure-map' onClick={handleLinkClick}>Карта</button>
           </div>
-          <Link className='navigation__skip-link' to={'/criteria'}>Пропустить</Link>
+          <Link className='navigation__skip-link' to={'/selection'}>Начать заново</Link>
         </div>
         <div className="selection-container__content">
           {
@@ -62,8 +65,8 @@ export const SelectionPage = () => {
               ?
               <div className="leisure-list-container">
                 {
-                  proposedLeisures.map((category, index) => (
-                    <LeisuresList key={index} index={index} data={category} />
+                  leisures.map((leisures, index) => (
+                    <LeisuresList key={index} index={index} data={leisures} category={category[0]} />
                   ))
                 }
                 {/* <ProposedLeisure id={"1512830981"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080da jwhdu1 jdфцв"} category={"Литература"} />
@@ -83,7 +86,7 @@ export const SelectionPage = () => {
                 <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 jda jwbdk1d "} category={"Астрономия"} /> */}
               </div>
               :
-              <LeisureMap />
+              <LeisureMap category={category[0]} />
           }
         </div>
       </div>

@@ -1,0 +1,134 @@
+.criteria-page-rwapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.text-instruction{
+  color: #C9C9C9;
+  font-size: 28px;
+}
+
+.text-question{
+  color: #C9C9C9;
+  font-size: 35px;
+  margin-top: 20px;
+}
+
+.criteria-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.criteria-container__image{
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+}
+
+.criteria-container__buttons{
+  margin-top: 90px;
+  text-align: center;
+}
+
+.buttons__criteria{
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  margin: 0 20px;
+}
+
+.criterion-btn,
+.another-btn{
+  width: 300px;
+  height: 120px;
+  background-color: #E7CC40;
+  color: #000000;
+  border: 1px #000000 solid;
+  border-radius: 20px;
+  font-size: 40px;
+}
+
+.another-btn{
+  width: 250px;
+  height: 90px;
+  font-size: 35px;
+  margin-top: 50px;
+}
+
+.buttons__criteria__vs{
+  text-transform: uppercase;
+  color: #C9C9C9;
+  font-size: 50px;
+}
+
+.stop-selection-link{
+  color: #E7CC40;
+  font-size: 30px;
+  border-bottom: 2px #E7CC40 solid;
+  padding-bottom: 3px;
+  margin-top: 70px;
+}
+
+.criteria-container__image.literature {
+  background-image: url('../../assets/img/literature-criterion.png');
+}
+
+.criteria-container__image.sport {
+  background-image: url('../../assets/img/sport-criterion.png');
+}
+
+.criteria-container__image.food {
+  background-image: url('../../assets/img/food-criterion.png');
+}
+
+.criteria-container__image.art {
+  background-image: url('../../assets/img/art-criterion.png');
+}
+
+.criteria-container__image.cinema {
+  background-image: url('../../assets/img/cinema-criterion.png');
+}
+
+.criteria-container__image.music {
+  background-image: url('../../assets/img/music-criterion.png');
+}
+
+.criteria-container__image.technics {
+  background-image: url('../../assets/img/technics-criterion.png');
+}
+
+.criteria-container__image.games {
+  background-image: url('../../assets/img/games-criterion.png');
+}
+
+.criteria-container__image.entertainment {
+  background-image: url('../../assets/img/entertainment-criterion.png');
+}
+
+.criteria-container__image.nature {
+  background-image: url('../../assets/img/nature-criterion.png');
+}
+
+.criteria-container__image.animals {
+  background-image: url('../../assets/img/animals-criterion.png');
+}
+
+.criteria-container__image.shopping {
+  background-image: url('../../assets/img/shopping-criterion.png');
+}
+
+.criteria-container__image.night-life {
+  background-image: url('../../assets/img/night-life-criterion.png');
+}
+
+.criteria-container__image.dances {
+  background-image: url('../../assets/img/dances-criterion.png');
+}
+
+.criteria-container__image.space {
+  background-image: url('../../assets/img/space-criterion.png');
+}

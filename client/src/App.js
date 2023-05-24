@@ -10,6 +10,8 @@ import { fetchInterests } from './redux/slices/interests.js';
 import { SelectionPage } from './pages/Selection.jsx';
 import "./styles/index.scss";
 import { fetchFavorites } from './redux/slices/favorites.js';
+import { PickingPage } from './pages/Picking.jsx';
+import { ChosenLeisurePage } from './pages/ChosenLeisure.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +29,8 @@ function App() {
         <Route path='/auth/login' element={ <LoginPage />}/>
         <Route path='/auth/register' element={ <RegisterPage />}/>
         <Route path='/selection' element={ <SelectionPage />}/>
+        <Route path='/criteria' element={ <PickingPage /> }/>
+        <Route path='/chosenLeisure' element={ <ChosenLeisurePage /> }/>
       </Routes>
     </Layout>
   );

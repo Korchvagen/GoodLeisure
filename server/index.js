@@ -35,7 +35,7 @@ app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestC
 
 app.get('/interests', checkAuth, InterestController.getInterests);
 
-app.get('/leisures/proposed', checkAuth, LeisureController.getProposedLeisures);
+app.post('/leisures', checkAuth, LeisureController.getLeisures);
 // getUserPosition
 app.get('/favorites', checkAuth, FavoriteController.getFavorites);
 
