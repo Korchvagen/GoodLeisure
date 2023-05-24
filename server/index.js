@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import cors from 'cors';
+import multer from 'multer';
 
 import * as Validator from "./validations.js";
 import checkAuth from "./utils/checkAuth.js";
@@ -10,8 +11,10 @@ import * as UserController from "./controllers/UserController.js";
 import * as InterestController from "./controllers/InterestController.js";
 import * as LeisureController from "./controllers/LeisureController.js";
 import * as FavoriteController from "./controllers/FavoriteController.js";
+import * as ProfileController from "./controllers/ProfileController.js";
 
 const app = express();
+const upload = multer();
 dotenv.config();
 
 const PORT = process.env.PORT || 4000;
@@ -46,6 +49,10 @@ app.get('/favorites', checkAuth, FavoriteController.getFavorites);
 app.post('/favorites', checkAuth, FavoriteController.addFavoriteLeisure);
 
 app.patch('/favorites', checkAuth, FavoriteController.removeFavoriteLeisure);
+
+app.post('/profile', checkAuth, upload.single('image'), ProfileController.editProfile);
+
+app.get('/profile', checkAuth, ProfileController.getProfile);
 
 async function start(){
   try{

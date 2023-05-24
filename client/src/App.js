@@ -14,6 +14,7 @@ import { PickingPage } from './pages/Picking.jsx';
 import { ChosenLeisurePage } from './pages/ChosenLeisure.jsx';
 import { FavoritesPage } from './pages/Favorites.jsx';
 import { ProfilePage } from './pages/Profile.jsx';
+import { fetchProfile } from './redux/slices/profile.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
     dispatch(fetchAuthMe());
     dispatch(fetchInterests());
     dispatch(fetchFavorites());
+    dispatch(fetchProfile());
   }, []);
 
   return (

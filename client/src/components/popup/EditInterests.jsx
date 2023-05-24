@@ -3,7 +3,7 @@ import "../../styles/popup/popup-content.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEditInterests, selectInterestsError } from '../../redux/slices/interests';
 
-export function EditInterests({ setActive }) {
+export function EditInterests({ a, setActive, setIsinfoEdit }) {
   const dispatch = useDispatch();
   const interestsError = useSelector(selectInterestsError);
   const initialState = [
@@ -29,6 +29,7 @@ export function EditInterests({ setActive }) {
     const data = await dispatch(fetchEditInterests(values));
 
     if(!data.payload?.message){
+      setIsinfoEdit(true);
       setActive(false);
     }
   }

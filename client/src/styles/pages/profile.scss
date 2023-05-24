@@ -56,11 +56,19 @@
   cursor: pointer;
 }
 
-.info-container__avatar{
+.info-container__frame{
   width: 200px;
   height: 200px;
-  background-image: url('../../assets/icons/avatar.png');
-  background-size: cover;
+  border: 2px #000000 solid;
+  border-radius: 50%;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.info-container__image{
+  width: 198px;
+  height: 198px;
 }
 
 .options-link {

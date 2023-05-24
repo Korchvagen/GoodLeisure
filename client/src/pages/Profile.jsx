@@ -2,14 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import '../styles/pages/profile.scss';
+import avatarIcon from '../assets/icons/avatar.png';
 import { selectInterests } from '../redux/slices/interests.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { EditInfo } from '../components/popup/EditInfo.jsx';
 import { EditInterests } from '../components/popup/EditInterests.jsx';
+import { selectCity, selectImage, selectName } from '../redux/slices/profile';
 
 
 export const ProfilePage = () => {
+  const image = useSelector(selectImage);
+  const name = useSelector(selectName);
+  const city = useSelector(selectCity);
   const interests = useSelector(selectInterests);
+  const [profileImage, setProfileImage] = useState("");
+  const [profileName, setProfileName] = useState("");
+  const [profileCity, setProfileCity] = useState("");
   const [chosenInterests, setChosenInterests] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
   const [isInfoEdit, setIsInfoEdit] = useState(true);
@@ -20,13 +28,19 @@ export const ProfilePage = () => {
   ];
 
   useEffect(() => {
+    if (image) {
+      setProfileImage(image);
+      setProfileName(name);
+      setProfileCity(city);
+    }
+
     if (interests) {
       setChosenInterests(interests);
     }
-  }, [interests]);
+  }, [image]);
 
   const handleEditClick = (e) => {
-    if(e.target.classList.contains('edit-interests')){
+    if (e.target.classList.contains('edit-interests')) {
       setIsInfoEdit(false);
     }
 
@@ -40,9 +54,11 @@ export const ProfilePage = () => {
         <div className="profile-container__left-side">
           <div className='info-container'>
             <div className='edit-btn edit-info' onClick={handleEditClick}></div>
-            <div className='info-container__avatar'></div>
-            <p className='info-container__name'>Имя</p>
-            <p className='info-container__city'>Город</p>
+            <div className='info-container__frame'>
+              <img src={profileImage ? `data:image/png;base64,${profileImage}` : avatarIcon} alt="Chosen Image" className="info-container__image" />
+            </div>
+            <p className='info-container__name'>{profileName ? profileName : "Имя"}</p>
+            <p className='info-container__city'>{profileCity ? profileCity : "Город"}</p>
           </div>
           <Link className='options-link'>
             <div className="options-link__image"></div>
@@ -59,9 +75,9 @@ export const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <Popup active={popupActive} setActive={setPopupActive}>
+      <Popup active={popupActive} setActive={setPopupActive} setIsinfoEdit={setIsInfoEdit}>
         {
-          isInfoEdit ? <EditInfo /> : <EditInterests setActive={setPopupActive}/>
+          isInfoEdit ? <EditInfo /> : <EditInterests setActive={setPopupActive} setIsinfoEdit={setIsInfoEdit} />
         }
       </Popup>
     </div>
