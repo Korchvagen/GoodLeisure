@@ -5,16 +5,21 @@ import { useSelector } from 'react-redux';
 import { selectLeisures } from '../redux/slices/leisures.js';
 import { PlacemarkList } from './PlacemarkList.jsx';
 import { selectInterests } from '../redux/slices/interests';
+import { FavoritePlacemarkList } from './FavoritePlacemarkList';
 
-export function LeisureMap({ category }) {
+export function LeisureMap({ favorites, category }) {
   const leisures = useSelector(selectLeisures);
   const interests = useSelector(selectInterests);
   const marks = [{ id: 123, coord: [53.894029, 27.566449]}, { id: 1234, coord: [53.912288, 27.560544]}];
-  console.log(category)
+  
   return (
     <YMaps className='map-container'>
       <Map className='map' defaultState={{ center: [53.9, 27.5667], zoom: 12 }}>
         {
+          favorites
+          ?
+            <FavoritePlacemarkList data={favorites}/>
+          :
           leisures.map((feature, index) => (
             <PlacemarkList key={index} data={feature} category={ category ? category : interests[index]}/>
           ))

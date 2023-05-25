@@ -8,30 +8,19 @@ import axios from 'axios';
 import { fetchInterests, selectInterests } from '../redux/slices/interests.js';
 import { LeisuresList } from '../components/LeisuresList.jsx';
 import { LeisureMap } from '../components/LeisureMap.jsx';
-import { ProposedLeisure } from '../components/Leisure.jsx';
+import { Leisure, ProposedLeisure } from '../components/Leisure.jsx';
 import { selectFavorites } from '../redux/slices/favorites.js';
-import { useYMaps } from '@pbe/react-yandex-maps';
 
 export const FavoritesPage = () => {
   const dispatch = useDispatch();
-  const ymaps = useYMaps();
   const favorites = useSelector(selectFavorites);
   const [listWindow, setListWindow] = useState(true);
   const [leisures, setLeisures] = useState([]);
 
   useEffect(() => {
-    const getLeisures = async () => {
-      const data = await ymaps.findOrganization('1185298961');
-      console.log(data);
-      // const values = { favorites: favorites };
-      // const data = await dispatch(fetchFavoriteLeisures(values));
-
-      // if (data.payload?.leisures) {
-      //   setLeisures(data.payload.leisures)
-      // }
-    };
-
-    getLeisures();
+    if(favorites){
+      setLeisures(favorites);
+    }
   }, [favorites]);
 
   const handleLinkClick = (e) => {
@@ -50,8 +39,13 @@ export const FavoritesPage = () => {
     }
   }
 
+  const leisureList = leisures.map(favorite => (
+    <Leisure key={favorite.leisure.properties.CompanyMetaData.id} category={favorite.category} leisure={favorite.leisure} />
+  ));
+
   return (
-    <div className="leisures-page-wrapper">
+    <div className="leisures-page-wrapper favorites-wrapper">
+      <h2 className='favorites-title'>Избранное</h2>
       <div className="leisures-container">
         <div className='leisures-container__navigation'>
           <div className='navigation__left-links'>
@@ -65,9 +59,7 @@ export const FavoritesPage = () => {
               ?
               <div className="leisure-list-container">
                 {
-                  leisures.map((category, index) => (
-                    <LeisuresList key={index} index={index} data={category} />
-                  ))
+                  leisureList
                 }
                 {/* <ProposedLeisure id={"1512830981"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080da jwhdu1 jdфцв"} category={"Литература"} />
                 <ProposedLeisure id={"90177522222"} text={"hawdbhab dhabwhdb ahwdbhabwddu1 jda jwbdk1 "} category={"Спорт"} />
@@ -86,7 +78,7 @@ export const FavoritesPage = () => {
                 <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 jda jwbdk1d "} category={"Астрономия"} /> */}
               </div>
               :
-              <LeisureMap />
+              <LeisureMap favorites={leisures}/>
           }
         </div>
       </div>

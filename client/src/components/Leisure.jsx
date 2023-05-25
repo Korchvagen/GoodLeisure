@@ -23,16 +23,13 @@ export function Leisure({ category, leisure }) {
 
   useEffect(() => {
     if (favorites && favorites.length > 0) {
-      console.log('tut1')
       const feature = {
         category: category,
         leisure: leisure
       }
 
       favorites.forEach(favorite => {
-        console.log('aaa')
         if(lodash.isEqual(favorite, feature)){
-          console.log(feature)
           setActiveFavorites(leisure.properties.CompanyMetaData.id);
         }
       });

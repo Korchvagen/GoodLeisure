@@ -3,6 +3,10 @@
   padding-top: 50px;
 }
 
+.favorites-wrapper{
+  padding-top: 30px;
+}
+
 .leisures-container{
   width: 100%;
   background-color: #E7CC40;
@@ -63,4 +67,11 @@
 .leisure-list-container::-webkit-scrollbar-thumb{
   background-color: #404040;
   border-radius: 5px;
+}
+
+.favorites-title{
+  font-size: 40px;
+  color: #C9C9C9;
+  text-align: center;
+  margin-bottom: 20px;
 }
