@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import "../../styles/popup/popup-content.scss"
-import { useDispatch } from 'react-redux';
-import { fetchCreateInterests } from '../../redux/slices/interests';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCreateInterests, selectInterestsError } from '../../redux/slices/interests';
 
 export function Interests() {
   const dispatch = useDispatch();
+  const interestsError = useSelector(selectInterestsError);
 
   const initialState = [
     "Еда", "Спорт", "Природа", "Искусство", "Литература",
@@ -36,6 +37,9 @@ export function Interests() {
   return (
     <div className='popup-content'>
       <h2 className='popup-content__title'>Выбор интересов</h2>
+      {
+        interestsError && <p className='error-message'>{interestsError}</p>
+      }
       <p className='container__text'>Выберите то, чем вы увлекаетесь, чтобы мы помогли Вам определиться, как провести свободное время</p>
       <div className='container__buttons'>
         {initialState.map((value, index) => <button className='interest-button' key={index} value={value} onClick={handleToggleInterest}>{value}</button>)}

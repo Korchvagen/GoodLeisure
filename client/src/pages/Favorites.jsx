@@ -59,6 +59,10 @@ export const FavoritesPage = () => {
               ?
               <div className="leisure-list-container">
                 {
+                  leisures.length === 0
+                  ?
+                  <h3 className='favorites-empty-text'>Ваш список пуст</h3>
+                  :
                   leisureList
                 }
                 {/* <ProposedLeisure id={"1512830981"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080da jwhdu1 jdфцв"} category={"Литература"} />
