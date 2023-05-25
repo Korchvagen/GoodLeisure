@@ -40,7 +40,7 @@ export const addFavoriteLeisure = async (req, res) => {
 
     const addedFavorite = favorites.favorites;
 
-    addedFavorite.push(Number(req.body.favorite));
+    addedFavorite.push(req.body.favorite);
 
     const updatedModel = await FavoriteModel.findOneAndUpdate({ user_id: req.userId }, { favorites: addedFavorite }, { new: true });
 
@@ -57,7 +57,7 @@ export const addFavoriteLeisure = async (req, res) => {
 const createFavorites = async (user_id, favorite) => {
   try {
     const doc = new FavoriteModel({
-      favorites: [Number(favorite)],
+      favorites: [favorite],
       user_id: user_id
     });
 
@@ -71,20 +71,17 @@ const createFavorites = async (user_id, favorite) => {
 
 export const removeFavoriteLeisure = async (req, res) => {
   try{
-console.log(req.body);
-
     const favorites = await FavoriteModel.findOne({ user_id: req.userId });
-    console.log(favorites)
 
-    const filteredFavorites = favorites.favorites.filter(elem => elem != req.body.favorite);
-    console.log(filteredFavorites)
+    const filteredFavorites = favorites.favorites.filter(elem => elem.leisure.properties.CompanyMetaData.id != req.body.favorite.leisure.properties.CompanyMetaData.id);
 
     const updatedModel = await FavoriteModel.findOneAndUpdate({ user_id: req.userId }, { favorites: filteredFavorites }, { new: true });
-    console.log(updatedModel)
+
     res.json({
       favorites: updatedModel.favorites
     });
   } catch(err){
+    console.log(err)
     return res.status(500).json({
       message: "Не удалось удалить из Избранное"
     });

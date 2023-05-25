@@ -10,22 +10,25 @@ import { LeisuresList } from '../components/LeisuresList.jsx';
 import { LeisureMap } from '../components/LeisureMap.jsx';
 import { ProposedLeisure } from '../components/Leisure.jsx';
 import { selectFavorites } from '../redux/slices/favorites.js';
-
+import { useYMaps } from '@pbe/react-yandex-maps';
 
 export const FavoritesPage = () => {
   const dispatch = useDispatch();
+  const ymaps = useYMaps();
   const favorites = useSelector(selectFavorites);
   const [listWindow, setListWindow] = useState(true);
   const [leisures, setLeisures] = useState([]);
 
   useEffect(() => {
     const getLeisures = async () => {
-      const values = { favorites: favorites };
-      const data = await dispatch(fetchFavoriteLeisures(values));
+      const data = await ymaps.findOrganization('1185298961');
+      console.log(data);
+      // const values = { favorites: favorites };
+      // const data = await dispatch(fetchFavoriteLeisures(values));
 
-      if(data.payload?.leisures){
-        setLeisures(data.payload.leisures)
-      }
+      // if (data.payload?.leisures) {
+      //   setLeisures(data.payload.leisures)
+      // }
     };
 
     getLeisures();

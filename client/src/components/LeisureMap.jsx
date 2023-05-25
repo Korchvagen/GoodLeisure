@@ -15,9 +15,9 @@ export function LeisureMap({ category }) {
     <YMaps className='map-container'>
       <Map className='map' defaultState={{ center: [53.9, 27.5667], zoom: 12 }}>
         {
-          // leisures.map((feature, index) => (
-          //   <PlacemarkList key={index} data={feature} category={ category ? category : interests[index]}/>
-          // ))
+          leisures.map((feature, index) => (
+            <PlacemarkList key={index} data={feature} category={ category ? category : interests[index]}/>
+          ))
         }
         {/* {
           leisures.map(category => {

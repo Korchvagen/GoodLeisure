@@ -39,27 +39,27 @@ export const ChosenLeisurePage = () => {
 
       document.querySelector('.leisure-List').classList.remove('active');
       e.target.classList.add('active');
-      document.querySelector('.selection-container__content').classList.add('map');
+      document.querySelector('.leisures-container__content').classList.add('map');
     } else {
       setListWindow(true);
 
-      document.querySelector('.selection-container__content').classList.remove('map');
+      document.querySelector('.leisures-container__content').classList.remove('map');
       document.querySelector('.leisure-map').classList.remove('active');
       e.target.classList.add('active');
     }
   }
 
   return (
-    <div className="selection-page-wrapper">
-      <div className="selection-container">
-        <div className='selection-container__navigation'>
+    <div className="leisures-page-wrapper">
+      <div className="leisures-container">
+        <div className='leisures-container__navigation'>
           <div className='navigation__left-links'>
             <button className='left-links__item leisure-List active' onClick={handleLinkClick}>Список</button>
             <button className='left-links__item leisure-map' onClick={handleLinkClick}>Карта</button>
           </div>
           <Link className='navigation__skip-link' to={'/selection'}>Начать заново</Link>
         </div>
-        <div className="selection-container__content">
+        <div className="leisures-container__content">
           {
             listWindow
               ?

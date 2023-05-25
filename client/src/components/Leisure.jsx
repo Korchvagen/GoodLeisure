@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddFavorite, fetchRemoveFavorite, selectFavoriteError, selectFavorites } from '../redux/slices/favorites.js';
 import '../styles/leisure.scss';
 import { setActiveFavorites } from '../scripts/setActiveFavorites.js';
+import lodash from 'lodash';
 
 export function Leisure({ category, leisure }) {
   const dispatch = useDispatch();
@@ -21,14 +22,31 @@ export function Leisure({ category, leisure }) {
   }, []);
 
   useEffect(() => {
-    if (favorites && favorites.includes(Number(leisure.properties.CompanyMetaData.id))) {
-      setActiveFavorites(favorites, leisure.properties.CompanyMetaData.id);
+    if (favorites && favorites.length > 0) {
+      console.log('tut1')
+      const feature = {
+        category: category,
+        leisure: leisure
+      }
+
+      favorites.forEach(favorite => {
+        console.log('aaa')
+        if(lodash.isEqual(favorite, feature)){
+          console.log(feature)
+          setActiveFavorites(leisure.properties.CompanyMetaData.id);
+        }
+      });
     }
   })
 
   const handleLeisureClick = async (e) => {
     if (e.target.className === "leisure-container__favorite-btn") {
-      const value = { favorite: e.target.value };
+      const value = {
+        favorite: {
+          category: category,
+          leisure: leisure
+        }
+      };
 
       const data = await dispatch(fetchAddFavorite(value))
 
@@ -36,8 +54,13 @@ export function Leisure({ category, leisure }) {
         e.target.classList.add('active');
       }
     } else if (e.target.className === "leisure-container__favorite-btn active") {
-      const value = { favorite: e.target.value };
-      console.log(value)
+      const value = {
+        favorite: {
+          category: category,
+          leisure: leisure
+        }
+      };
+
       const data = await dispatch(fetchRemoveFavorite(value))
 
       if (data.payload.favorites) {
@@ -67,9 +90,9 @@ export function Leisure({ category, leisure }) {
           {/* <p className='info__text'>{text}</p> */}
         </div>
       </div>
-      <button className='leisure-container__favorite-btn' value={leisure.properties.CompanyMetaData.id}></button>
+      <button className='leisure-container__favorite-btn'></button>
       <Popup key={leisure.properties.CompanyMetaData.id} active={popupActive} setActive={setPopupActive}>
-        <PopupLeisure key={leisure.properties.CompanyMetaData.id} data={leisure} favorite={favoriteLeisure} />
+        <PopupLeisure key={leisure.properties.CompanyMetaData.id} category={category} leisure={leisure} favorite={favoriteLeisure} />
         {/* <PopupLeisure name="Место про еду" address="awd.mawkd2 a88  baw" time="11:00-24:00" phone="+5151351861531" /> */}
       </Popup>
     </div>
