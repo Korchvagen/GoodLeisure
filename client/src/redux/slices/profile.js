@@ -49,10 +49,10 @@ const profileSlice = createSlice({
   }
 });
 
-export const selectImage = (state) => state.profile.data?.image;
+export const selectImage = (state) => state.profile.data?.profile?.image;
 
-export const selectName = (state) => state.profile.data?.name;
+export const selectName = (state) => state.profile.data?.profile?.name;
 
-export const selectCity = (state) => state.profile.data?.city;
+export const selectCity = (state) => state.profile.data?.profile?.city;
 
 export const profileReducer = profileSlice.reducer;

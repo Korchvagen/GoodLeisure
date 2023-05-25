@@ -1,23 +1,34 @@
-import React, { useState, useRef  } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useEffect  } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import avatarIcon from '../../assets/icons/avatar.png';
 import "../../styles/popup/popup-content.scss"
-import { fetchEditProfile } from '../../redux/slices/profile';
+import { fetchEditProfile, selectCity, selectImage, selectName } from '../../redux/slices/profile';
 
-export function EditInfo() {
+export function EditInfo({ setActive }) {
   const dispatch = useDispatch();
+  const image = useSelector(selectImage);
+  const name = useSelector(selectName);
+  const city = useSelector(selectCity);
   const imgRef = useRef(null);
-  const [selecteImageName, setSelectedImageName] = useState("");
-  const [selectedImage, setSelectedImage] = useState("");
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
+  const [inputImageName, setInputImageName] = useState("");
+  const [inputImage, setInputImage] = useState("");
+  const [inputName, setInputName] = useState("");
+  const [inputCity, setInputCity] = useState("");
+
+  useEffect(() => {
+    if (image) {
+      setInputImage(image);
+      setInputName(name);
+      setInputCity(city);
+    }
+  }, [image]);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
 
     if(file){
-      setSelectedImage(file);
-      setSelectedImageName(file.name)
+      setInputImage(file);
+      setInputImageName(file.name)
 
       const reader = new FileReader();
 
@@ -32,11 +43,11 @@ export function EditInfo() {
   };
 
   const handleNameChange = (e) => {
-    setName(e.target.value);
+    setInputName(e.target.value);
   };
 
   const handleCityChange = (e) => {
-    setCity(e.target.value);
+    setInputCity(e.target.value);
   };
 
   const onSubmit = async (e) => {
@@ -44,14 +55,15 @@ export function EditInfo() {
 
     const formData = new FormData();
 
-    formData.append('image', selectedImage);
-    formData.append('name', name);
-    formData.append('city', city);
-    console.log(formData);
+    formData.append('image', inputImage);
+    formData.append('name', inputName);
+    formData.append('city', inputCity);
 
     const data = await dispatch(fetchEditProfile(formData));
 
-    console.log(data);
+    if(data.payload?.profile){
+      setActive(false);
+    }
   };
 
   return (
@@ -59,17 +71,17 @@ export function EditInfo() {
       <form className='container__form' onSubmit={onSubmit}>
         <div className='image-select-container'>
           <div className='image-frame'>
-            <img ref={imgRef} src={selectedImage ? selectedImage : avatarIcon} alt="Chosen Image" className="selected-image"/>
+            <img ref={imgRef} src={inputImage ? `data:image/png;base64,${inputImage}` : avatarIcon} alt="Chosen Image" className="selected-image"/>
           </div>
           <label className='selected-image__label'>
             <input type="file" className='selected-image__input' onChange={handleFileChange} />
-            <span>{selecteImageName ? selecteImageName : "Загрузить фотографию"}</span>
+            <span>{inputImageName ? inputImageName : "Загрузить фотографию"}</span>
           </label>
         </div>
         <label htmlFor="name">Имя</label>
-        <input type="text" id='name' onChange={handleNameChange} value={name}/>
+        <input type="text" id='name' onChange={handleNameChange} value={inputName}/>
         <label htmlFor="city">Город</label>
-        <input type="text" id='city' onChange={handleCityChange} value={city}/>
+        <input type="text" id='city' onChange={handleCityChange} value={inputCity}/>
         <button className='form__button' type="submit">Сохранить</button>
       </form>
     </div>

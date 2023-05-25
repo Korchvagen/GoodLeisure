@@ -4,30 +4,39 @@ export const editProfile = async (req, res) => {
   try {
     const profile = await ProfileModel.findOne({ user_id: req.userId });
 
-    if(!profile){
+    if (!profile) {
       const newProfile = await createProfile(req.userId, req.file.buffer.toString('base64'), req.body.name, req.body.city);
 
-      if(!newProfile){
+      if (!newProfile) {
         return res.status(500).json({
           message: "Не удалось сохранить персональные данные"
         });
       }
 
-      return res.json({
+      const updatedPprofile = {
         image: newProfile.image,
         name: newProfile.name,
         city: newProfile.city
+      };
+
+      return res.json({
+        profile: updatedPprofile
       });
     }
 
-    const updatedModel = await ProfileModel.findOneAndUpdate({ user_id: req.userId }, { image: req.file.buffer.toString('base64'), name: req.body.name, city: req.body.city }, { new: true });
+    const updatedModel = await ProfileModel.findOneAndUpdate({ user_id: req.userId }, { image: req.file?.buffer.toString('base64'), name: req.body?.name, city: req.body?.city }, { new: true });
 
-    res.json({
+    const updatedPprofile = {
       image: updatedModel.image,
       name: updatedModel.name,
       city: updatedModel.city
+    };
+
+    res.json({
+      profile: updatedPprofile
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json({
       message: "Не удалось изменить персональные данные"
     });
@@ -55,16 +64,20 @@ export const getProfile = async (req, res) => {
   try {
     const profile = await ProfileModel.findOne({ user_id: req.userId });
 
-    if(!profile){
+    if (!profile) {
       return res.status(404).json({
         message: 'Персональные данные не найдены'
       });
     }
 
-    res.json({
+    const profileResponse = {
       image: profile.image,
       name: profile.name,
       city: profile.city
+    };
+
+    res.json({
+      profile: profileResponse
     });
   } catch (err) {
     res.status(500).json({

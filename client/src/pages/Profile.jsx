@@ -75,9 +75,9 @@ export const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <Popup active={popupActive} setActive={setPopupActive} setIsinfoEdit={setIsInfoEdit}>
+      <Popup active={popupActive} setActive={setPopupActive} setIsInfoEdit={setIsInfoEdit}>
         {
-          isInfoEdit ? <EditInfo /> : <EditInterests setActive={setPopupActive} setIsinfoEdit={setIsInfoEdit} />
+          isInfoEdit ? <EditInfo setActive={setPopupActive}/> : <EditInterests setActive={setPopupActive} setIsInfoEdit={setIsInfoEdit} />
         }
       </Popup>
     </div>

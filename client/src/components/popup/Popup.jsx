@@ -1,10 +1,10 @@
 import React from 'react';
 import "../../styles/popup/popup.scss"
 
-export function Popup({ active, setActive, setIsinfoEdit, children }) {
+export function Popup({ active, setActive, setIsInfoEdit, children }) {
   const handleClosePopup = () => {
-    if(setIsinfoEdit){
-      setIsinfoEdit(true);
+    if(setIsInfoEdit){
+      setIsInfoEdit(true);
     }
     setActive(false);
   };
