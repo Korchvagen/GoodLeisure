@@ -1,6 +1,6 @@
 export const getPlacemarkIcon = (category) => {
-  const ruCategories = ["Литература", "Спорт", "Еда", "Искусство", "Кино", "Музыка", "Технологии", "Игры", "Развлечения", "Природа", "Животные", "Шопинг", "Ночная жизнь", "Танцы", "Астрономия"];
-  const enCategories = ["literature", "sport", "food", "art", "cinema", "music", "technics", "games", "entertainment", "nature", "animals", "shopping", "nightLife", "dances", "space"];
+  const ruCategories = ["Литература", "Спорт", "Еда", "Искусство", "Кино", "Музыка", "Технологии", "Игры", "Развлечения", "Природа", "Животные", "Шопинг", "Ночная жизнь", "Танцы", "Астрономия", "Поиск"];
+  const enCategories = ["literature", "sport", "food", "art", "cinema", "music", "technics", "games", "entertainment", "nature", "animals", "shopping", "nightLife", "dances", "space", "search"];
   
   const images = {
     literature: 'https://img.icons8.com/external-justicon-lineal-color-justicon/64/external-book-elearning-and-education-justicon-lineal-color-justicon.png',
@@ -17,7 +17,8 @@ export const getPlacemarkIcon = (category) => {
     shopping: 'https://img.icons8.com/external-wanicon-lineal-color-wanicon/64/external-sale-cyber-monday-wanicon-lineal-color-wanicon.png',
     nightLife: 'https://img.icons8.com/color/48/disco-ball.png',
     dances: 'https://img.icons8.com/external-goofy-color-kerismaker/96/external-Dance-birthday-party-goofy-color-kerismaker.png',
-    space: 'https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-space-the-future-flaticons-flat-flat-icons-2.png'
+    space: 'https://img.icons8.com/external-flaticons-flat-flat-icons/64/external-space-the-future-flaticons-flat-flat-icons-2.png',
+    search: 'https://img.icons8.com/color/48/search--v1.png'
   }
 
   const currentCategory = enCategories[ruCategories.indexOf(category)];

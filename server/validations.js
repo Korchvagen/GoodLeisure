@@ -39,3 +39,7 @@ export const newPasswordValidation = [
 export const interestsCreateValidation = [
   body('interests', 'Неверный формат интересов').isLength({ min: 1 }).isArray()
 ]
+
+export const searchValidation = [
+  body('searchRequest', 'Неверный формат запроса').isLength({ min: 1 })
+];

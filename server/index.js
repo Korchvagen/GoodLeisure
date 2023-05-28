@@ -43,6 +43,8 @@ app.patch('/interests', checkAuth, Validator.interestsCreateValidation, Interest
 app.post('/leisures', checkAuth, LeisureController.getLeisures);
 
 app.post('/leisures/favorites', checkAuth, LeisureController.getFavoriteLeisures);
+
+app.post('/leisures/search', checkAuth, Validator.searchValidation, LeisureController.searchLeisures);
 // getUserPosition
 app.get('/favorites', checkAuth, FavoriteController.getFavorites);
 

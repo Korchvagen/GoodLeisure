@@ -14,8 +14,8 @@ export function Leisure({ category, leisure }) {
   const [popupActive, setPopupActive] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("");
   const [favoriteLeisure, setFavoriteLeisure] = useState(false);
-  const ruCategories = ["Литература", "Спорт", "Еда", "Искусство", "Кино", "Музыка", "Технологии", "Игры", "Развлечения", "Природа", "Животные", "Шопинг", "Ночная жизнь", "Танцы", "Астрономия"];
-  const enCategories = ["literature", "sport", "food", "art", "cinema", "music", "technics", "games", "entertainment", "nature", "animals", "shopping", "night-life", "dances", "space"];
+  const ruCategories = ["Литература", "Спорт", "Еда", "Искусство", "Кино", "Музыка", "Технологии", "Игры", "Развлечения", "Природа", "Животные", "Шопинг", "Ночная жизнь", "Танцы", "Астрономия", "Поиск"];
+  const enCategories = ["literature", "sport", "food", "art", "cinema", "music", "technics", "games", "entertainment", "nature", "animals", "shopping", "night-life", "dances", "space", "search"];
 
   useEffect(() => {
     setCurrentCategory(enCategories[ruCategories.indexOf(category)]);

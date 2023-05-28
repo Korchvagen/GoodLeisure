@@ -7,6 +7,7 @@ import { selectAuth } from '../redux/slices/auth.js';
 import { selectIsNewUser } from '../redux/slices/interests.js';
 import { PopupInterests } from '../components/popup/PopupInterests.jsx';
 import '../styles/pages/main.scss';
+import { SearchBar } from '../components/SearchBar.jsx';
 
 export const MainPage = () => {
 
@@ -24,8 +25,7 @@ export const MainPage = () => {
       <div className='main-page-wrapper__content'>
         <div className='content__left-side'>
           <div className='left-side__search-container'>
-            <div className='search-container__image'></div>
-            <input type="text" placeholder='Поиск...' />
+            <SearchBar />
           </div>
           <p className='left-side__text'><b>GoodLeisure</b> - это сервис для тех, кто любит отдыхать, занимаясь  любимым делом, или ищет для себя что-то новенькое в сфере досуга.
             <br></br>Данный сервис обладает системой учета интересов пользователя, поэтому мы всегда поможем вам с выбором, как провести свободное время. Чтобы не потерять из виду заинтересовавший

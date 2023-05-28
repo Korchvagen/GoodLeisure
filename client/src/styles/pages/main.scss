@@ -1,28 +1,31 @@
-.main-page-wrapper{
+.main-page-wrapper {
   padding: 0 30px;
   padding-top: 20px;
 }
 
-.main-page-wrapper__content{
+.main-page-wrapper__content {
   display: flex;
   justify-content: space-between;
 }
 
-.content__left-side{
+.content__left-side {
   width: 730px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.left-side__search-container{
+.left-side__search-container {
   align-self: flex-start;
-  position: relative;
-  width: 400px;
-  height: 40px;
   margin-top: 35px;
 
-  .search-container__image{
+  .search-form {
+    position: relative;
+    width: 400px;
+    height: 40px;
+  }
+
+  .search-form__button {
     position: absolute;
     top: 5px;
     left: 8px;
@@ -30,9 +33,10 @@
     height: 30px;
     background-image: url('../../assets/icons/search.svg');
     background-size: cover;
+    background-color: transparent;
   }
 
-  input{
+  input {
     width: 100%;
     height: 100%;
     background-color: #E7CC40;
@@ -53,31 +57,31 @@
 }
 
 .left-side__text,
-.description-text{
+.description-text {
   color: #C9C9C9;
   font-size: 22px;
   text-align: justify;
   line-height: 27px;
 }
 
-.content__slider{
+.content__slider {
   width: 600px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.slider-container{
+.slider-container {
   width: 100%;
   height: 500px;
 
-  img{
+  img {
     width: 100%;
     height: 100%;
   }
 }
 
-.slider__buttons{
+.slider__buttons {
   width: 180px;
   height: 20px;
   display: flex;
@@ -85,28 +89,28 @@
   margin-top: 25px;
 }
 
-.slider__buttons__item{
+.slider__buttons__item {
   width: 20px;
   height: 100%;
   border-radius: 50%;
   background-color: #D9D9D9;
 }
 
-.slider__buttons__item.active{
+.slider__buttons__item.active {
   background-color: #E7CC40;
 }
 
-.description-text{
+.description-text {
   text-align: center;
   font-size: 20px;
   margin-top: 50px;
 }
 
-.geo-text{
+.geo-text {
   margin-top: 15px;
 }
 
-.left-side__start-btn{
+.left-side__start-btn {
   width: 300px;
   height: 70px;
   background-color: #E7CC40;
@@ -117,4 +121,11 @@
   margin-top: 60px;
   padding-top: 17px;
   padding-left: 40px;
+}
+
+.error-message {
+  font-size: 20px;
+  color: red;
+  margin-top: 10px;
+  text-align: center;
 }
