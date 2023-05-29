@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { fetchRegister, selectRegisterErrors } from '../redux/slices/auth.js';
+import { fetchRegister, selectErrors } from '../redux/slices/auth.js';
 import { ErrorMessage } from '../components/ErrorMessage.jsx';
 import '../styles/pages/auth.scss';
 
@@ -47,7 +47,7 @@ export const RegisterPage = () => {
     document.querySelector('.error-email').textContent = "";
   }
 
-  const registerErrors = useSelector(selectRegisterErrors);
+  const registerErrors = useSelector(selectErrors);
   const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm(
     {

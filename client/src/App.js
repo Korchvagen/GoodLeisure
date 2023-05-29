@@ -16,6 +16,7 @@ import { FavoritesPage } from './pages/Favorites.jsx';
 import { ProfilePage } from './pages/Profile.jsx';
 import { fetchProfile } from './redux/slices/profile.js';
 import { SearchResultPage } from './pages/SearchResult.jsx';
+import { OptionsPage } from './pages/Options.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
         <Route path='/favorites' element={ <FavoritesPage /> }/>
         <Route path='/profile' element={ <ProfilePage /> }/>
         <Route path='/search' element={ <SearchResultPage /> }/>
+        <Route path='/options' element={ <OptionsPage /> }/>
       </Routes>
     </Layout>
   );

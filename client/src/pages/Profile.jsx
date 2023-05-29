@@ -60,7 +60,7 @@ export const ProfilePage = () => {
             <p className='info-container__name'>{profileName ? profileName : "Имя"}</p>
             <p className='info-container__city'>{profileCity ? profileCity : "Город"}</p>
           </div>
-          <Link className='options-link'>
+          <Link className='options-link' to="/options">
             <div className="options-link__image"></div>
             <span className="options-link__text">Настройки</span>
           </Link>

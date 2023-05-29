@@ -32,6 +32,12 @@ app.post('/auth/recovery/code', Validator.codeValidation, UserController.checkCo
 
 app.patch('/auth/recovery/password', Validator.newPasswordValidation, UserController.newPassword);
 
+app.patch('/auth/edit/email', checkAuth, Validator.newEmailValidation, UserController.editEmail);
+
+app.patch('/auth/edit/password', checkAuth, Validator.editPasswordValidation, UserController.editPassword);
+
+app.post('/auth/delete', checkAuth, UserController.deleteAccount);
+
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.createInterests);

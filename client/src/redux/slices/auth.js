@@ -36,6 +36,24 @@ export const fetchNewPassword = createAsyncThunk('auth/fetchNewPassword', async 
   return data;
 });
 
+export const fetchEditEmail = createAsyncThunk('auth/fetchEditEmail', async (params) => {
+  const { data } = await axios.patch('/auth/edit/email', params).catch(error => error.response);
+  
+  return data;
+});
+
+export const fetchEditPassword = createAsyncThunk('auth/fetchEditPassword', async (params) => {
+  const { data } = await axios.patch('/auth/edit/password', params).catch(error => error.response);
+  
+  return data;
+});
+
+export const fetchDeleteAccount = createAsyncThunk('auth/fetchDeleteAccount', async (params) => {
+  const { data } = await axios.post('/auth/delete', params).catch(error => error.response);
+  
+  return data;
+});
+
 export const fetchAuthMe = createAsyncThunk('auth/fetchAuthMe', async () => {
   const { data } = await axios.get('/auth/me');
 
@@ -111,6 +129,42 @@ const authSlice = createSlice({
       state.data = null;
       state.status = action.payload.message;
     },
+    [fetchEditEmail.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchEditEmail.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchEditEmail.rejected]: (state) => {
+      state.data = null;
+      state.status = 'error';
+    },
+    [fetchEditPassword.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchEditPassword.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchEditPassword.rejected]: (state) => {
+      state.data = null;
+      state.status = 'error';
+    },
+    [fetchDeleteAccount.pending]: (state) => {
+      state.data = null;
+      state.status = 'loading';
+    },
+    [fetchDeleteAccount.fulfilled]: (state, action) => {
+      state.data = action.payload;
+      state.status = 'loaded'
+    },
+    [fetchDeleteAccount.rejected]: (state) => {
+      state.data = null;
+      state.status = 'error';
+    },
     [fetchAuthMe.pending]: (state) => {
       state.data = null;
       state.status = 'loading';
@@ -128,9 +182,9 @@ const authSlice = createSlice({
 
 export const selectAuth = (state) => Boolean(state.auth.data?._id);
 
-export const selectRegisterErrors = (state) => state.auth.data?.errors;
+export const selectErrors = (state) => state.auth.data?.errors;
 
-export const selectNewPAsswordErrors = (state) => state.auth.data?.errors;
+export const selectEditError = (state) => state.auth.data?.message;
 
 export const authReducer = authSlice.reducer;
 

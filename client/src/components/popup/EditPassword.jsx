@@ -1,14 +1,29 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNewPassword, selectErrors } from '../../redux/slices/auth.js';
+import { fetchEditPassword, fetchEmail, selectEditError, selectErrors } from '../../redux/slices/auth.js';
 import { ErrorMessage } from '../ErrorMessage.jsx';
 
-export function NewPassword({ changeComponentEmail, setActive }) {
+export function EditPassword({ setActive }) {
+  const dispatch = useDispatch();
+  const editPasswordErrors = useSelector(selectErrors);
+  const editPasswordMessage = useSelector(selectEditError);
   const [newPasswordVisible, setNewPasswordVisible] = useState(false);
   const [confirmNewPasswordVisible, setConfirmNewPasswordVisible] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [password, setPassword] = useState('');
+
+  const { register, handleSubmit, formState: { errors } } = useForm(
+    {
+      defaultValues: {
+        newPassword: '',
+        confirmNewPassword: '',
+        password: ''
+      }
+    }
+  );
 
   const handleToggleNewPassword = (e) => {
     setNewPasswordVisible(!newPasswordVisible);
@@ -22,52 +37,44 @@ export function NewPassword({ changeComponentEmail, setActive }) {
     e.target.classList.toggle('active');
   };
 
+  const handleTogglePassword = (e) => {
+    setPasswordVisible(!passwordVisible);
+
+    e.target.classList.toggle('active');
+  };
+
   const handleNewPasswordChange = (e) => {
     document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
-    document.querySelectorAll('li').forEach(el => el.textContent = "");
 
     setNewPassword(e.target.value);
   };
 
   const handleConfirmNewPasswordChange = (e) => {
     document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
-    document.querySelectorAll('li').forEach(el => el.textContent = "");
 
     setConfirmNewPassword(e.target.value);
   };
 
-  const newPasswordErrors = useSelector(selectErrors);
-  const dispatch = useDispatch();
+  const handlePasswordChange = (e) => {
+    document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
 
-  const { register, handleSubmit, formState: { errors } } = useForm(
-    {
-      defaultValues: {
-        newPassword: '',
-        confirmNewPassword: ''
-      }
-    }
-  );
+    setPassword(e.target.value);
+  };
 
   const onSubmit = async (values) => {
-    values.email = window.localStorage.getItem('email');
+    const data = await dispatch(fetchEditPassword(values));
 
-    const data = await dispatch(fetchNewPassword(values));
-
-    if (!data.payload.success) {
-      document.querySelector('.error-message').textContent = data.payload.message
-    } else {
-      window.localStorage.removeItem('email');
+    if(data.payload?.success){
       setActive(false);
-      changeComponentEmail(true);
     }
   };
 
   return (
-    <>
+    <div className='edit-password-container'>
+      <h2 className='container__title'>Изменение пароля</h2>
       <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
-        {
-          newPasswordErrors && <ErrorMessage errors={newPasswordErrors} />
-        }
+        { editPasswordErrors && <ErrorMessage errors={editPasswordErrors} />}
+        { editPasswordMessage && <p id='error-password' className='error-message'>{editPasswordMessage}</p> }
         <label htmlFor="newPassword">Новый пароль</label>
         <div className='input-container'>
           <input id='newPassword'
@@ -83,15 +90,26 @@ export function NewPassword({ changeComponentEmail, setActive }) {
         <div className='input-container'>
           <input id='confirmNewPassword'
             type={confirmNewPasswordVisible ? 'text' : 'password'}
-            {...register('confirmNewPssword', { required: 'Повторите новый пароль' })}
+            {...register('confirmNewPassword', { required: 'Подтвердите пароль' })}
             onChange={handleConfirmNewPasswordChange}
             value={confirmNewPassword}
           />
           <button type='button' className='hide-password-btn' onClick={handleToggleConfirmNewPassword}></button>
         </div>
         <span className='error-message'>{errors.confirmNewPassword?.message}</span>
+        <label htmlFor="password">Введите пароль от учётной записи, чтобы подтвердить действие</label>
+        <div className='input-container'>
+          <input id='password'
+            type={passwordVisible ? 'text' : 'password'}
+            {...register('password', { required: 'Укажите пароль' })}
+            onChange={handlePasswordChange}
+            value={password}
+          />
+          <button type='button' className='hide-password-btn' onClick={handleTogglePassword}></button>
+        </div>
+        <span className='error-message'>{errors.password?.message}</span>
         <button type='submit' className='popup-form__button'>Сохранить</button>
-      </form >
-    </>
+      </form>
+    </div>
   );
 }
