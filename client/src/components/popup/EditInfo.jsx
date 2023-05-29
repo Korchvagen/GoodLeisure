@@ -2,15 +2,17 @@ import React, { useState, useRef, useEffect  } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import avatarIcon from '../../assets/icons/avatar.png';
 import "../../styles/popup/popup-content.scss"
-import { fetchEditProfile, selectCity, selectImage, selectName } from '../../redux/slices/profile';
+import { fetchEditProfile, selectCity, selectImage, selectMessage, selectName } from '../../redux/slices/profile';
 
 export function EditInfo({ setActive }) {
   const dispatch = useDispatch();
+  const imageError = useSelector(selectMessage);
   const image = useSelector(selectImage);
   const name = useSelector(selectName);
   const city = useSelector(selectCity);
   const imgRef = useRef(null);
   const [inputImageName, setInputImageName] = useState("");
+  const [inputImageType, setInputImageType] = useState("");
   const [inputImage, setInputImage] = useState("");
   const [inputName, setInputName] = useState("");
   const [inputCity, setInputCity] = useState("");
@@ -28,8 +30,9 @@ export function EditInfo({ setActive }) {
 
     if(file){
       setInputImage(file);
-      setInputImageName(file.name)
-
+      setInputImageName(file.name);
+      setInputImageType(file.type);
+      
       const reader = new FileReader();
 
       reader.onloadend = () => {
@@ -58,6 +61,7 @@ export function EditInfo({ setActive }) {
     formData.append('image', inputImage);
     formData.append('name', inputName);
     formData.append('city', inputCity);
+    formData.append('type', inputImageType);
 
     const data = await dispatch(fetchEditProfile(formData));
 
@@ -77,6 +81,7 @@ export function EditInfo({ setActive }) {
             <input type="file" className='selected-image__input' onChange={handleFileChange} />
             <span>{inputImageName ? inputImageName : "Загрузить фотографию"}</span>
           </label>
+          { imageError && <p id='error-image' className='error-message'>{imageError}</p> }
         </div>
         <label htmlFor="name">Имя</label>
         <input type="text" id='name' onChange={handleNameChange} value={inputName}/>

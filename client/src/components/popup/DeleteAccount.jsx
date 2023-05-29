@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDeleteAccount, fetchEmail, logout, selectEditError } from '../../redux/slices/auth.js';
+import { fetchDeleteAccount, fetchEmail, logout, selectMessage } from '../../redux/slices/auth.js';
 import { Navigate } from 'react-router-dom';
 
 export function DeleteAccount() {
   const dispatch = useDispatch();
-  const deleteError = useSelector(selectEditError);
+  const deleteError = useSelector(selectMessage);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [isAccountDeleted, setAccountDeleted] = useState(false);

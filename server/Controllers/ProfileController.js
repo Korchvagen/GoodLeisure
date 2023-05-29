@@ -2,6 +2,13 @@ import ProfileModel from '../models/Profile.js';
 
 export const editProfile = async (req, res) => {
   try {
+    console.log(req.body.type);
+    if (!(req.body.type === "image/png" || req.body.type === "image/jpeg")) {
+      return res.status(400).json({
+        message: "Неверный формат файла. Выберите формат PNG или JPEG"
+      });
+    }
+
     const profile = await ProfileModel.findOne({ user_id: req.userId });
 
     if (!profile) {

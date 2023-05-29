@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
-import { fetchLogin } from '../redux/slices/auth.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchLogin, selectMessage } from '../redux/slices/auth.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { AccountRecovery } from '../components/popup/AccountRecovery.jsx';
 import '../styles/pages/auth.scss';
 import { fetchInterests } from '../redux/slices/interests.js';
 
 export const LoginPage = () => {
+  const loginError = useSelector(selectMessage);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
   const [popupActive, setPopupActive] = useState(false)
@@ -44,10 +45,6 @@ export const LoginPage = () => {
   const onSubmit = async (values) => {
     const data = await dispatch(fetchLogin(values));
 
-    if (data.payload.message) {
-      document.getElementById('loginError').textContent = data.payload.message;
-    }
-
     if ('token' in data.payload) {
       window.localStorage.setItem('token', data.payload.token);
 
@@ -70,7 +67,7 @@ export const LoginPage = () => {
       <div className="right-side">
         <div className='login-container'>
           <h2 className='login-container__title'>Авторизация</h2>
-          <p id='loginError' className='error-message'></p>
+          { loginError && <p id='loginError' className='error-message'>{loginError}</p> }
           <form className='login-container__form' onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="email">Электронная почта</label>
             <input type="text" id='email' {...register('email', { required: 'Укажите почту' })} onChange={hideError}/>

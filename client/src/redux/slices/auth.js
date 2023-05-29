@@ -184,7 +184,7 @@ export const selectAuth = (state) => Boolean(state.auth.data?._id);
 
 export const selectErrors = (state) => state.auth.data?.errors;
 
-export const selectEditError = (state) => state.auth.data?.message;
+export const selectMessage = (state) => state.auth.data?.message;
 
 export const authReducer = authSlice.reducer;
 

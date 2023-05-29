@@ -55,4 +55,6 @@ export const selectName = (state) => state.profile.data?.profile?.name;
 
 export const selectCity = (state) => state.profile.data?.profile?.city;
 
+export const selectMessage = (state) => state.profile.data?.message;
+
 export const profileReducer = profileSlice.reducer;

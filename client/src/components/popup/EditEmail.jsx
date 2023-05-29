@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEditEmail, fetchEmail, selectEditError } from '../../redux/slices/auth.js';
+import { fetchEditEmail, fetchEmail, selectMessage } from '../../redux/slices/auth.js';
 
 export function EditEmail({ setActive }) {
   const dispatch = useDispatch();
-  const editError = useSelector(selectEditError);
+  const editError = useSelector(selectMessage);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
 
