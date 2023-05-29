@@ -10,11 +10,9 @@ import '../styles/pages/main.scss';
 import { SearchBar } from '../components/SearchBar.jsx';
 
 export const MainPage = () => {
-
+  let isPopupActive = false;
   const isAuth = useSelector(selectAuth);
   const isNewUser = useSelector(selectIsNewUser);
-
-  let isPopupActive = false;
 
   if (isAuth && isNewUser) {
     isPopupActive = true;

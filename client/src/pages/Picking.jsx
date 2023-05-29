@@ -1,14 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { fetchProposedLeisures } from '../redux/slices/leisures.js';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/pages/criteria.scss';
-import axios from 'axios';
-import { fetchInterests, selectInterests } from '../redux/slices/interests.js';
-import { LeisuresList } from '../components/LeisuresList.jsx';
-import { LeisureMap } from '../components/LeisureMap.jsx';
-import { ProposedLeisure } from '../components/Leisure.jsx';
 import { Criteria } from '../components/Criteria.jsx';
 
 

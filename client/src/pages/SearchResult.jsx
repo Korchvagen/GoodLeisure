@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { fetchLeisures, fetchSearchLeisures, selectLeisures, selectSearchError } from '../redux/slices/leisures.js';
+import { fetchSearchLeisures } from '../redux/slices/leisures.js';
 import '../styles/pages/leisures.scss';
-import axios from 'axios';
-import { fetchInterests, selectInterests } from '../redux/slices/interests.js';
-import { LeisuresList } from '../components/LeisuresList.jsx';
-import { LeisureMap } from '../components/LeisureMap.jsx';
-import { Leisure, ProposedLeisure } from '../components/Leisure.jsx';
+import { Leisure } from '../components/Leisure.jsx';
 import { Placemark } from '@pbe/react-yandex-maps';
 import { YMaps, Map } from '@pbe/react-yandex-maps';
-import { PlacemarkList } from '../components/PlacemarkList.jsx';
 import { selectFavorites } from '../redux/slices/favorites.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { PopupLeisureMap } from '../components/popup/PopupLeisureMap.jsx';
+import { setLoading } from '../redux/slices/loader.js';
 
 
 export const SearchResultPage = () => {
@@ -22,7 +17,7 @@ export const SearchResultPage = () => {
   const favorites = useSelector(selectFavorites);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const [request, setrRequest] = useState([params.get('request')]);
+  const [request, setRequest] = useState([params.get('request')]);
   const [leisures, setLeisures] = useState([]);
   const [listWindow, setListWindow] = useState(true);
   const [leisure, setLeisure] = useState(null);
@@ -31,6 +26,8 @@ export const SearchResultPage = () => {
   const [isEmpryResult, setEmptyResult] = useState(false);
 
   useEffect(() => {
+    dispatch(setLoading(true));
+
     const getLeisures = async () => {
       const value = { searchRequest: request };
       const data = await dispatch(fetchSearchLeisures(value));
@@ -46,6 +43,8 @@ export const SearchResultPage = () => {
           setEmptyResult(true);
         }
       }
+
+      dispatch(setLoading(false));
     };
 
     getLeisures();
@@ -68,6 +67,8 @@ export const SearchResultPage = () => {
   }
 
   const handleClick = (id) => {
+    dispatch(setLoading(true));
+
     leisures.forEach(feature => {
       if (feature.properties.CompanyMetaData.id === id) {
         setLeisure(feature);
@@ -81,6 +82,7 @@ export const SearchResultPage = () => {
     });
 
     setPopupActive(true);
+    dispatch(setLoading(true));
   }
 
 
@@ -111,21 +113,6 @@ export const SearchResultPage = () => {
                       }
                     </>
                 }
-                {/* <ProposedLeisure id={"1512830981"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080da jwhdu1 jdфцв"} category={"Литература"} />
-                <ProposedLeisure id={"90177522222"} text={"hawdbhab dhabwhdb ahwdbhabwddu1 jda jwbdk1 "} category={"Спорт"} />
-                <ProposedLeisure id={"1022724181"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 hdu1 jda jwbdk1 "} category={"Еда"} />
-                <ProposedLeisure id={"233587203205"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Искусство"} />
-                <ProposedLeisure id={"66478054992"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891  jda jwbdk1 "} category={"Кино"} />
-                <ProposedLeisure id={"1232432804"} text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Музыка"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 вфцвфцв"} category={"Технологии"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 вфцвфцвцфв"} category={"Игры"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080jda jwbdk1 "} category={"Развлечения"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 289 jda jwbdk1 "} category={"Природа"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Животные"} />
-                <ProposedLeisure text={"abwd bjadkawj1o2j 2891 080dajwhdu1 jda jwbdk1 "} category={"Шопинг"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdawj1o2j 2891 080dajwhdu1 jda jwbdk1dawdawd "} category={"Ночная жизнь"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 jda jwbdk1 dawdawdaw"} category={"Танцы"} />
-                <ProposedLeisure text={"hawdbhab dhabwhdb ahwdbhabwd bjadkawj1o2j 2891 jda jwbdk1d "} category={"Астрономия"} /> */}
               </div>
               :
               <YMaps className='map-container'>
@@ -152,7 +139,6 @@ export const SearchResultPage = () => {
             &&
             <Popup key={leisure.properties.CompanyMetaData.id} active={popupActive} setActive={setPopupActive}>
               <PopupLeisureMap key={leisure.properties.CompanyMetaData.id} leisure={leisure} category={"Поиск"} favorite={favoriteLeisure} />
-              {/* <PopupLeisure name="Место про еду" address="awd.mawkd2 a88  baw" time="11:00-24:00" phone="+5151351861531" /> */}
             </Popup>
           }
         </div>

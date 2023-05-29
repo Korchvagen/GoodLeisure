@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import '../styles/pages/options.scss';
-import avatarIcon from '../assets/icons/avatar.png';
-import { selectInterests } from '../redux/slices/interests.js';
 import { Popup } from '../components/popup/Popup.jsx';
-import { EditInfo } from '../components/popup/EditInfo.jsx';
-import { EditInterests } from '../components/popup/EditInterests.jsx';
-import { selectCity, selectImage, selectName } from '../redux/slices/profile';
 import { EditEmail } from '../components/popup/EditEmail';
 import { EditPassword } from '../components/popup/EditPassword';
 import { DeleteAccount } from '../components/popup/DeleteAccount';
 import { logout } from '../redux/slices/auth';
+import { setLoading } from '../redux/slices/loader';
 
 
 export const OptionsPage = () => {
@@ -22,6 +18,8 @@ export const OptionsPage = () => {
   const [isExitButton, setExitButton] = useState(false);
 
   const handleButtonClick = (e) => {
+    dispatch(setLoading(true));
+
     if(e.target.value === "email"){
       setEmailbutton(true);
       setPasswordButton(false);
@@ -36,6 +34,8 @@ export const OptionsPage = () => {
     }
 
     setPopupActive(true);
+
+    dispatch(setLoading(false));
   }
 
   if(isExitButton){

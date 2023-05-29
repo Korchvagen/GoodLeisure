@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import { fetchLeisures, fetchProposedLeisures } from '../redux/slices/leisures.js';
+import { Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchLeisures } from '../redux/slices/leisures.js';
 import '../styles/pages/criteria.scss';
-import axios from 'axios';
-import { fetchInterests, selectInterests } from '../redux/slices/interests.js';
-import { LeisuresList } from '../components/LeisuresList.jsx';
-import { LeisureMap } from '../components/LeisureMap.jsx';
-import { ProposedLeisure } from './Leisure.jsx';
+import { setLoading } from '../redux/slices/loader.js';
 
 
 export const Criteria = () => {
@@ -32,6 +27,8 @@ export const Criteria = () => {
   ]);
 
   const handleCriterionClick = async (e) => {
+    dispatch(setLoading(true));
+
     setSelectedCriteria((prevCriteria) => [...prevCriteria, e.target.value]);
     setSelectedCriteriaImg((prevCriteriaImg) => [...prevCriteriaImg, images[categories.indexOf(e.target.value)]])
 
@@ -50,6 +47,8 @@ export const Criteria = () => {
     } else {
       setCurrentPairIndex(currentPairIndex + 1);
     }
+
+    dispatch(setLoading(false));
   }
 
   const handleAnotherClick = () => {

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDeleteAccount, fetchEmail, logout, selectMessage } from '../../redux/slices/auth.js';
+import { fetchDeleteAccount, logout, selectMessage } from '../../redux/slices/auth.js';
 import { Navigate } from 'react-router-dom';
+import { setLoading } from '../../redux/slices/loader.js';
 
 export function DeleteAccount() {
   const dispatch = useDispatch();
@@ -32,11 +33,14 @@ export function DeleteAccount() {
   };
 
   const onSubmit = async (values) => {
+    dispatch(setLoading(true));
     const data = await dispatch(fetchDeleteAccount(values));
 
     if (data.payload?.success) {
       setAccountDeleted(true);
     }
+
+    dispatch(setLoading(false));
   };
 
   if (isAccountDeleted) {

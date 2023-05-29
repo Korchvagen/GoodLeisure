@@ -7,6 +7,7 @@ import { Popup } from '../components/popup/Popup.jsx';
 import { AccountRecovery } from '../components/popup/AccountRecovery.jsx';
 import '../styles/pages/auth.scss';
 import { fetchInterests } from '../redux/slices/interests.js';
+import { setLoading } from '../redux/slices/loader.js';
 
 export const LoginPage = () => {
   const loginError = useSelector(selectMessage);
@@ -43,6 +44,8 @@ export const LoginPage = () => {
   );
 
   const onSubmit = async (values) => {
+    dispatch(setLoading(true));
+
     const data = await dispatch(fetchLogin(values));
 
     if ('token' in data.payload) {
@@ -50,6 +53,8 @@ export const LoginPage = () => {
 
       dispatch(fetchInterests());
     }
+
+    dispatch(setLoading(false));
   };
 
   if (window.localStorage.getItem('token')) {

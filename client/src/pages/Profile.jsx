@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import '../styles/pages/profile.scss';
 import avatarIcon from '../assets/icons/avatar.png';
 import { selectInterests } from '../redux/slices/interests.js';
@@ -8,9 +8,14 @@ import { Popup } from '../components/popup/Popup.jsx';
 import { EditInfo } from '../components/popup/EditInfo.jsx';
 import { EditInterests } from '../components/popup/EditInterests.jsx';
 import { selectCity, selectImage, selectName } from '../redux/slices/profile';
+import { setLoading } from '../redux/slices/loader';
 
 
 export const ProfilePage = () => {
+  const dispatch = useDispatch();
+
+  dispatch(setLoading(true));
+
   const image = useSelector(selectImage);
   const name = useSelector(selectName);
   const city = useSelector(selectCity);
@@ -37,7 +42,7 @@ export const ProfilePage = () => {
     if (interests) {
       setChosenInterests(interests);
     }
-  }, [image]);
+  }, [image, interests]);
 
   const handleEditClick = (e) => {
     if (e.target.classList.contains('edit-interests')) {
@@ -46,6 +51,8 @@ export const ProfilePage = () => {
 
     setPopupActive(true);
   }
+
+  dispatch(setLoading(false));
 
   return (
     <div className="profile-page-wrapper">

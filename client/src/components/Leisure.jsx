@@ -6,6 +6,7 @@ import { fetchAddFavorite, fetchRemoveFavorite, selectFavoriteError, selectFavor
 import '../styles/leisure.scss';
 import { setActiveFavorites } from '../scripts/setActiveFavorites.js';
 import lodash from 'lodash';
+import { setLoading } from '../redux/slices/loader.js';
 
 export function Leisure({ category, leisure }) {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ export function Leisure({ category, leisure }) {
   }, []);
 
   useEffect(() => {
+    dispatch(setLoading(true));
+
     if (favorites && favorites.length > 0) {
       const feature = {
         category: category,
@@ -34,9 +37,13 @@ export function Leisure({ category, leisure }) {
         }
       });
     }
+
+    dispatch(setLoading(false));
   })
 
   const handleLeisureClick = async (e) => {
+    dispatch(setLoading(true));
+
     if (e.target.className === "leisure-container__favorite-btn") {
       const value = {
         favorite: {
@@ -72,25 +79,23 @@ export function Leisure({ category, leisure }) {
 
       setPopupActive(true);
     }
+
+    dispatch(setLoading(false));
   };
 
   return (
     <div id={leisure.properties.CompanyMetaData.id} className='leisure-container' onClick={handleLeisureClick}>
-      {/* <div id={id} className='leisure-container' onClick={handleLeisureClick}> */}
       <div className='leisure-container__left-side'>
         <div className={`left-side__image ${currentCategory}`}></div>
         <div className="left-side__info">
           <h3 className='info__name'>{leisure.properties.name}</h3>
-          {/* <h3 className='info__name'>Место про еду</h3> */}
           <p className='info__text'>{leisure.properties.CompanyMetaData.address + ". " + leisure.properties.CompanyMetaData?.Hours?.text}</p>
           {favoriteError && <p className='favorite-error'>{favoriteError}</p>}
-          {/* <p className='info__text'>{text}</p> */}
         </div>
       </div>
       <button className='leisure-container__favorite-btn'></button>
       <Popup key={leisure.properties.CompanyMetaData.id} active={popupActive} setActive={setPopupActive}>
         <PopupLeisure key={leisure.properties.CompanyMetaData.id} category={category} leisure={leisure} favorite={favoriteLeisure} />
-        {/* <PopupLeisure name="Место про еду" address="awd.mawkd2 a88  baw" time="11:00-24:00" phone="+5151351861531" /> */}
       </Popup>
     </div>
   );

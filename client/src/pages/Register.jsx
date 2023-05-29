@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { fetchRegister, selectErrors } from '../redux/slices/auth.js';
 import { ErrorMessage } from '../components/ErrorMessage.jsx';
 import '../styles/pages/auth.scss';
+import { setLoading } from '../redux/slices/loader.js';
 
 export const RegisterPage = () => {
   useEffect(() => {
@@ -60,6 +61,8 @@ export const RegisterPage = () => {
   );
 
   const onSubmit = async (values) => {
+    dispatch(setLoading(true));
+
     const data = await dispatch(fetchRegister(values));
 
     if (data.payload.message) {
@@ -69,6 +72,8 @@ export const RegisterPage = () => {
     if ('token' in data.payload) {
       window.localStorage.setItem('token', data.payload.token);
     }
+
+    dispatch(setLoading(false));
   };
 
   if (window.localStorage.getItem('token')) {

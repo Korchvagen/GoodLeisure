@@ -4,6 +4,7 @@ import { interestsReducer } from './slices/interests.js'
 import { leisuresReducer } from './slices/leisures.js';
 import { favoritesReducer } from './slices/favorites.js';
 import { profileReducer } from './slices/profile.js';
+import loadingReducer from './slices/loader.js';
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     interests: interestsReducer,
     leisures: leisuresReducer,
     favorites: favoritesReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    loading: loadingReducer
   }
 });
 

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNewPassword, selectErrors } from '../../redux/slices/auth.js';
 import { ErrorMessage } from '../ErrorMessage.jsx';
+import { setLoading } from '../../redux/slices/loader.js';
 
 export function NewPassword({ changeComponentEmail, setActive }) {
   const [newPasswordVisible, setNewPasswordVisible] = useState(false);
@@ -49,17 +50,18 @@ export function NewPassword({ changeComponentEmail, setActive }) {
   );
 
   const onSubmit = async (values) => {
+    dispatch(setLoading(true));
     values.email = window.localStorage.getItem('email');
 
     const data = await dispatch(fetchNewPassword(values));
 
-    if (!data.payload.success) {
-      document.querySelector('.error-message').textContent = data.payload.message
-    } else {
+    if (data.payload?.success) {
       window.localStorage.removeItem('email');
       setActive(false);
       changeComponentEmail(true);
     }
+
+    dispatch(setLoading(false));
   };
 
   return (

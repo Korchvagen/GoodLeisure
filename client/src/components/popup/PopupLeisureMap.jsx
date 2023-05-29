@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "../../styles/popup/popup-leisure.scss"
 import { useDispatch } from 'react-redux';
 import { fetchAddFavorite, fetchRemoveFavorite } from '../../redux/slices/favorites';
+import { setLoading } from '../../redux/slices/loader';
 
 export function PopupLeisureMap({ category, leisure, favorite, setActive }) {
   const dispatch = useDispatch();
   const contactsList = leisure.properties.CompanyMetaData.Phones?.map((phone, index) => <li key={index}>{phone.formatted}</li>)
 
   const handleLeisureClick = async (e) => {
+    dispatch(setLoading(true));
+
     if (e.target.classList.contains('active')) {
       const value = {
         favorite: {
@@ -25,7 +28,6 @@ export function PopupLeisureMap({ category, leisure, favorite, setActive }) {
         }
       }
     } else {
-      // const value = { favorite: e.target.parentElement.id };
       const value = {
         favorite: {
           category: category,
@@ -39,6 +41,8 @@ export function PopupLeisureMap({ category, leisure, favorite, setActive }) {
         e.target.classList.add('active');
       }
     }
+
+    dispatch(setLoading(false));
   };
 
   return (
@@ -49,20 +53,14 @@ export function PopupLeisureMap({ category, leisure, favorite, setActive }) {
         onClick={handleLeisureClick}>
       </button>
       <h4 className='popup-content__title'>{leisure.properties.name}</h4>
-      {/* <h4 className='popup-content__title'>{name}</h4> */}
       <p className='leisure-info-container__address'>{leisure.properties.CompanyMetaData.address}</p>
-      {/* <p className='leisure-info-container__address'>{address}</p> */}
       <p className='leisure-info-container__time'>{leisure.properties.CompanyMetaData.Hours?.text}</p>
-      {/* <p className='leisure-info-container__time'>{time}</p> */}
-      {/* <p className='container__text contacts'>{ data.properties.CompanyMetaData.Phones?.map(phone => phone.formatted).join(', ') }</p> */}
       <ul className='leisure-info-container__contacts'>{contactsList}</ul>
-      {/* <p className='leisure-info-container__contacts'>{phone}</p> */}
       {
         leisure.properties.CompanyMetaData.url
         &&
         <a className='leisure-site-btn' href={leisure.properties.CompanyMetaData.url} target='_blanck'>Перейти на сайт</a>
       }
-      {/* <a className='leisure-site-btn' href="" target='_blanck'>Перейти на сайт</a> */}
     </div>
   );
 }

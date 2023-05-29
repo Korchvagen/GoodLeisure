@@ -1,0 +1,31 @@
+.loader{
+  position: absolute;
+  z-index: 2502;;
+  top: -100px;
+  left: calc(50% - 50px);
+  width: 100px;
+  height: 100px;
+  transition: 0.1s;
+}
+
+.loader.active{
+  top: 100px;
+}
+
+.loader__spinner {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 7px solid #949494;
+  border-top-color: #ebd87b;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

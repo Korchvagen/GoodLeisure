@@ -1,13 +1,6 @@
 import React, { useState } from 'react'
-import { Link, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Interests } from './popup/Interests.jsx';
-import sliderImage from '../assets/img/slider-1.png';
-import { selectAuth } from '../redux/slices/auth.js';
-import { selectIsNewUser } from '../redux/slices/interests.js';
-import { PopupInterests } from './popup/PopupInterests.jsx';
+import { Navigate } from 'react-router-dom';
 import '../styles/pages/main.scss';
-import { fetchSearchLeisures, selectSearchError } from '../redux/slices/leisures.js';
 
 export const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");

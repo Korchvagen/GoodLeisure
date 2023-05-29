@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import avatarIcon from '../../assets/icons/avatar.png';
 import "../../styles/popup/popup-content.scss"
 import { fetchEditProfile, selectCity, selectImage, selectMessage, selectName } from '../../redux/slices/profile';
+import { setLoading } from '../../redux/slices/loader';
 
 export function EditInfo({ setActive }) {
   const dispatch = useDispatch();
@@ -18,6 +19,8 @@ export function EditInfo({ setActive }) {
   const [inputCity, setInputCity] = useState("");
 
   useEffect(() => {
+    document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
+    
     if (image) {
       setInputImage(image);
       setInputName(name);
@@ -56,6 +59,8 @@ export function EditInfo({ setActive }) {
   const onSubmit = async (e) => {
     e.preventDefault()
 
+    dispatch(setLoading(true));
+
     const formData = new FormData();
 
     formData.append('image', inputImage);
@@ -68,6 +73,8 @@ export function EditInfo({ setActive }) {
     if(data.payload?.profile){
       setActive(false);
     }
+    
+    dispatch(setLoading(false));
   };
 
   return (

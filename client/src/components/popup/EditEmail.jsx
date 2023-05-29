@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEditEmail, fetchEmail, selectMessage } from '../../redux/slices/auth.js';
+import { fetchEditEmail, selectMessage } from '../../redux/slices/auth.js';
+import { setLoading } from '../../redux/slices/loader.js';
 
 export function EditEmail({ setActive }) {
   const dispatch = useDispatch();
@@ -31,11 +32,14 @@ export function EditEmail({ setActive }) {
   }
 
   const onSubmit = async (values) => {
+    dispatch(setLoading(true));
     const data = await dispatch(fetchEditEmail(values));
 
     if(data.payload?.success){
       setActive(false);
     }
+    
+    dispatch(setLoading(false));
   };
 
   const hideError = () => {

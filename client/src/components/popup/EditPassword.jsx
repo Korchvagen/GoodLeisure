@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchEditPassword, fetchEmail, selectErrors, selectMessage } from '../../redux/slices/auth.js';
+import { fetchEditPassword, selectErrors, selectMessage } from '../../redux/slices/auth.js';
 import { ErrorMessage } from '../ErrorMessage.jsx';
+import { setLoading } from '../../redux/slices/loader.js';
 
 export function EditPassword({ setActive }) {
   const dispatch = useDispatch();
@@ -62,11 +63,14 @@ export function EditPassword({ setActive }) {
   };
 
   const onSubmit = async (values) => {
+    dispatch(setLoading(true));
     const data = await dispatch(fetchEditPassword(values));
 
     if(data.payload?.success){
       setActive(false);
     }
+
+    dispatch(setLoading(false));
   };
 
   return (

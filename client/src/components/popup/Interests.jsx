@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import "../../styles/popup/popup-content.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCreateInterests, selectInterestsError } from '../../redux/slices/interests';
+import { setLoading } from '../../redux/slices/loader';
 
 export function Interests() {
   const dispatch = useDispatch();
@@ -26,12 +27,11 @@ export function Interests() {
   }
 
   const submitInterests = async () => {
+    dispatch(setLoading(true));
     const values = { interests: chosenInterest };
-    const data = await dispatch(fetchCreateInterests(values));
+    await dispatch(fetchCreateInterests(values));
 
-    if(data.payload.interests){
-      
-    }
+    dispatch(setLoading(false));
   }
 
   return (
