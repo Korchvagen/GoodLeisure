@@ -3,23 +3,19 @@ import InterestModel from "../models/Interest.js";
 
 export const getLeisures = async (req, res) => {
   try {
-    const responses = await Promise.all(req.body.interests.map(interest => fetch(`https://search-maps.yandex.ru/v1/?text=Минск,${interest}&type=biz&lang=ru_RU&apikey=${process.env.API_KEY}`)));
-    const data = await Promise.all(responses.map(response => response.json()));
+    const position = req.body.city === "" ? req.Position : req.body.city;
+    let interests = req.body.interests;
+    if (interests && interests.includes('Ночная жизнь')) {
+      interests = interests.map(interest => {
+        if (interest === 'Ночная жизнь') {
+          return 'Бар, паб, ночной клуб';
+        }
 
-    res.json({
-      leisures: data
-    });
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({
-      message: "Не удалось получить данные"
-    });
-  }
-};
+        return interest;
+      });
+    }
 
-export const getFavoriteLeisures = async (req, res) => {
-  try {
-    const responses = await Promise.all(req.body.favorites.map(favorite => fetch(`https://search-maps.yandex.ru/v1/?text=Минск,${favorite}&type=biz&lang=ru_RU&apikey=${process.env.API_KEY}`)));
+    const responses = await Promise.all(interests.map(interest => fetch(`https://search-maps.yandex.ru/v1/?text=${position},${interest}&results=50&type=biz&lang=ru_RU&apikey=${process.env.API_KEY_ORG}`)));
     const data = await Promise.all(responses.map(response => response.json()));
 
     res.json({
@@ -44,10 +40,11 @@ export const searchLeisures = async (req, res) => {
         }
       );
     }
-
-    const response = await fetch(`https://search-maps.yandex.ru/v1/?text=Минск,${req.body.searchRequest}&type=biz&lang=ru_RU&apikey=${process.env.API_KEY}`);
+    const position = req.body.city === "" ? req.Position : req.body.city;
+    console.log(position);
+    const response = await fetch(`https://search-maps.yandex.ru/v1/?text=${position},${req.body.searchRequest}&results=50&type=biz&lang=ru_RU&apikey=${process.env.API_KEY_ORG}`);
     const data = await response.json();
- 
+
     res.json({
       leisures: data.features
     });

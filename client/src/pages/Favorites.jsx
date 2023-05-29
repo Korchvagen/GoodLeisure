@@ -38,13 +38,9 @@ export const FavoritesPage = () => {
     dispatch(setLoading(false));
   }
 
-  dispatch(setLoading(true));
-
   const leisureList = leisures.map(favorite => (
     <Leisure key={favorite.leisure.properties.CompanyMetaData.id} category={favorite.category} leisure={favorite.leisure} />
   ));
-
-  dispatch(setLoading(false));
 
   return (
     <div className="leisures-page-wrapper favorites-wrapper">

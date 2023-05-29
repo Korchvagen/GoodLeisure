@@ -5,6 +5,7 @@ import { leisuresReducer } from './slices/leisures.js';
 import { favoritesReducer } from './slices/favorites.js';
 import { profileReducer } from './slices/profile.js';
 import loadingReducer from './slices/loader.js';
+import coordsReducer from './slices/coords.js';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     leisures: leisuresReducer,
     favorites: favoritesReducer,
     profile: profileReducer,
-    loading: loadingReducer
+    loading: loadingReducer,
+    coords: coordsReducer
   }
 });
 

@@ -19,6 +19,8 @@ export function Leisure({ category, leisure }) {
   const enCategories = ["literature", "sport", "food", "art", "cinema", "music", "technics", "games", "entertainment", "nature", "animals", "shopping", "night-life", "dances", "space", "search"];
 
   useEffect(() => {
+    document.querySelectorAll('.favorite-error').forEach(el => el.textContent = "");
+
     setCurrentCategory(enCategories[ruCategories.indexOf(category)]);
   }, []);
 

@@ -10,7 +10,6 @@
   "author": "Korchikov Konstantin (korchikov_k@mail.ru)",
   "license": "ISC",
   "dependencies": {
-    "@everapi/ipbase-js": "^1.0.6",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",

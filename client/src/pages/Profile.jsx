@@ -12,10 +12,6 @@ import { setLoading } from '../redux/slices/loader';
 
 
 export const ProfilePage = () => {
-  const dispatch = useDispatch();
-
-  dispatch(setLoading(true));
-
   const image = useSelector(selectImage);
   const name = useSelector(selectName);
   const city = useSelector(selectCity);
@@ -33,16 +29,14 @@ export const ProfilePage = () => {
   ];
 
   useEffect(() => {
-    if (image) {
-      setProfileImage(image);
-      setProfileName(name);
-      setProfileCity(city);
-    }
+    setProfileImage(image);
+    setProfileName(name);
+    setProfileCity(city);
 
     if (interests) {
       setChosenInterests(interests);
     }
-  }, [image, interests]);
+  }, [image, name, city, interests]);
 
   const handleEditClick = (e) => {
     if (e.target.classList.contains('edit-interests')) {
@@ -51,8 +45,6 @@ export const ProfilePage = () => {
 
     setPopupActive(true);
   }
-
-  dispatch(setLoading(false));
 
   return (
     <div className="profile-page-wrapper">
@@ -84,7 +76,7 @@ export const ProfilePage = () => {
       </div>
       <Popup active={popupActive} setActive={setPopupActive} setIsInfoEdit={setIsInfoEdit}>
         {
-          isInfoEdit ? <EditInfo setActive={setPopupActive}/> : <EditInterests setActive={setPopupActive} setIsInfoEdit={setIsInfoEdit} />
+          isInfoEdit ? <EditInfo setActive={setPopupActive} /> : <EditInterests setActive={setPopupActive} setIsInfoEdit={setIsInfoEdit} />
         }
       </Popup>
     </div>

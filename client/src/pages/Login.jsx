@@ -10,6 +10,7 @@ import { fetchInterests } from '../redux/slices/interests.js';
 import { setLoading } from '../redux/slices/loader.js';
 
 export const LoginPage = () => {
+  const dispatch = useDispatch();
   const loginError = useSelector(selectMessage);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
@@ -33,7 +34,6 @@ export const LoginPage = () => {
     document.querySelector('.error-email').textContent = "";
   }
 
-  const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm(
     {
       defaultValues: {

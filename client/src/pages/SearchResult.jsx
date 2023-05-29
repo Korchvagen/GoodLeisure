@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSearchLeisures } from '../redux/slices/leisures.js';
+import { fetchSearchLeisures, selectMessage } from '../redux/slices/leisures.js';
 import '../styles/pages/leisures.scss';
 import { Leisure } from '../components/Leisure.jsx';
 import { Placemark } from '@pbe/react-yandex-maps';
@@ -10,11 +10,18 @@ import { selectFavorites } from '../redux/slices/favorites.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { PopupLeisureMap } from '../components/popup/PopupLeisureMap.jsx';
 import { setLoading } from '../redux/slices/loader.js';
+import { selectAuth } from '../redux/slices/auth.js';
+import { selectCoords } from '../redux/slices/coords.js';
+import { selectCity } from '../redux/slices/profile.js';
 
 
 export const SearchResultPage = () => {
+  const isAuth = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const searchError = useSelector(selectMessage);
   const favorites = useSelector(selectFavorites);
+  const coords = useSelector(selectCoords);
+  const city = useSelector(selectCity);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const [request, setRequest] = useState([params.get('request')]);
@@ -29,7 +36,12 @@ export const SearchResultPage = () => {
     dispatch(setLoading(true));
 
     const getLeisures = async () => {
-      const value = { searchRequest: request };
+      const value = {
+        searchRequest: request,
+        coords: coords,
+        city: city
+      };
+
       const data = await dispatch(fetchSearchLeisures(value));
 
       if(data.payload?.message){
@@ -85,6 +97,9 @@ export const SearchResultPage = () => {
     dispatch(setLoading(true));
   }
 
+  if(!isAuth){
+    return <Navigate to="/auth/login" />
+  }
 
   return (
     <div className="leisures-page-wrapper">
@@ -103,7 +118,7 @@ export const SearchResultPage = () => {
                 {
                   isEmpryResult
                     ?
-                    <h3 className='empty-result-text'>По Вашему запросу ничего не найдено</h3>
+                    <h3 className='empty-result-text'>{ searchError ? searchError : "По Вашему запросу ничего не найдено" }</h3>
                     :
                     <>
                       {
@@ -116,7 +131,7 @@ export const SearchResultPage = () => {
               </div>
               :
               <YMaps className='map-container'>
-                <Map className='map' defaultState={{ center: [53.9, 27.5667], zoom: 12 }}>
+                <Map className='map' defaultState={{ center: [coords[1], coords[0]], zoom: 12 }}>
                   {
                     leisures.map(feature => (
                       <Placemark key={feature.properties.CompanyMetaData.id}

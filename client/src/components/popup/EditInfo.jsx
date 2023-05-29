@@ -19,8 +19,6 @@ export function EditInfo({ setActive }) {
   const [inputCity, setInputCity] = useState("");
 
   useEffect(() => {
-    document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
-    
     if (image) {
       setInputImage(image);
       setInputName(name);

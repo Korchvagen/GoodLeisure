@@ -1,22 +1,13 @@
-import IpBase from "@everapi/ipbase-js";
-
 export default async (req, res, next) => {
   try {
-    const ipBase = new IpBase('bVWKaXAJzvtZfQptajsDqaMB63iGqKNdTjBqkWMt');
-    const ip = req.body.ip;
-
-    const response = await ipBase.info({
-      ip: ip,
-      language: 'ru'
-    });
-
     console.log(req.body);
-    console.log(response);
-    req.Position = response.data;
+    const response = await fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=${process.env.API_KEY_LOC}&geocode=${req.body.coords}&format=json&kind=locality&rspn=1&results=1`);
+    const data = await response.json();
+
+    req.Position = data.response.GeoObjectCollection.featureMember[0].GeoObject.name;
 
     next();
   } catch (err) {
-    console.log(err);
     return res.status(500).json({
       message: 'Не удалось определить Ваше местоположение'
     });

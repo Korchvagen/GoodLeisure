@@ -46,12 +46,10 @@ app.get('/interests', checkAuth, InterestController.getInterests);
 
 app.patch('/interests', checkAuth, Validator.interestsCreateValidation, InterestController.editInterests);
 
-app.post('/leisures', checkAuth, LeisureController.getLeisures);
+app.post('/leisures', checkAuth, getUserPosition, LeisureController.getLeisures);
 
-app.post('/leisures/favorites', checkAuth, LeisureController.getFavoriteLeisures);
+app.post('/leisures/search', checkAuth, getUserPosition, Validator.searchValidation, LeisureController.searchLeisures);
 
-app.post('/leisures/search', checkAuth, Validator.searchValidation, LeisureController.searchLeisures);
-// getUserPosition
 app.get('/favorites', checkAuth, FavoriteController.getFavorites);
 
 app.post('/favorites', checkAuth, FavoriteController.addFavoriteLeisure);

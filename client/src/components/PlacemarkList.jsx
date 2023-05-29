@@ -33,7 +33,7 @@ export function PlacemarkList({ data, category }) {
       });
     });
 
-    favorites.forEach(favorite => {
+    favorites?.forEach(favorite => {
       if(favorite.leisure.properties.CompanyMetaData.id === id){
         setFavoriteLeisure(true);
       }
@@ -43,8 +43,6 @@ export function PlacemarkList({ data, category }) {
 
     dispatch(setLoading(false));
   }
-
-  dispatch(setLoading(true));
 
   const placemarkList = data.features.map(feature => (
     <Placemark key={feature.properties.CompanyMetaData.id}
@@ -58,8 +56,6 @@ export function PlacemarkList({ data, category }) {
       onClick={() => handleClick(feature.properties.CompanyMetaData.id)}
     />
   ));
-
-  dispatch(setLoading(false));
 
   return (
     <div>

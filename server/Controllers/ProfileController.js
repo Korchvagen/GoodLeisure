@@ -2,7 +2,8 @@ import ProfileModel from '../models/Profile.js';
 
 export const editProfile = async (req, res) => {
   try {
-    if (!(req.body.type === "image/png" || req.body.type === "image/jpeg")) {
+    console.log(req.body.type)
+    if (req.body.type && !(req.body.type === "image/png" || req.body.type === "image/jpeg")) {
       return res.status(400).json({
         message: "Неверный формат файла. Выберите формат PNG или JPEG"
       });
@@ -11,7 +12,7 @@ export const editProfile = async (req, res) => {
     const profile = await ProfileModel.findOne({ user_id: req.userId });
 
     if (!profile) {
-      const newProfile = await createProfile(req.userId, req.file.buffer.toString('base64'), req.body.name, req.body.city);
+      const newProfile = await createProfile(req.userId, req.file?.buffer.toString('base64'), req.body?.name, req.body?.city);
 
       if (!newProfile) {
         return res.status(500).json({
@@ -20,7 +21,7 @@ export const editProfile = async (req, res) => {
       }
 
       const updatedPprofile = {
-        image: newProfile.image,
+        image: newProfile.image ? newProfile.image : "",
         name: newProfile.name,
         city: newProfile.city
       };
@@ -42,6 +43,7 @@ export const editProfile = async (req, res) => {
       profile: updatedPprofile
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json({
       message: "Не удалось изменить персональные данные"
     });
@@ -71,7 +73,9 @@ export const getProfile = async (req, res) => {
 
     if (!profile) {
       return res.status(404).json({
-        message: 'Персональные данные не найдены'
+        image: "",
+        name: "",
+        city: ""
       });
     }
 

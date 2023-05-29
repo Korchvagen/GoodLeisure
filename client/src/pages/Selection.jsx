@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeisures } from '../redux/slices/leisures.js';
 import '../styles/pages/leisures.scss';
@@ -7,29 +7,41 @@ import { selectInterests } from '../redux/slices/interests.js';
 import { LeisuresList } from '../components/LeisuresList.jsx';
 import { LeisureMap } from '../components/LeisureMap.jsx';
 import { setLoading } from '../redux/slices/loader.js';
+import { selectAuth } from '../redux/slices/auth.js';
+import { selectCoords } from '../redux/slices/coords.js';
+import { selectCity } from '../redux/slices/profile.js';
 
 
 export const SelectionPage = () => {
+  const isAuth = useSelector(selectAuth);
   const dispatch = useDispatch();
   const interests = useSelector(selectInterests);
+  const coords = useSelector(selectCoords);
+  const city = useSelector(selectCity);
   const [proposedLeisures, setProposedLeisures] = useState([]);
   const [listWindow, setListWindow] = useState(true);
 
   useEffect(() => {
     dispatch(setLoading(true));
-    
+
     const getLeisures = async () => {
-      const values = { interests: interests };
+      const values = {
+        interests: interests,
+        coords: coords,
+        city: city
+      };
+
       const data = await dispatch(fetchLeisures(values));
 
       if (data.payload?.leisures) {
         setProposedLeisures(data.payload.leisures);
-        dispatch(setLoading(false));
       }
     };
 
     getLeisures();
-  }, [interests]);
+
+    dispatch(setLoading(false));
+  }, [city]);
 
   const handleLinkClick = (e) => {
     dispatch(setLoading(true));
@@ -48,7 +60,11 @@ export const SelectionPage = () => {
       e.target.classList.add('active');
     }
 
-    dispatch(setLoading(true));
+    dispatch(setLoading(false));
+  }
+
+  if (!isAuth) {
+    return <Navigate to="/auth/login" />
   }
 
   return (

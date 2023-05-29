@@ -17,6 +17,7 @@ import { ProfilePage } from './pages/Profile.jsx';
 import { fetchProfile } from './redux/slices/profile.js';
 import { SearchResultPage } from './pages/SearchResult.jsx';
 import { OptionsPage } from './pages/Options.jsx';
+import { setCoords } from './redux/slices/coords.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,12 @@ function App() {
     dispatch(fetchInterests());
     dispatch(fetchFavorites());
     dispatch(fetchProfile());
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        dispatch(setCoords([position.coords.longitude, position.coords.latitude]));
+      });
+    }
   }, []);
 
   return (

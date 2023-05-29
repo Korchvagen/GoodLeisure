@@ -23,8 +23,6 @@ export function FavoritePlacemarkList({ data }) {
     setPopupActive(true);
   }
 
-  dispatch(setLoading(true));
-
   const placemarkList = data.map(feature => (
     <Placemark key={feature.leisure.properties.CompanyMetaData.id}
       geometry={[feature.leisure.geometry.coordinates[1], feature.leisure.geometry.coordinates[0]]}
@@ -37,8 +35,6 @@ export function FavoritePlacemarkList({ data }) {
       onClick={() => handleClick(feature.leisure.properties.CompanyMetaData.id)}
     />
   ));
-
-  dispatch(setLoading(false));
 
   return (
     <div>
