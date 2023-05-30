@@ -4,9 +4,11 @@ import avatarIcon from '../../assets/icons/avatar.png';
 import "../../styles/popup/popup-content.scss"
 import { fetchEditProfile, selectCity, selectImage, selectMessage, selectName } from '../../redux/slices/profile';
 import { setLoading } from '../../redux/slices/loader';
+import { useTranslation } from 'react-i18next';
 
 export function EditInfo({ setActive }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const imageError = useSelector(selectMessage);
   const image = useSelector(selectImage);
   const name = useSelector(selectName);
@@ -84,15 +86,15 @@ export function EditInfo({ setActive }) {
           </div>
           <label className='selected-image__label'>
             <input type="file" className='selected-image__input' onChange={handleFileChange} />
-            <span>{inputImageName ? inputImageName : "Загрузить фотографию"}</span>
+            <span>{inputImageName ? inputImageName : t('edit-info.upload-image-text')}</span>
           </label>
           { imageError && <p id='error-image' className='error-message'>{imageError}</p> }
         </div>
-        <label htmlFor="name">Имя</label>
+        <label htmlFor="name">{t('edit-info.name-label')}</label>
         <input type="text" id='name' onChange={handleNameChange} value={inputName}/>
-        <label htmlFor="city">Город</label>
+        <label htmlFor="city">{t('edit-info.city-label')}</label>
         <input type="text" id='city' onChange={handleCityChange} value={inputCity}/>
-        <button className='form__button' type="submit">Сохранить</button>
+        <button className='form__button' type="submit">{t('edit-info.save-btn')}</button>
       </form>
     </div>
   );

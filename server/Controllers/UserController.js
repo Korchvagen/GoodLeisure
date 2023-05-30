@@ -13,7 +13,7 @@ export const login = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(
         {
-          message: 'Неверный логин или пароль'
+          message: req.headers.language === "ru" ? "Неверный логин или пароль" : "Wrong login or password"
         }
       );
     }
@@ -22,7 +22,7 @@ export const login = async (req, res) => {
 
     if (!user) {
       return res.status(404).json({
-        message: 'Неверный логин или пароль'
+        message: req.headers.language === "ru" ? "Неверный логин или пароль" : "Wrong login or password"
       });
     }
 
@@ -30,7 +30,7 @@ export const login = async (req, res) => {
 
     if (!isValidPass) {
       return res.status(400).json({
-        message: 'Неверный логин или пароль'
+        message: req.headers.language === "ru" ? "Неверный логин или пароль" : "Wrong login or password"
       });
     }
 
@@ -52,7 +52,7 @@ export const login = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Не удалось авторизоваться'
+      message: req.headers.language === "ru" ? "Не удалось авторизоваться" : "Failed to login"
     });
   }
 }
@@ -69,7 +69,7 @@ export const register = async (req, res) => {
 
     if(isLoginExist){
       return res.status(400).json({
-        message: 'Пользователь уже зарегистрирован'
+        message: req.headers.language === "ru" ? "Пользователь уже зарегистрирован" : "User already registered"
       });
     }
 
@@ -98,12 +98,11 @@ export const register = async (req, res) => {
 
     res.json({
       ...userData,
-      token,
-      message: 'Вы зарегались'
+      token
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Не удалось зарегистрироваться'
+      message: req.headers.language === "ru" ? "Не удалось зарегистрироваться" : "Failed to register"
     });
   }
 }
@@ -116,7 +115,7 @@ export const sendCode = async (req, res) => {
       return res.status(400).json(
         {
           success: false,
-          message: 'Неверный логин'
+          message: req.headers.language === "ru" ? "Неверный логин" : "Invalid login"
         }
       );
     }
@@ -126,7 +125,7 @@ export const sendCode = async (req, res) => {
     if (!user) {
       return res.status(400).json({
         success: false,
-        message: 'Неверный логин'
+        message: req.headers.language === "ru" ? "Неверный логин" : "Invalid login"
       });
     }
 
@@ -136,7 +135,7 @@ export const sendCode = async (req, res) => {
     if(!result){
       return res.status(400).json({
         success: result,
-        message: 'Не удалось отправить письмо'
+        message: req.headers.language === "ru" ? "Не удалось отправить письмо" : "failed to send mail"
       });
     }
 
@@ -151,7 +150,7 @@ export const sendCode = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'Произошла ошибка при отправке письма'
+      message: req.headers.language === "ru" ? "Не удалось отправить письмо" : "failed to send mail"
     });
   }
 }
@@ -164,7 +163,7 @@ export const checkCode = async (req, res) => {
       return res.status(400).json(
         {
           success: false,
-          message: 'Неверный код'
+          message: req.headers.language === "ru" ? "Неверный код" : "Incorrect code"
         }
       );
     }
@@ -174,7 +173,7 @@ export const checkCode = async (req, res) => {
     if (!isValidCode) {
       return res.status(400).json({
         success: false,
-        message: 'Неверный код'
+        message: req.headers.language === "ru" ? "Неверный код" : "Incorrect code"
       });
     }
 
@@ -184,7 +183,7 @@ export const checkCode = async (req, res) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: 'Произошла ошибка при проверке кода'
+      message: req.headers.language === "ru" ? "Не удалось проверить код" : "Failed to verify code"
     });
   }
 }
@@ -202,7 +201,7 @@ export const newPassword = async (req, res) => {
     if(!user){
       return res.status(404).json({
         success: false,
-        message: 'Пользователь не найден'
+        message: req.headers.language === "ru" ? "Пользователь не найден" : "User is not found"
       });
     }
 
@@ -216,7 +215,7 @@ export const newPassword = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Произошла ошибка при изменении пароля'
+      message: req.headers.language === "ru" ? "Не удалось изменить пароль" : "Failed to efit password"
     });
   }
 }
@@ -235,7 +234,7 @@ export const editEmail = async (req, res) => {
 
     if(!user){
       return res.status(404).json({
-        message: 'Пользователь не найден'
+        message: req.headers.language === "ru" ? "Пользователь не найден" : "User is not found"
       });
     }
 
@@ -243,7 +242,7 @@ export const editEmail = async (req, res) => {
 
     if (!isValidPass) {
       return res.status(400).json({
-        message: 'Неверный пароль'
+        message: req.headers.language === "ru" ? "Неверный пароль" : "Incorrect password"
       });
     }
 
@@ -256,7 +255,7 @@ export const editEmail = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Произошла ошибка при изменении электронной почты'
+      message: req.headers.language === "ru" ? "Не удалось изменить электронную почту" : "Failed to edit email"
     });
   }
 };
@@ -273,7 +272,7 @@ export const editPassword = async (req, res) => {
 
     if(!user){
       return res.status(404).json({
-        message: 'Пользователь не найден'
+        message: req.headers.language === "ru" ? "Пользователь не найден" : "User is not found"
       });
     }
 
@@ -281,7 +280,7 @@ export const editPassword = async (req, res) => {
 
     if (!isValidPass) {
       return res.status(400).json({
-        message: 'Неверный пароль'
+        message: req.headers.language === "ru" ? "Неверный пароль" : "Incorrect password"
       });
     }
 
@@ -297,7 +296,7 @@ export const editPassword = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Произошла ошибка при изменении пароля'
+      message: req.headers.language === "ru" ? "Не удалось изменить пароль" : "Failed to efit password"
     });
   }
 };
@@ -308,7 +307,7 @@ export const deleteAccount = async (req, res) => {
 
     if(!user){
       return res.status(404).json({
-        message: 'Пользователь не найден'
+        message: req.headers.language === "ru" ? "Пользователь не найден" : "User is not found"
       });
     }
     
@@ -316,7 +315,7 @@ export const deleteAccount = async (req, res) => {
 
     if (!isValidPass) {
       return res.status(400).json({
-        message: 'Неверный пароль'
+        message: req.headers.language === "ru" ? "Неверный пароль" : "Incorrect password"
       });
     }
 
@@ -328,7 +327,7 @@ export const deleteAccount = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      message: 'Произошла ошибка при удалении учетной записи'
+      message: req.headers.language === "ru" ? "Не удалось удалить учетную запись" : "Failed to delete account"
     });
   }
 };
@@ -336,10 +335,10 @@ export const deleteAccount = async (req, res) => {
 export const getMe = async (req, res) => {
   try {
     const user = await UserModel.findById(req.userId);
-
+    
     if (!user) {
       return res.status(404).json({
-        message: 'Пользователь не найден'
+        message: req.headers.language === "ru" ? "Пользователь не найден" : "User is not found"
       });
     }
 
@@ -348,7 +347,7 @@ export const getMe = async (req, res) => {
     res.json(userData);
   } catch (err) {
     res.status(500).json({
-      message: 'Не удалось получить данные'
+      message: req.headers.language === "ru" ? "Не удалось получить данные" : "Failed to get data"
     });
   }
 }

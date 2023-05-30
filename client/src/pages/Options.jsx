@@ -13,10 +13,11 @@ import { resetFavorites } from '../redux/slices/favorites';
 import { resetLeisures } from '../redux/slices/leisures';
 import { resetProfile } from '../redux/slices/profile';
 import { resetCoords } from '../redux/slices/coords';
-
+import { useTranslation } from 'react-i18next';
 
 export const OptionsPage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [popupActive, setPopupActive] = useState(false);
   const [isEmailbutton, setEmailbutton] = useState(true);
   const [isPasswordButton, setPasswordButton] = useState(false);
@@ -56,14 +57,14 @@ export const OptionsPage = () => {
 
   return (
     <div className="options-page-wrapper">
-      <h2 className='options-page-wrapper__title'>Настройки</h2>
+      <h2 className='options-page-wrapper__title'>{t('options.title')}</h2>
       <div className="options-container">
         <div className="profile-container__image"></div>
         <div className="profile-container__menu">
-          <button className='menu__button' value={"email"} onClick={handleButtonClick}>Изменить электронную почту</button>
-          <button className='menu__button' value={"password"} onClick={handleButtonClick}>Изменить пароль</button>
-          <button className='menu__button' value={"delete"} onClick={handleButtonClick}>Удалить учетную запись</button>
-          <button className='menu__button' onClick={handleButtonClick}>Выйти</button>
+          <button className='menu__button' value={"email"} onClick={handleButtonClick}>{t('options.edit-email-btn')}</button>
+          <button className='menu__button' value={"password"} onClick={handleButtonClick}>{t('options.edit-password-btn')}</button>
+          <button className='menu__button' value={"delete"} onClick={handleButtonClick}>{t('options.delete-account-btn')}</button>
+          <button className='menu__button' onClick={handleButtonClick}>{t('options.exit-btn')}</button>
         </div>
       </div>
       <Popup active={popupActive} setActive={setPopupActive} >

@@ -78,8 +78,7 @@
   "criteria": {
     "empty-choice-text": "Sorry, you didn't select anything",
     "another-btn": "Another"
-  }
-  ,
+  },
   "chosen-leisure": {
     "list": "List",
     "map": "Map",
@@ -97,5 +96,42 @@
     "options": "Options",
     "name": "Name",
     "city": "City"
+  },
+  "edit-info": {
+    "upload-image-text": "Upload a photo",
+    "name-label": "Name",
+    "city-label": "City",
+    "save-btn": "Save"
+  },
+  "options": {
+    "title": "Options",
+    "edit-email-btn": "Edit email",
+    "edit-password-btn": "Edit password",
+    "delete-account-btn": "Delete account",
+    "exit-btn": "Sign out"
+  },
+  "edit-email": {
+    "title": "Editing email",
+    "email-label": "New email",
+    "empty-email": "Enter a new email",
+    "text": "Enter your account password to confirm the action",
+    "empty-password": "Enter a password",
+    "save-btn": "Save"
+  },
+  "edit-password": {
+    "title": "Editing password",
+    "new-password-label": "New password",
+    "empty-new-password": "Enter a new password",
+    "confirm-new-password-label": "Repeat new password",
+    "empty-confirm-new-password": "Repeat new password",
+    "text": "Enter your account password to confirm the action",
+    "empty-password": "Enter a password",
+    "save-btn": "Save"
+  },
+  "delete-account": {
+    "title": "Deleting an account",
+    "text": "Enter your account password to confirm the action",
+    "empty-password": "Enter a password",
+    "delete-btn": "Delete"
   }
 }

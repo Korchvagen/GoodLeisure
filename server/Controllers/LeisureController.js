@@ -25,7 +25,7 @@ export const getLeisures = async (req, res) => {
   } catch (err) {
     console.log(err)
     res.status(500).json({
-      message: "Не удалось получить данные"
+      message: req.headers.language === "ru" ? "Не удалось получить данные" : "Failed to get data"
     });
   }
 };
@@ -37,7 +37,7 @@ export const searchLeisures = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(
         {
-          message: 'Неверный формат запроса'
+          message: req.headers.language === "ru" ? "Неверный формат запроса" : "Invalid request format"
         }
       );
     }
@@ -52,7 +52,7 @@ export const searchLeisures = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Не удалось получить данные"
+      message: req.headers.language === "ru" ? "Не удалось получить данные" : "Failed to get data"
     });
   }
 };

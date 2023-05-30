@@ -15,7 +15,7 @@ export const getFavorites = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Не удалось добавить в Избранное"
+      message: req.headers.language === "ru" ? "Не удалось получить данные" : "Failed to get data"
     });
   }
 };
@@ -29,7 +29,7 @@ export const addFavoriteLeisure = async (req, res) => {
 
       if(!result){
         return res.status(500).json({
-          message: "Не удалось добавить в Избранное"
+          message: req.headers.language === "ru" ? "Не удалось добавить в Избранное" : "Failed to add to Favorites"
         });
       }
 
@@ -49,7 +49,7 @@ export const addFavoriteLeisure = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Не удалось добавить в Избранное"
+      message: req.headers.language === "ru" ? "Не удалось добавить в Избранное" : "Failed to add to Favorites"
     });
   }
 };
@@ -83,7 +83,7 @@ export const removeFavoriteLeisure = async (req, res) => {
   } catch(err){
     console.log(err)
     return res.status(500).json({
-      message: "Не удалось удалить из Избранное"
+      message: req.headers.language === "ru" ? "Не удалось удалить из Избранное" : "Failed to remove from Favorites"
     });
   }
 }

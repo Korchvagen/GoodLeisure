@@ -8,7 +8,7 @@ export const createInterests = async (req, res) => {
     if (!errors.isEmpty()) {
       return res.status(400).json(
         {
-          message: 'Выберите хотя бы один интерес'
+          message: req.headers.language === "ru" ? "Выберите хотя бы один интерес" : "Please select at least one interest"
         }
       );
     }
@@ -25,7 +25,7 @@ export const createInterests = async (req, res) => {
     });
   } catch(err) {
     res.status(500).json({
-      message: "Не удалось сохранить интересы"
+      message: req.headers.language === "ru" ? "Не удалось сохранить интересы" : "Failed to save interests"
     });
   }
 };
@@ -36,7 +36,7 @@ export const getInterests = async (req, res) => {
     
     if (!interests) {
       return res.status(404).json({
-        message: 'Интересы не найдены'
+        message: req.headers.language === "ru" ? "Интересы не найдены" : "Interests not found"
       });
     }
 
@@ -45,7 +45,7 @@ export const getInterests = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: 'Не удалось получить данные'
+      message: req.headers.language === "ru" ? "Не удалось получить данные" : "Failed to get data"
     });
   }
 };
@@ -60,7 +60,7 @@ export const editInterests = async (req, res) => {
       return res.status(400).json(
         {
           interests: interests,
-          message: 'Выберите хотя бы один интерес'
+          message: req.headers.language === "ru" ? "Выберите хотя бы один интерес" : "Please select at least one interest"
         }
       );
     }
@@ -75,7 +75,7 @@ export const editInterests = async (req, res) => {
 
     res.status(500).json({
       interests: interests,
-      message: "Не удалось изменить интересы"
+      message: req.headers.language === "ru" ? "Не удалось изменить интересы" : "Failed to edit interests"
     });
   }
 };

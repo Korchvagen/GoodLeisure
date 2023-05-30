@@ -5,7 +5,7 @@ export const editProfile = async (req, res) => {
     console.log(req.body.type)
     if (req.body.type && !(req.body.type === "image/png" || req.body.type === "image/jpeg")) {
       return res.status(400).json({
-        message: "Неверный формат файла. Выберите формат PNG или JPEG"
+        message: req.headers.language === "ru" ? "Неверный формат файла. Выберите формат PNG или JPEG" : "Invalid file format. Select PNG or JPEG format"
       });
     }
 
@@ -16,7 +16,7 @@ export const editProfile = async (req, res) => {
 
       if (!newProfile) {
         return res.status(500).json({
-          message: "Не удалось сохранить персональные данные"
+          message: req.headers.language === "ru" ? "Не удалось сохранить персональные данные" : "Failed to save personal data"
         });
       }
 
@@ -45,7 +45,7 @@ export const editProfile = async (req, res) => {
   } catch (err) {
     console.log(err)
     res.status(500).json({
-      message: "Не удалось изменить персональные данные"
+      message: req.headers.language === "ru" ? "Не удалось изменить персональные данные" : "Failed to edit personal data"
     });
   }
 };
@@ -90,7 +90,7 @@ export const getProfile = async (req, res) => {
     });
   } catch (err) {
     res.status(500).json({
-      message: "Не удалось получить данные"
+      message: req.headers.language === "ru" ? "Не удалось получить данные" : "Failed to get data"
     });
   }
 };

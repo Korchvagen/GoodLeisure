@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchEditPassword, selectErrors, selectMessage } from '../../redux/slices/auth.js';
 import { ErrorMessage } from '../ErrorMessage.jsx';
 import { setLoading } from '../../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export function EditPassword({ setActive }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const editPasswordErrors = useSelector(selectErrors);
   const editPasswordMessage = useSelector(selectMessage);
   const [newPasswordVisible, setNewPasswordVisible] = useState(false);
@@ -75,44 +77,44 @@ export function EditPassword({ setActive }) {
 
   return (
     <div className='edit-password-container'>
-      <h2 className='container__title'>Изменение пароля</h2>
+      <h2 className='container__title'>{t('edit-password.title')}</h2>
       <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
         { editPasswordErrors && <ErrorMessage errors={editPasswordErrors} />}
         { editPasswordMessage && <p id='error-password' className='error-message'>{editPasswordMessage}</p> }
-        <label htmlFor="newPassword">Новый пароль</label>
+        <label htmlFor="newPassword">{t('edit-password.new-password-label')}</label>
         <div className='input-container'>
           <input id='newPassword'
             type={newPasswordVisible ? 'text' : 'password'}
-            {...register('newPassword', { required: 'Укажите новый пароль' })}
+            {...register('newPassword', { required: t('edit-password.empty-new-password') })}
             onChange={handleNewPasswordChange}
             value={newPassword}
           />
           <button type='button' className='hide-password-btn' onClick={handleToggleNewPassword}></button>
         </div>
         <span className='error-message'>{errors.newPassword?.message}</span>
-        <label htmlFor="confirmNewPassword">Повторите пароль</label>
+        <label htmlFor="confirmNewPassword">{t('edit-password.confirm-new-password-label')}</label>
         <div className='input-container'>
           <input id='confirmNewPassword'
             type={confirmNewPasswordVisible ? 'text' : 'password'}
-            {...register('confirmNewPassword', { required: 'Подтвердите пароль' })}
+            {...register('confirmNewPassword', { required: t('edit-password.empty-confirm-new-password') })}
             onChange={handleConfirmNewPasswordChange}
             value={confirmNewPassword}
           />
           <button type='button' className='hide-password-btn' onClick={handleToggleConfirmNewPassword}></button>
         </div>
         <span className='error-message'>{errors.confirmNewPassword?.message}</span>
-        <label htmlFor="password">Введите пароль от учётной записи, чтобы подтвердить действие</label>
+        <label htmlFor="password" className='confirm-text'>{t('edit-password.text')}</label>
         <div className='input-container'>
           <input id='password'
             type={passwordVisible ? 'text' : 'password'}
-            {...register('password', { required: 'Укажите пароль' })}
+            {...register('password', { required: t('edit-password.empty-password') })}
             onChange={handlePasswordChange}
             value={password}
           />
           <button type='button' className='hide-password-btn' onClick={handleTogglePassword}></button>
         </div>
         <span className='error-message'>{errors.password?.message}</span>
-        <button type='submit' className='popup-form__button'>Сохранить</button>
+        <button type='submit' className='popup-form__button'>{t('edit-password.save-btn')}</button>
       </form>
     </div>
   );
