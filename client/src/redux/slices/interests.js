@@ -27,6 +27,12 @@ export const fetchEditInterests = createAsyncThunk('interests/fetchEditInterests
 const interestsSlice = createSlice({
   name: 'interests',
   initialState,
+  reducers: {
+    resetInterests: (state) => {
+      state.data = null;
+      state.status = 'loaded';
+    }
+  },
   extraReducers: {
     [fetchCreateInterests.pending]: (state) => {
       state.data = null;
@@ -74,3 +80,5 @@ export const selectInterests = (state) => state.interests.data?.interests;
 export const selectInterestsError = (state) => state.interests.data?.message;
 
 export const interestsReducer = interestsSlice.reducer;
+
+export const { resetInterests } = interestsSlice.actions;

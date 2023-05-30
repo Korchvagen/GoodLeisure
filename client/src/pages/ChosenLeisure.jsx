@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeisures } from '../redux/slices/leisures.js';
 import '../styles/pages/leisures.scss';
 import { LeisuresList } from '../components/LeisuresList.jsx';
 import { LeisureMap } from '../components/LeisureMap.jsx';
 import { setLoading } from '../redux/slices/loader.js';
-
+import { selectCoords } from '../redux/slices/coords.js';
+import { selectCity } from '../redux/slices/profile.js';
+import { useTranslation } from 'react-i18next';
 
 export const ChosenLeisurePage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const location = useLocation();
+  const coords = useSelector(selectCoords);
+  const city = useSelector(selectCity);
   const params = new URLSearchParams(location.search);
   const [category, setCategory] = useState([params.get('leisure')]);
   const [leisures, setLeisures] = useState([]);
@@ -20,7 +25,11 @@ export const ChosenLeisurePage = () => {
     dispatch(setLoading(true));
 
     const getLeisures = async () => {
-      const values = { interests: category };
+      const values = {
+        interests: category,
+        coords: coords,
+        city: city
+      };
       const data = await dispatch(fetchLeisures(values));
 
       if (data.payload?.leisures) {
@@ -58,10 +67,10 @@ export const ChosenLeisurePage = () => {
       <div className="leisures-container">
         <div className='leisures-container__navigation'>
           <div className='navigation__left-links'>
-            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>Список</button>
-            <button className='left-links__item leisure-map' onClick={handleLinkClick}>Карта</button>
+            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>{t('chosen-leisure.list')}</button>
+            <button className='left-links__item leisure-map' onClick={handleLinkClick}>{t('chosen-leisure.map')}</button>
           </div>
-          <Link className='navigation__skip-link' to={'/selection'}>Начать заново</Link>
+          <Link className='navigation__skip-link' to={'/selection'}>{t('chosen-leisure.restart-link')}</Link>
         </div>
         <div className="leisures-container__content">
           {

@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchNewPassword, selectErrors } from '../../redux/slices/auth.js';
 import { ErrorMessage } from '../ErrorMessage.jsx';
 import { setLoading } from '../../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export function NewPassword({ changeComponentEmail, setActive }) {
+  const { t } = useTranslation();
   const [newPasswordVisible, setNewPasswordVisible] = useState(false);
   const [confirmNewPasswordVisible, setConfirmNewPasswordVisible] = useState(false);
   const [newPassword, setNewPassword] = useState('');
@@ -70,29 +72,29 @@ export function NewPassword({ changeComponentEmail, setActive }) {
         {
           newPasswordErrors && <ErrorMessage errors={newPasswordErrors} />
         }
-        <label htmlFor="newPassword">Новый пароль</label>
+        <label htmlFor="newPassword">{t('recovery.password-label')}</label>
         <div className='input-container'>
           <input id='newPassword'
             type={newPasswordVisible ? 'text' : 'password'}
-            {...register('newPassword', { required: 'Укажите новый пароль' })}
+            {...register('newPassword', { required: t('recovery.empty-password') })}
             onChange={handleNewPasswordChange}
             value={newPassword}
           />
           <button type='button' className='hide-password-btn' onClick={handleToggleNewPassword}></button>
         </div>
         <span className='error-message'>{errors.newPassword?.message}</span>
-        <label htmlFor="confirmNewPassword">Повторите пароль</label>
+        <label htmlFor="confirmNewPassword">{t('recovery.confirm-password-label')}</label>
         <div className='input-container'>
           <input id='confirmNewPassword'
             type={confirmNewPasswordVisible ? 'text' : 'password'}
-            {...register('confirmNewPssword', { required: 'Повторите новый пароль' })}
+            {...register('confirmNewPassword', { required: t('recovery.empty-confirm-password') })}
             onChange={handleConfirmNewPasswordChange}
             value={confirmNewPassword}
           />
           <button type='button' className='hide-password-btn' onClick={handleToggleConfirmNewPassword}></button>
         </div>
         <span className='error-message'>{errors.confirmNewPassword?.message}</span>
-        <button type='submit' className='popup-form__button'>Сохранить</button>
+        <button type='submit' className='popup-form__button'>{t('recovery.save-btn')}</button>
       </form >
     </>
   );

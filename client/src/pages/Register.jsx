@@ -6,12 +6,14 @@ import { fetchRegister, selectErrors } from '../redux/slices/auth.js';
 import { ErrorMessage } from '../components/ErrorMessage.jsx';
 import '../styles/pages/auth.scss';
 import { setLoading } from '../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export const RegisterPage = () => {
   useEffect(() => {
     document.querySelectorAll('.error-message').forEach(el => el.textContent = "");
   }, []);
 
+  const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPpasswordVisible, setConfirmPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
@@ -84,22 +86,20 @@ export const RegisterPage = () => {
     <div className='register-page-wrapper'>
       <div className="left-side">
         <div className='left-side__greeting-img register-img'></div>
-        <p className='left-side__text register-text'>В основу подбора мест досуга ложится автоматическое определение Вашего местоположения.
-          Вы можете указать название Вашего населенного пункта в разделе Личный кабинет.
-        </p>
+        <p className='left-side__text register-text'>{t('register.text')}</p>
       </div>
       <div className="right-side">
         <div className='register-container'>
-          <h2 className='register-container__title'>Регистрация</h2>
+          <h2 className='register-container__title'>{t('register.form-title')}</h2>
           <p id='registerError' className='error-message'></p>
           {
             registerErrors && <ErrorMessage errors={registerErrors} />
           }
           <form className='register-container__form' onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="email">Электронная почта</label>
+            <label htmlFor="email">{t('register.email-label')}</label>
             <input type="text" id='email' {...register('email', { required: 'Укажите почту' })} onChange={hideError} />
             <span className='error-message error-email'>{errors.email?.message}</span>
-            <label htmlFor="password">Пароль</label>
+            <label htmlFor="password">{t('register.password-label')}</label>
             <div className='input-container'>
               <input type={passwordVisible ? 'text' : 'password'} id='password'
                 {...register('password', { required: 'Укажите пароль' })}
@@ -109,7 +109,7 @@ export const RegisterPage = () => {
               <button type='button' className='hide-password-btn' onClick={handleTogglePassword}></button>
             </div>
             <span className='error-message error-password'>{errors.password?.message}</span>
-            <label htmlFor="confirmPassword">Повторите пароль</label>
+            <label htmlFor="confirmPassword">{t('register.confirm-password-label')}</label>
             <div className='input-container'>
               <input id='confirmPassword'
                 type={confirmPpasswordVisible ? 'text' : 'password'}
@@ -120,12 +120,12 @@ export const RegisterPage = () => {
               <button type='button' className='hide-password-btn' onClick={handleToggleConfirmPassword}></button>
             </div>
             <span className='error-message error-confirm-password'>{errors.confirmPassword?.message}</span>
-            <button className='form__button' type="submit">Зарегистрироваться</button>
+            <button className='form__button' type="submit">{t('register.register-btn')}</button>
           </form>
         </div>
         <div className='login-link-container'>
-          <p className='login-link-container__text'>Вы уже зарегистрированы?</p>
-          <Link className='login-link-container__link' to="/auth/login">Авторизация</Link>
+          <p className='login-link-container__text'>{t('register.auth-question')}</p>
+          <Link className='login-link-container__link' to="/auth/login">{t('register.auth-link')}</Link>
         </div>
       </div>
     </div>

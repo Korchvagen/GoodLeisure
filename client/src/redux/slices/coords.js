@@ -4,14 +4,26 @@ const initialState = {
 
 export const setCoords = (coords) => {
   return {
-    type: 'SET_VALUE',
+    type: 'SET_COORDS',
+    payload: coords
+  };
+};
+
+export const resetCoords = (coords) => {
+  return {
+    type: 'RESET_COORDS',
     payload: coords
   };
 };
 
 const coordsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_VALUE':
+    case 'SET_COORDS':
+      return {
+        ...state,
+        data: action.payload,
+      };
+    case 'RESET_COORDS':
       return {
         ...state,
         data: action.payload,

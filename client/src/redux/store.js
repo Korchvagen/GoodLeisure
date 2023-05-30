@@ -6,6 +6,7 @@ import { favoritesReducer } from './slices/favorites.js';
 import { profileReducer } from './slices/profile.js';
 import loadingReducer from './slices/loader.js';
 import coordsReducer from './slices/coords.js';
+import languagesReducer from './slices/language.js';
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     favorites: favoritesReducer,
     profile: profileReducer,
     loading: loadingReducer,
-    coords: coordsReducer
+    coords: coordsReducer,
+    language: languagesReducer
   }
 });
 

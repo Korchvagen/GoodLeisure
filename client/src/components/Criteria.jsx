@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchLeisures } from '../redux/slices/leisures.js';
 import '../styles/pages/criteria.scss';
 import { setLoading } from '../redux/slices/loader.js';
-
+import { useTranslation } from 'react-i18next';
+import { selectLanguage } from '../redux/slices/language.js';
 
 export const Criteria = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const chosenLanguage = useSelector(selectLanguage);
   const [currentPairIndex, setCurrentPairIndex] = useState(0);
   const [selectedCriteria, setSelectedCriteria] = useState([]);
   const [selectedCriteriaImg, setSelectedCriteriaImg] = useState([]);
@@ -15,15 +18,24 @@ export const Criteria = () => {
   const [isLeisuresFetched, setIsLeisuresFetched] = useState(false);
   const [isEmptyChoice, setEmptyChoice] = useState(false);
 
-  const [categories, setCategories] = useState([
-    "Литература", "Спорт", "Еда", "Искусство", "Кино",
-    "Музыка", "Технологии", "Игры", "Развлечения", "Природа",
-    "Животные", "Шопинг", "Ночная жизнь", "Танцы", "Астрономия"
-  ]);
+  const initialStateRu = [
+    "Еда", "Спорт", "Природа", "Искусство", "Литература",
+    "Игры", "Развлечения", "Астрономия", "Животные", "Шопинг",
+    "Кино", "Музыка", "Технологии", "Ночная жизнь", "Танцы"
+  ];
+
+  const initialStateEn = [
+    "Food", "Sport", "Nature", "Art", "Literature",
+    "Games", "Entertainment", "Space", "Animals", "Shopping",
+    "Cinema", "Music", "Technologies", "Nightlife", "Dances"
+  ];
+
+  const [categories, setCategories] = useState(chosenLanguage === "ru" ? initialStateRu : initialStateEn);
+
   const [images, setImages] = useState([
-    "literature", "sport", "food", "art", "cinema",
-    "music", "technics", "games", "entertainment", "nature",
-    "animals", "shopping", "night-life", "dances", "space"
+    "food", "sport", "nature", "art", "literature",
+    "games", "entertainment", "space", "animals", "shopping",
+    "cinema", "music", "technics", "night-life", "dances"
   ]);
 
   const handleCriterionClick = async (e) => {
@@ -33,12 +45,7 @@ export const Criteria = () => {
     setSelectedCriteriaImg((prevCriteriaImg) => [...prevCriteriaImg, images[categories.indexOf(e.target.value)]])
 
     if (categories.length === 1) {
-      const values = { interests: categories };
-      const data = await dispatch(fetchLeisures(values));
-
-      if (data.payload?.leisures) {
-        setIsLeisuresFetched(true);
-      }
+      setIsLeisuresFetched(true);
     }
 
     if ((categories.length % 2 === 1 && currentPairIndex === Math.floor(categories.length / 2)) || (categories.length % 2 === 0 && currentPairIndex + 1 === Math.floor(categories.length / 2))) {
@@ -74,6 +81,10 @@ export const Criteria = () => {
     }
   });
 
+  useEffect(() => {
+    chosenLanguage === "ru" ? setCategories(initialStateRu) : setCategories(initialStateEn);
+  }, [chosenLanguage]);
+
   if (isLeisuresFetched) {
     return <Navigate to={`/chosenLeisure?leisure=${categories[0]}`} />;
   }
@@ -83,7 +94,7 @@ export const Criteria = () => {
       {
         isEmptyChoice
           ?
-          <h3 className='empty-choice-text'>К сожалению, Вы ничего не выбрали</h3>
+          <h3 className='empty-choice-text'>{t('criteria.empty-choice-text')}</h3>
           :
           <>
             <div className={`criteria-container__image ${images[currentPairIndex * 2]}`}></div>
@@ -99,7 +110,7 @@ export const Criteria = () => {
                   </>
                 }
               </div>
-              <button className='another-btn' onClick={handleAnotherClick}>Другое</button>
+              <button className='another-btn' onClick={handleAnotherClick}>{t('criteria.another-btn')}</button>
             </div>
             {
               categories[currentPairIndex * 2 + 1]

@@ -3,15 +3,25 @@ import "../../styles/popup/popup-content.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCreateInterests, selectInterestsError } from '../../redux/slices/interests';
 import { setLoading } from '../../redux/slices/loader';
+import { selectLanguage } from '../../redux/slices/language';
+import { useTranslation } from 'react-i18next';
 
 export function Interests() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const chosenLanguage = useSelector(selectLanguage);
   const interestsError = useSelector(selectInterestsError);
 
-  const initialState = [
+  const initialStateRu = [
     "Еда", "Спорт", "Природа", "Искусство", "Литература",
     "Игры", "Развлечения", "Астрономия", "Животные", "Шопинг",
     "Кино", "Музыка", "Технологии", "Ночная жизнь", "Танцы"
+  ];
+
+  const initialStateEn = [
+    "Food", "Sport", "Nature", "Art", "Literature",
+    "Games", "Entertainment", "Space", "Animals", "Shopping",
+    "Cinema", "Cinema", "Technologies", "Nightlife", "Dances"
   ];
 
   const [chosenInterest, setChosenInterest] = useState([]);
@@ -36,15 +46,15 @@ export function Interests() {
 
   return (
     <div className='popup-content'>
-      <h2 className='popup-content__title'>Выбор интересов</h2>
+      <h2 className='popup-content__title'>{t('interests.title')}</h2>
       {
         interestsError && <p className='error-message'>{interestsError}</p>
       }
-      <p className='container__text'>Выберите то, чем вы увлекаетесь, чтобы мы помогли Вам определиться, как провести свободное время</p>
+      <p className='container__text'>{t('interests.text')}</p>
       <div className='container__buttons'>
-        {initialState.map((value, index) => <button className='interest-button' key={index} value={value} onClick={handleToggleInterest}>{value}</button>)}
+        {(chosenLanguage === "ru" ? initialStateRu : initialStateEn).map((value, index) => <button className='interest-button' key={index} value={value} onClick={handleToggleInterest}>{value}</button>)}
       </div>
-      <button className='container__button save-btn' onClick={submitInterests}>Сохранить</button>
+      <button className='container__button save-btn' onClick={submitInterests}>{t('interests.save-btn')}</button>
     </div>
   );
 }

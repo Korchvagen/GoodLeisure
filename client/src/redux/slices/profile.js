@@ -21,6 +21,12 @@ export const fetchProfile = createAsyncThunk('profile/fetchProfile', async () =>
 const profileSlice = createSlice({
   name: 'prodile',
   initialState,
+  reducers: {
+    resetProfile: (state) => {
+      state.data = null;
+      state.status = 'loaded';
+    }
+  },
   extraReducers: {
     [fetchEditProfile.pending]: (state) => {
       state.data = null;
@@ -58,3 +64,5 @@ export const selectCity = (state) => state.profile.data?.profile?.city;
 export const selectMessage = (state) => state.profile.data?.message;
 
 export const profileReducer = profileSlice.reducer;
+
+export const { resetProfile } = profileSlice.actions;

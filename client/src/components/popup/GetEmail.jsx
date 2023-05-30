@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchEmail, selectMessage } from '../../redux/slices/auth.js';
 import { setLoading } from '../../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export function GetEmail({ changeComponentEmail, changeComponentCode }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const emailError = useSelector(selectMessage);
 
   const { register, handleSubmit, formState: { errors } } = useForm(
@@ -37,13 +39,13 @@ export function GetEmail({ changeComponentEmail, changeComponentCode }) {
 
   return (
     <>
-      <p className='container__text email-text'>Укажите электронную почту от утерянной учетной записи, чтобы мы отправили Вам код восстановления.</p>
+      <p className='container__text email-text'>{t('recovery.email-text')}</p>
       <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
         { emailError && <p id='error-recoveryEmail' className='error-message'>{emailError}</p> }
-        <label htmlFor="recoveryEmail">Электронная почта</label>
-        <input id='recoveryEmail' type='text' {...register('recoveryEmail', { required: 'Укажите почту' })} onChange={hideError}/>
+        <label htmlFor="recoveryEmail">{t('recovery.email-label')}</label>
+        <input id='recoveryEmail' type='text' {...register('recoveryEmail', { required: t('recovery.empty-email') })} onChange={hideError}/>
         <span className='error-message'>{errors.recoveryEmail?.message}</span>
-        <button type='submit' className='popup-form__button'>Продолжить</button>
+        <button type='submit' className='popup-form__button'>{t('recovery.continue-btn')}</button>
       </form>
     </>
   );

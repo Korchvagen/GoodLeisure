@@ -3,9 +3,11 @@ import "../../styles/popup/popup-leisure.scss"
 import { useDispatch } from 'react-redux';
 import { fetchAddFavorite, fetchRemoveFavorite } from '../../redux/slices/favorites';
 import { setLoading } from '../../redux/slices/loader';
+import { useTranslation } from 'react-i18next';
 
 export function PopupLeisureMap({ category, leisure, favorite, setActive }) {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const contactsList = leisure.properties.CompanyMetaData.Phones?.map((phone, index) => <li key={index}>{phone.formatted}</li>)
 
   const handleLeisureClick = async (e) => {
@@ -59,7 +61,7 @@ export function PopupLeisureMap({ category, leisure, favorite, setActive }) {
       {
         leisure.properties.CompanyMetaData.url
         &&
-        <a className='leisure-site-btn' href={leisure.properties.CompanyMetaData.url} target='_blanck'>Перейти на сайт</a>
+        <a className='leisure-site-btn' href={leisure.properties.CompanyMetaData.url} target='_blanck'>{t('popup-leisure.redirect-btn')}</a>
       }
     </div>
   );

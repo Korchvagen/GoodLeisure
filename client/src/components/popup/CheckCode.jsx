@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchCode, fetchEmail, selectMessage } from '../../redux/slices/auth.js';
 import { startTimer } from '../../scripts/timer.js';
 import { setLoading } from '../../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export function CheckCode({ changeComponentCode }) {
+  const { t } = useTranslation();
+
   useEffect(() => {
     startTimer();
   }, []);
@@ -54,16 +57,16 @@ export function CheckCode({ changeComponentCode }) {
 
   return (
     <>
-      <p className='container__text code-text'>Вам на почту был отправлен код восстановления. Если вы его не получили, запросите код ещё раз.</p>
+      <p className='container__text code-text'>{t('recovery.code-text')}</p>
       <form className='container__form' onSubmit={handleSubmit(onSubmit)}>
         { codeError && <p className='error-message error-code'>{codeError}</p> }
-        <label htmlFor="code">Код восстановления</label>
-        <input id='code' type='text' {...register('code', { required: 'Укажите код подтверждения' })} onChange={hideError}/>
+        <label htmlFor="code">{t('recovery.code-label')}</label>
+        <input id='code' type='text' {...register('code', { required: t('recovery.empty-code') })} onChange={hideError}/>
         <span className='error-message'>{errors.code?.message}</span>
         <p id='timer'></p>
-        <button type='submit' className='popup-form__button'>Продолжить</button>
+        <button type='submit' className='popup-form__button'>{t('recovery.continue-btn')}</button>
       </form>
-      <button className='popup-form__button repeat-button' onClick={resendCode}>Повторить отправку кода</button>
+      <button className='popup-form__button repeat-button' onClick={resendCode}>{t('recovery.resend-btn')}</button>
     </>
   );
 }

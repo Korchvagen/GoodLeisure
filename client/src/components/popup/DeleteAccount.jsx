@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchDeleteAccount, logout, selectMessage } from '../../redux/slices/auth.js';
+import { fetchDeleteAccount, resetAuth, selectMessage } from '../../redux/slices/auth.js';
 import { Navigate } from 'react-router-dom';
 import { setLoading } from '../../redux/slices/loader.js';
+import { resetInterests } from '../../redux/slices/interests.js';
+import { resetFavorites } from '../../redux/slices/favorites.js';
+import { resetLeisures } from '../../redux/slices/leisures.js';
+import { resetProfile } from '../../redux/slices/profile.js';
+import { resetCoords } from '../../redux/slices/coords.js';
 
 export function DeleteAccount() {
   const dispatch = useDispatch();
@@ -44,7 +49,12 @@ export function DeleteAccount() {
   };
 
   if (isAccountDeleted) {
-    dispatch(logout());
+    dispatch(resetAuth());
+    dispatch(resetInterests());
+    dispatch(resetLeisures());
+    dispatch(resetFavorites());
+    dispatch(resetProfile());
+    dispatch(resetCoords(null));
     window.localStorage.removeItem('token');
     return <Navigate to="/" />;
   }

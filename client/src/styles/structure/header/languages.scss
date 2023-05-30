@@ -1,14 +1,16 @@
 .languages-container{
   display: flex;
+  column-gap: 5px;
+  color: #C9C9C9;
+  font-size: 20px;
+}
+
+.languages-container__btn{
   font-size: 20px;
   color: #C9C9C9;
+  background-color: transparent;
 }
 
-.languages-container span:nth-child(2),
-.languages-container__en{
-  margin-left: 5px;
-}
-
-.languages-container span.active{
+.languages-container__btn.active{
   color: #E7CC40;
 }

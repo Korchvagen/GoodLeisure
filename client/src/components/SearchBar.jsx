@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Navigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import '../styles/pages/main.scss';
 
 export const SearchBar = () => {
+  const { t } = useTranslation();
   const [searchValue, setSearchValue] = useState("");
   const [isSuccessSearch, setSuccessSearch] = useState(false);
 
@@ -23,7 +25,7 @@ export const SearchBar = () => {
   return (
     <form className='search-form' onSubmit={handleSubmit}>
       <button type='submit' className='search-form__button'></button>
-      <input type="text" placeholder='Поиск...' value={searchValue} onChange={handleSearchChange} />
+      <input type="text" placeholder={t('main.search-placeholder')} value={searchValue} onChange={handleSearchChange} />
     </form>
   );
 }

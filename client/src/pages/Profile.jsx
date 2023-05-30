@@ -9,9 +9,12 @@ import { EditInfo } from '../components/popup/EditInfo.jsx';
 import { EditInterests } from '../components/popup/EditInterests.jsx';
 import { selectCity, selectImage, selectName } from '../redux/slices/profile';
 import { setLoading } from '../redux/slices/loader';
-
+import { useTranslation } from 'react-i18next';
+import { selectLanguage } from '../redux/slices/language';
 
 export const ProfilePage = () => {
+  const { t } = useTranslation();
+  const chosenLanguage = useSelector(selectLanguage);
   const image = useSelector(selectImage);
   const name = useSelector(selectName);
   const city = useSelector(selectCity);
@@ -22,10 +25,17 @@ export const ProfilePage = () => {
   const [chosenInterests, setChosenInterests] = useState([]);
   const [popupActive, setPopupActive] = useState(false);
   const [isInfoEdit, setIsInfoEdit] = useState(true);
-  const initialState = [
+
+  const initialStateRu = [
     "Еда", "Спорт", "Природа", "Искусство", "Литература",
     "Игры", "Развлечения", "Астрономия", "Животные", "Шопинг",
     "Кино", "Музыка", "Технологии", "Ночная жизнь", "Танцы"
+  ];
+
+  const initialStateEn = [
+    "Food", "Sport", "Nature", "Art", "Literature",
+    "Games", "Entertainment", "Space", "Animals", "Shopping",
+    "Cinema", "Cinema", "Technologies", "Nightlife", "Dances"
   ];
 
   useEffect(() => {
@@ -34,7 +44,19 @@ export const ProfilePage = () => {
     setProfileCity(city);
 
     if (interests) {
-      setChosenInterests(interests);
+      if (initialStateRu.includes(interests[0])) {
+        setChosenInterests(initialStateRu.map((value, index) => {
+          if (interests.includes(value)) {
+            return index;
+          }
+        }));
+      } else {
+        setChosenInterests(initialStateEn.map((value, index) => {
+          if (interests.includes(value)) {
+            return index;
+          }
+        }));
+      }
     }
   }, [image, name, city, interests]);
 
@@ -48,7 +70,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="profile-page-wrapper">
-      <h2 className='profile-page-wrapper__title'>Личный кабинет</h2>
+      <h2 className='profile-page-wrapper__title'>{t('profile.title')}</h2>
       <div className="profile-container">
         <div className="profile-container__left-side">
           <div className='info-container'>
@@ -56,20 +78,20 @@ export const ProfilePage = () => {
             <div className='info-container__frame'>
               <img src={profileImage ? `data:image/png;base64,${profileImage}` : avatarIcon} alt="Chosen Image" className="info-container__image" />
             </div>
-            <p className='info-container__name'>{profileName ? profileName : "Имя"}</p>
-            <p className='info-container__city'>{profileCity ? profileCity : "Город"}</p>
+            <p className='info-container__name'>{profileName ? profileName : t('profile.name')}</p>
+            <p className='info-container__city'>{profileCity ? profileCity : t('profile.city')}</p>
           </div>
           <Link className='options-link' to="/options">
             <div className="options-link__image"></div>
-            <span className="options-link__text">Настройки</span>
+            <span className="options-link__text">{t('profile.options')}</span>
           </Link>
         </div>
         <div className="profile-container__interests">
           <div className='edit-btn edit-interests' onClick={handleEditClick}></div>
-          <h3 className='interests__title'>Мои интересы</h3>
+          <h3 className='interests__title'>{t('profile.interests-title')}</h3>
           <div className="interests__conteiner">
-            {initialState.map((value, index) => (
-              <div className={chosenInterests.includes(value) ? 'interests__conteiner__item active' : 'interests__conteiner__item'} key={index}><span>{value}</span></div>
+            {(chosenLanguage === "ru" ? initialStateRu : initialStateEn).map((value, index) => (
+              <div className={chosenInterests.includes(index) ? 'interests__conteiner__item active' : 'interests__conteiner__item'} key={index}><span>{value}</span></div>
             ))}
           </div>
         </div>

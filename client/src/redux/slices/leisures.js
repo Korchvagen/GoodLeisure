@@ -3,7 +3,7 @@ import axios from '../../utils/axios.js';
 
 const initialState = {
   data: null,
-  status: 'loaded',
+  status: 'loading',
 };
 
 export const fetchLeisures = createAsyncThunk('leisures/fetchLeisures', async (params) => {
@@ -21,6 +21,12 @@ export const fetchSearchLeisures = createAsyncThunk('leisures/fetchSearchLeisure
 const leisuresSlice = createSlice({
   name: 'leisures',
   initialState,
+  reducers: {
+    resetLeisures: (state) => {
+      state.data = null;
+      state.status = 'loaded';
+    }
+  },
   extraReducers: {
     [fetchLeisures.pending]: (state) => {
       state.data = null;
@@ -54,3 +60,5 @@ export const selectLeisures = (state) => state.leisures.data?.leisures;
 export const selectMessage = (state) => state.leisures.data?.message;
 
 export const leisuresReducer = leisuresSlice.reducer;
+
+export const { resetLeisures } = leisuresSlice.actions;

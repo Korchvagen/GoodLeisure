@@ -1,0 +1,101 @@
+{
+  "navbar": {
+    "home": "Home",
+    "auth": "Sing In",
+    "favorites": "Favorites",
+    "profile": "Profile"
+  },
+  "auth": {
+    "text": "By logging in to the system, you will get access to your Profile, search and leisure selection process.\nAfter authorization, you will be able to save your favorite leisure time in order to have quick access to it in the future.",
+    "form-title": "Authorization",
+    "email-label": "Email",
+    "empty-email": "Enter your email",
+    "password-label": "Password",
+    "empty-password": "Enter a password",
+    "login-btn": "Sign In",
+    "recovery-link": "Forgot your password?",
+    "register-question": "You are not registred?",
+    "register-link": "Registration"
+  },
+  "register": {
+    "text": "The basis for the selection of leisure places is the automatic determination of your location. You can specify the name of your locality in the Profile section.",
+    "form-title": "Registration",
+    "email-label": "Email",
+    "empty-email": "Enter your email",
+    "password-label": "Password",
+    "empty-password": "Enter a password",
+    "confirm-password-label": "Repeat password",
+    "empty-confirm-password": "Repeat password",
+    "register-btn": "Sign Up",
+    "auth-question": "Are you already registered?",
+    "auth-link": "Authorization"
+  },
+  "recovery": {
+    "title": "Account recovery",
+    "email-text": "Enter your lost account email so we can send you a recovery code.",
+    "code-text": "A recovery code has been sent to your email. If you didn't receive it, please request the code again.",
+    "email-label": "Email",
+    "empty-email": "Enter your email",
+    "code-label": "Recovery code",
+    "empty-code": "Enter the recovery code",
+    "password-label": "New password",
+    "empty-password": "Enter a new password",
+    "confirm-password-label": "Repeat new password",
+    "empty-confirm-password": "Repeat new password",
+    "continue-btn": "Continue",
+    "resend-btn": "Resend code",
+    "save-btn": "Save"
+  },
+  "main": {
+    "search-placeholder": "Search...",
+    "upper-text": "GoodLeisure is a service for those who like to relax, doing what they love, or looking for something new in the field of leisure.\nThis service has a system that takes into account the interests of the user, so we will always help you with the choice of how to spend your free time. In order not to lose sight of the interesting leisure option, you can save it to the Favorites section. There you will quickly find your favorite activities. We also built Yandex.Map into our brainchild. Thanks to it, you can visually see the location of all the places of leisure that suit you.",
+    "selection-btn": "Start Selection",
+    "lower-text": "The process of selecting leisure activities is carried out by sequentially selecting the criteria for the desired leisure. At the end of the selection process, you will be offered a list of possible options for your holiday."
+  },
+  "interests": {
+    "title": "Choice of interests",
+    "text": "Choose what you are interested in so that we can help you decide how to spend your free time",
+    "save-btn": "Save"
+  },
+  "popup-leisure": {
+    "redirect-btn": "Go to site"
+  },
+  "search-result": {
+    "list": "List",
+    "map": "Map",
+    "empty-result-text": "Nothing found for your request"
+  },
+  "selection": {
+    "list": "List",
+    "map": "Map",
+    "skip-link": "Skip"
+  },
+  "picking": {
+    "text": "Choose one of the criteria that best suits you at the moment",
+    "question": "How would you like to spend your leisure time?",
+    "stop-selection-link": "Finish selection"
+  },
+  "criteria": {
+    "empty-choice-text": "Sorry, you didn't select anything",
+    "another-btn": "Another"
+  }
+  ,
+  "chosen-leisure": {
+    "list": "List",
+    "map": "Map",
+    "restart-link": "Start over"
+  },
+  "favorites": {
+    "title": "Favorites",
+    "list": "List",
+    "map": "Map",
+    "empty-list-text": "Your list is empty"
+  },
+  "profile": {
+    "title": "Profile",
+    "interests-title": "My interests",
+    "options": "Options",
+    "name": "Name",
+    "city": "City"
+  }
+}

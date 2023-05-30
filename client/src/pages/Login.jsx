@@ -8,9 +8,11 @@ import { AccountRecovery } from '../components/popup/AccountRecovery.jsx';
 import '../styles/pages/auth.scss';
 import { fetchInterests } from '../redux/slices/interests.js';
 import { setLoading } from '../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export const LoginPage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const loginError = useSelector(selectMessage);
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState('');
@@ -65,35 +67,33 @@ export const LoginPage = () => {
     <div className='login-page-wrapper'>
       <div className="left-side">
         <div className='left-side__greeting-img'></div>
-        <p className='left-side__text'>Авторизовавшись в системе, Вы получите доступ к своему личному кабинету, поиску и процессу подбора досуга.
-          После авторизации Вы сможете сохранить любимый досуг, чтобы в будущем иметь быстрый доступ к нему.
-        </p>
+        <p className='left-side__text'>{t('auth.text')}</p>
       </div>
       <div className="right-side">
         <div className='login-container'>
-          <h2 className='login-container__title'>Авторизация</h2>
+          <h2 className='login-container__title'>{t('auth.form-title')}</h2>
           { loginError && <p id='loginError' className='error-message'>{loginError}</p> }
           <form className='login-container__form' onSubmit={handleSubmit(onSubmit)}>
-            <label htmlFor="email">Электронная почта</label>
-            <input type="text" id='email' {...register('email', { required: 'Укажите почту' })} onChange={hideError}/>
+            <label htmlFor="email">{t('auth.email-label')}</label>
+            <input type="text" id='email' {...register('email', { required: t('auth.empty-email') })} onChange={hideError}/>
             <span className='error-message error-email'>{errors.email?.message}</span>
-            <label htmlFor="password">Пароль</label>
+            <label htmlFor="password">{t('auth.password-label')}</label>
             <div className='input-container'>
               <input type={passwordVisible ? 'text' : 'password'} id='password'
-                {...register('password', { required: 'Укажите пароль' })}
+                {...register('password', { required: t('auth.empty-password') })}
                 onChange={handlePasswordChange}
                 value={password}
               />
               <button type='button' className='hide-password-btn' onClick={handleTogglPassword}></button>
             </div>
             <span className='error-message error-password'>{errors.password?.message}</span>
-            <button className='form__button' type="submit">Войти</button>
+            <button className='form__button' type="submit">{t('auth.login-btn')}</button>
           </form>
-          <button className='open-popup-btn' onClick={() => setPopupActive(true)}>Забыли пароль?</button>
+          <button className='open-popup-btn' onClick={() => setPopupActive(true)}>{t('auth.recovery-link')}</button>
         </div>
         <div className='register-link-container'>
-          <p className='register-link-container__text'>Вы не зарегистрированы?</p>
-          <Link className='register-link-container__link' to="/auth/register">Регистрация</Link>
+          <p className='register-link-container__text'>{t('auth.register-question')}</p>
+          <Link className='register-link-container__link' to="/auth/register">{t('auth.register-link')}</Link>
         </div>
         <Popup active={popupActive} setActive={setPopupActive}>
           <AccountRecovery setActive={setPopupActive} />

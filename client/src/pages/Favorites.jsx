@@ -5,9 +5,11 @@ import { LeisureMap } from '../components/LeisureMap.jsx';
 import { Leisure } from '../components/Leisure.jsx';
 import { selectFavorites } from '../redux/slices/favorites.js';
 import { setLoading } from '../redux/slices/loader.js';
+import { useTranslation } from 'react-i18next';
 
 export const FavoritesPage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const favorites = useSelector(selectFavorites);
   const [listWindow, setListWindow] = useState(true);
   const [leisures, setLeisures] = useState([]);
@@ -44,12 +46,12 @@ export const FavoritesPage = () => {
 
   return (
     <div className="leisures-page-wrapper favorites-wrapper">
-      <h2 className='favorites-title'>Избранное</h2>
+      <h2 className='favorites-title'>{t('favorites.title')}</h2>
       <div className="leisures-container">
         <div className='leisures-container__navigation'>
           <div className='navigation__left-links'>
-            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>Список</button>
-            <button className='left-links__item leisure-map' onClick={handleLinkClick}>Карта</button>
+            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>{t('favorites.list')}</button>
+            <button className='left-links__item leisure-map' onClick={handleLinkClick}>{t('favorites.map')}</button>
           </div>
         </div>
         <div className="leisures-container__content">
@@ -60,7 +62,7 @@ export const FavoritesPage = () => {
                 {
                   leisures.length === 0
                   ?
-                  <h3 className='favorites-empty-text'>Ваш список пуст</h3>
+                  <h3 className='favorites-empty-text'>{t('favorites.empty-list-text')}</h3>
                   :
                   leisureList
                 }

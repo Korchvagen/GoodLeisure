@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSearchLeisures, selectMessage } from '../redux/slices/leisures.js';
 import '../styles/pages/leisures.scss';
 import { Leisure } from '../components/Leisure.jsx';
-import { Placemark } from '@pbe/react-yandex-maps';
-import { YMaps, Map } from '@pbe/react-yandex-maps';
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps';
 import { selectFavorites } from '../redux/slices/favorites.js';
 import { Popup } from '../components/popup/Popup.jsx';
 import { PopupLeisureMap } from '../components/popup/PopupLeisureMap.jsx';
@@ -13,11 +12,15 @@ import { setLoading } from '../redux/slices/loader.js';
 import { selectAuth } from '../redux/slices/auth.js';
 import { selectCoords } from '../redux/slices/coords.js';
 import { selectCity } from '../redux/slices/profile.js';
+import { useTranslation } from 'react-i18next';
+import { selectLanguage } from '../redux/slices/language.js';
 
 
 export const SearchResultPage = () => {
   const isAuth = useSelector(selectAuth);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const chosenLanguage = useSelector(selectLanguage);
   const searchError = useSelector(selectMessage);
   const favorites = useSelector(selectFavorites);
   const coords = useSelector(selectCoords);
@@ -39,19 +42,20 @@ export const SearchResultPage = () => {
       const value = {
         searchRequest: request,
         coords: coords,
-        city: city
+        city: city,
+        lang: chosenLanguage
       };
 
       const data = await dispatch(fetchSearchLeisures(value));
 
-      if(data.payload?.message){
+      if (data.payload?.message) {
         setEmptyResult(true);
       }
 
       if (data.payload?.leisures) {
         setLeisures(data.payload.leisures);
 
-        if(data.payload.leisures.length === 0){
+        if (data.payload.leisures.length === 0) {
           setEmptyResult(true);
         }
       }
@@ -94,10 +98,10 @@ export const SearchResultPage = () => {
     });
 
     setPopupActive(true);
-    dispatch(setLoading(true));
+    dispatch(setLoading(false));
   }
 
-  if(!isAuth){
+  if (!isAuth) {
     return <Navigate to="/auth/login" />
   }
 
@@ -106,8 +110,8 @@ export const SearchResultPage = () => {
       <div className="leisures-container">
         <div className='leisures-container__navigation'>
           <div className='navigation__left-links'>
-            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>Список</button>
-            <button className='left-links__item leisure-map' onClick={handleLinkClick}>Карта</button>
+            <button className='left-links__item leisure-List active' onClick={handleLinkClick}>{t('search-result.list')}</button>
+            <button className='left-links__item leisure-map' onClick={handleLinkClick}>{t('search-result.map')}</button>
           </div>
         </div>
         <div className="leisures-container__content">
@@ -118,20 +122,16 @@ export const SearchResultPage = () => {
                 {
                   isEmpryResult
                     ?
-                    <h3 className='empty-result-text'>{ searchError ? searchError : "По Вашему запросу ничего не найдено" }</h3>
+                    <h3 className='empty-result-text'>{searchError ? searchError : t('search-result.empty-result-text')}</h3>
                     :
-                    <>
-                      {
-                        leisures.map(feature => (
-                          <Leisure key={feature.properties.CompanyMetaData.id} category={"Поиск"} leisure={feature} />
-                        ))
-                      }
-                    </>
+                    leisures.map(feature => (
+                      <Leisure key={feature.properties.CompanyMetaData.id} category={"Поиск"} leisure={feature} />
+                    ))
                 }
               </div>
               :
               <YMaps className='map-container'>
-                <Map className='map' defaultState={{ center: [coords[1], coords[0]], zoom: 12 }}>
+                <Map className='map' defaultState={{ center: coords ? [coords[1], coords[0]] : [53.9, 27.5667], zoom: 12 }}>
                   {
                     leisures.map(feature => (
                       <Placemark key={feature.properties.CompanyMetaData.id}

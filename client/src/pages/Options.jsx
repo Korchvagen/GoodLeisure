@@ -6,8 +6,13 @@ import { Popup } from '../components/popup/Popup.jsx';
 import { EditEmail } from '../components/popup/EditEmail';
 import { EditPassword } from '../components/popup/EditPassword';
 import { DeleteAccount } from '../components/popup/DeleteAccount';
-import { logout } from '../redux/slices/auth';
+import { resetAuth } from '../redux/slices/auth';
 import { setLoading } from '../redux/slices/loader';
+import { resetInterests } from '../redux/slices/interests';
+import { resetFavorites } from '../redux/slices/favorites';
+import { resetLeisures } from '../redux/slices/leisures';
+import { resetProfile } from '../redux/slices/profile';
+import { resetCoords } from '../redux/slices/coords';
 
 
 export const OptionsPage = () => {
@@ -39,7 +44,12 @@ export const OptionsPage = () => {
   }
 
   if(isExitButton){
-    dispatch(logout());
+    dispatch(resetAuth());
+    dispatch(resetInterests());
+    dispatch(resetLeisures());
+    dispatch(resetFavorites());
+    dispatch(resetProfile());
+    dispatch(resetCoords(null));
     window.localStorage.removeItem('token');
     return <Navigate to="/" />
   }

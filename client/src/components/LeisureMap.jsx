@@ -15,7 +15,7 @@ export function LeisureMap({ favorites, category }) {
   
   return (
     <YMaps className='map-container'>
-      <Map className='map' defaultState={{ center: [coords[1], coords[0]], zoom: 12 }}>
+      <Map className='map' defaultState={{ center: coords ? [coords[1], coords[0]] : [53.9, 27.5667], zoom: 12 }}>
         {
           favorites
           ?

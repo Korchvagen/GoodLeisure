@@ -64,8 +64,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logout: (state) => {
+    resetAuth: (state) => {
       state.data = null;
+      state.status = 'loaded';
     }
   },
   extraReducers: {
@@ -188,4 +189,4 @@ export const selectMessage = (state) => state.auth.data?.message;
 
 export const authReducer = authSlice.reducer;
 
-export const { logout } = authSlice.actions;
+export const { resetAuth } = authSlice.actions;

@@ -5,24 +5,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAddFavorite, fetchRemoveFavorite, selectFavoriteError, selectFavorites } from '../redux/slices/favorites.js';
 import '../styles/leisure.scss';
 import { setActiveFavorites } from '../scripts/setActiveFavorites.js';
-import lodash from 'lodash';
+import lodash, { indexOf } from 'lodash';
 import { setLoading } from '../redux/slices/loader.js';
+import { selectLanguage } from '../redux/slices/language.js';
 
 export function Leisure({ category, leisure }) {
   const dispatch = useDispatch();
+  const chosenLanguage = useSelector(selectLanguage);
   const favoriteError = useSelector(selectFavoriteError);
   const favorites = useSelector(selectFavorites);
   const [popupActive, setPopupActive] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("");
   const [favoriteLeisure, setFavoriteLeisure] = useState(false);
-  const ruCategories = ["Литература", "Спорт", "Еда", "Искусство", "Кино", "Музыка", "Технологии", "Игры", "Развлечения", "Природа", "Животные", "Шопинг", "Ночная жизнь", "Танцы", "Астрономия", "Поиск"];
+  const ruCategories = ["литература", "спорт", "еда", "искусство", "кино", "музыка", "технологии", "игры", "развлечения", "природа", "животные", "шопинг", "ночная жизнь", "танцы", "астрономия", "поиск"];
   const enCategories = ["literature", "sport", "food", "art", "cinema", "music", "technics", "games", "entertainment", "nature", "animals", "shopping", "night-life", "dances", "space", "search"];
 
   useEffect(() => {
     document.querySelectorAll('.favorite-error').forEach(el => el.textContent = "");
-
-    setCurrentCategory(enCategories[ruCategories.indexOf(category)]);
+    
+    setCurrentCategory(ruCategories.includes(category.toLowerCase()) ? enCategories[ruCategories.indexOf(category.toLowerCase())] : enCategories.find(elem => elem === category.toLowerCase()));
   }, []);
+
+  console.log(currentCategory);
 
   useEffect(() => {
     dispatch(setLoading(true));

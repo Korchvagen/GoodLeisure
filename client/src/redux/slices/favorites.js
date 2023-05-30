@@ -27,6 +27,12 @@ export const fetchRemoveFavorite = createAsyncThunk('favorites/fetchRemoveFavori
 const favoritesSlice = createSlice({
   name: 'leisures',
   initialState,
+  reducers: {
+    resetFavorites: (state) => {
+      state.data = null;
+      state.status = 'loaded';
+    }
+  },
   extraReducers: {
     [fetchFavorites.pending]: (state) => {
       state.data = null;
@@ -72,3 +78,5 @@ export const selectFavorites = (state) => state.favorites.data?.favorites;
 export const selectFavoriteError = (state) => state.favorites.data?.message;
 
 export const favoritesReducer = favoritesSlice.reducer;
+
+export const { resetFavorites } = favoritesSlice.actions;

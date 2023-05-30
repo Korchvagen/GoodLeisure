@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Interests } from '../components/popup/Interests.jsx';
 import sliderImage from '../assets/img/slider-1.png';
-import { selectAuth } from '../redux/slices/auth.js';
-import { selectIsNewUser } from '../redux/slices/interests.js';
+import { fetchAuthMe, selectAuth } from '../redux/slices/auth.js';
+import { fetchInterests, selectIsNewUser } from '../redux/slices/interests.js';
 import { PopupInterests } from '../components/popup/PopupInterests.jsx';
 import '../styles/pages/main.scss';
 import { SearchBar } from '../components/SearchBar.jsx';
+import { useTranslation } from 'react-i18next';
+import { fetchFavorites } from '../redux/slices/favorites.js';
+import { fetchProfile } from '../redux/slices/profile.js';
+import { setCoords } from '../redux/slices/coords.js';
 
 export const MainPage = () => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
   let isPopupActive = false;
   const isAuth = useSelector(selectAuth);
   const isNewUser = useSelector(selectIsNewUser);
@@ -18,6 +24,19 @@ export const MainPage = () => {
     isPopupActive = true;
   }
 
+  useEffect(() => {
+    dispatch(fetchAuthMe());
+    dispatch(fetchInterests());
+    dispatch(fetchFavorites());
+    dispatch(fetchProfile());
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        dispatch(setCoords([position.coords.longitude, position.coords.latitude]));
+      });
+    }
+  }, []);
+
   return (
     <div className='main-page-wrapper'>
       <div className='main-page-wrapper__content'>
@@ -25,12 +44,8 @@ export const MainPage = () => {
           <div className='left-side__search-container'>
             <SearchBar />
           </div>
-          <p className='left-side__text'><b>GoodLeisure</b> - это сервис для тех, кто любит отдыхать, занимаясь  любимым делом, или ищет для себя что-то новенькое в сфере досуга.
-            <br></br>Данный сервис обладает системой учета интересов пользователя, поэтому мы всегда поможем вам с выбором, как провести свободное время. Чтобы не потерять из виду заинтересовавший
-            вариант досуга, Вы можете сохранить его в раздел Избранное. Там Вы быстро найдете свои любимые занятия.
-            Также мы встроили в наше детище Яндекс.Карту. Благодаря ей Вы можете визуально видеть расположение всех подходящих Вам мест проведения досуга.
-          </p>
-          <Link to={"/selection"} className='left-side__start-btn'>Начать подбор</Link>
+          <p className='left-side__text'>{t('main.upper-text')}</p>
+          <Link to={"/selection"} className='left-side__start-btn'>{t('main.selection-btn')}</Link>
         </div>
         <div className='content__slider'>
           <div className="slider-container">
@@ -47,9 +62,7 @@ export const MainPage = () => {
           </div>
         </div>
       </div>
-      <p className='description-text'>Процесс подбора способов проведения досуга осуществляется путем последовательного выбора критериев желаемого досуга.
-        По окончанию процесса подбора Вам будет предложен список возможных вариантов Вашего отдыха.
-      </p>
+      <p className='description-text'>{t('main.lower-text')}</p>
       <PopupInterests active={isPopupActive}>
         <Interests />
       </PopupInterests>
