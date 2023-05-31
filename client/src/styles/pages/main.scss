@@ -34,6 +34,12 @@
     background-image: url('../../assets/icons/search.svg');
     background-size: cover;
     background-color: transparent;
+    transition: 0.3s;
+    z-index: 2;
+  }
+
+  .search-form__button:hover{
+    scale: 1.1;
   }
 
   input {
@@ -45,6 +51,19 @@
     color: #000000;
     font-size: 22px;
     padding-left: 50px;
+    transition: 0.3s;
+  }
+
+  input:hover{
+    border: 2px #000000 solid;
+    cursor: pointer;
+  }
+
+  input:focus{
+    scale: 1.02;
+    border: 2px #000000 solid;
+    box-shadow: #e7cb4071 5px 5px;
+    cursor: auto;
   }
 
   input::-moz-placeholder {
@@ -121,6 +140,13 @@
   margin-top: 60px;
   padding-top: 17px;
   padding-left: 40px;
+  transition: 0.3s;
+}
+
+.left-side__start-btn:hover{
+  border: 2px #000000 solid;
+  scale: 1.05;
+  box-shadow: #e7cb4071 5px 5px;
 }
 
 .error-message {

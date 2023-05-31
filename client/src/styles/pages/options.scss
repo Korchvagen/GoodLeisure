@@ -38,6 +38,13 @@
   border-radius: 10px;
   color: #000000;
   font-size: 25px;
+  transition: 0.3s;
+}
+
+.menu__button:hover{
+  border: 2px #000000 solid;
+  scale: 1.05;
+  box-shadow: #e7cb4071 5px 5px;
 }
 
 .edit-email-container{

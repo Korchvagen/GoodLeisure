@@ -49,9 +49,18 @@
   transition: 0.3s;
 }
 
-.interest-button.active{
+.interest-button:hover{
+  scale: 1.02;
+  box-shadow: #00000065 5px 5px;
+}
+
+.interest-button.active {
   background-color: #404040;
   color: #C9C9C9;
+}
+
+.interest-button.active:hover{
+  color: #E7CC40;
 }
 
 .container__form {
@@ -72,6 +81,19 @@
     border-radius: 20px;
     padding-left: 10px;
     font-size: 20px;
+    transition: 0.3s;
+  }
+
+  input:hover{
+    border: 2px #000000 solid;
+    cursor: pointer;
+  }
+
+  input:focus {
+    border: 2px #000000 solid;
+    scale: 1.02;
+    box-shadow: #00000065 5px 5px;
+    cursor: auto;
   }
 }
 
@@ -86,9 +108,17 @@
   font-size: 25px;
   margin-top: 20px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-.save-btn{
+.container__button:hover,
+.popup-form__button:hover {
+  color: #E7CC40;
+  scale: 1.02;
+  box-shadow: #00000065 5px 5px;
+}
+
+.save-btn {
   width: 250px;
   margin-top: 30px;
 }
@@ -101,7 +131,7 @@
   margin-top: 20px;
 }
 
-.repeat-button:disabled{
+.repeat-button:disabled {
   background-color: #535353;
   color: #C9C9C9;
 }
@@ -114,18 +144,18 @@
   text-align: center;
 }
 
-#timer{
+#timer {
   min-height: 20px;
   font-size: 20px;
   text-align: center;
 }
 
-.input-container{
+.input-container {
   display: flex;
   position: relative;
 }
 
-.hide-password-btn{
+.hide-password-btn {
   position: absolute;
   top: 15px;
   right: 10px;
@@ -134,24 +164,30 @@
   background-image: url('../../assets/icons/hidden-password.svg');
   background-size: cover;
   background-color: transparent;
+  transition: 0.3s;
 }
 
-.hide-password-btn.active{
+.hide-password-btn:hover {
+  filter: brightness(0) saturate(100%) invert(99%) sepia(89%) saturate(4594%) hue-rotate(322deg) brightness(95%) contrast(91%);
+  scale: 1.2;
+}
+
+.hide-password-btn.active {
   background-image: url('../../assets/icons/shown-password.svg');
 }
 
-#name{
+#name {
   margin-bottom: 20px;
 }
 
-.image-select-container{
+.image-select-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.image-frame{
+.image-frame {
   width: 150px;
   height: 150px;
   border: 2px #000000 solid;
@@ -161,24 +197,34 @@
   margin-bottom: 5px;
 }
 
-.selected-image{
+.selected-image {
   width: 148px;
   height: 148px;
 }
 
-.selected-image__label{
+.selected-image__label {
   cursor: pointer;
+  transition: 0.3s;
 
-  span{
+  span {
     font-size: 25px;
     border-bottom: 2px #000000 solid;
+    transition: 0.3s;
   }
 }
 
-.selected-image__input{
+.selected-image__label:hover {
+  scale: 1.05;
+
+  span {
+    border-bottom: 2px #000000 dashed;
+  }
+}
+
+.selected-image__input {
   display: none;
 }
 
-.confirm-text{
+.confirm-text {
   text-align: center;
 }

@@ -1,47 +1,47 @@
 .login-page-wrapper,
-.register-page-wrapper{
+.register-page-wrapper {
   display: flex;
   justify-content: space-between;
   padding: 0 60px;
   padding-top: 50px;
 }
 
-.register-page-wrapper{
+.register-page-wrapper {
   padding-top: 50px;
 }
 
-.left-side{
+.left-side {
   width: 600px;
 }
 
-.left-side__greeting-img{
+.left-side__greeting-img {
   width: 100%;
   height: 400px;
   background-image: url('../../assets/img/auth-img.png');
   background-size: cover;
 }
 
-.register-img{
+.register-img {
   height: 600px;
   background-image: url('../../assets/img/register-img.png');
   margin-top: -60px;
 }
 
-.left-side__text{
+.left-side__text {
   width: 100%;
   margin-top: 50px;
   color: #C9C9C9;
   font-size: 20px;
 }
 
-.register-text{
+.register-text {
   margin-top: -80px;
 }
 
 .login-container,
 .register-container,
 .register-link-container,
-.login-link-container{
+.login-link-container {
   width: 500px;
   display: flex;
   flex-direction: column;
@@ -52,26 +52,26 @@
   padding: 20px 50px;
 }
 
-.register-container{
+.register-container {
   padding: 20px 50px;
 }
 
-.register-link-container{
+.register-link-container {
   margin-top: 50px;
 }
 
-.login-link-container{
+.login-link-container {
   margin-top: 30px;
 }
 
 .login-container__title,
-.register-container__title{
+.register-container__title {
   font-size: 30px;
   text-align: center;
 }
 
 .login-container__form,
-.register-container__form{
+.register-container__form {
   width: 100%;
   margin-top: 10px;
   display: flex;
@@ -90,16 +90,29 @@
     border-radius: 20px;
     padding-left: 10px;
     font-size: 20px;
+    transition: 0.3s;
+  }
+
+  input:hover{
+    border: 2px #000000 solid;
+    cursor: pointer;
+  }
+
+  input:focus {
+    border: 2px #000000 solid;
+    scale: 1.02;
+    box-shadow: #00000065 5px 5px;
+    cursor: auto;
   }
 }
 
-.register-container__form{
+.register-container__form {
   margin-top: 0;
 }
 
 .form__button,
 .register-link-container__link,
-.login-link-container__link{
+.login-link-container__link {
   width: 100%;
   height: 50px;
   border: 1px #000000 solid;
@@ -108,23 +121,38 @@
   color: #C9C9C9;
   font-size: 20px;
   margin-top: 20px;
+  transition: 0.3s;
+}
+
+.form__button:hover,
+.register-link-container__link:hover,
+.login-link-container__link:hover {
+  color: #E7CC40;
+  scale: 1.02;
+  box-shadow: #00000065 5px 5px;
 }
 
 .register-link-container__link,
-.login-link-container__link{
+.login-link-container__link {
   margin-top: 0;
   padding: 13px 136px;
 }
 
-.open-popup-btn{
+.open-popup-btn {
   background-color: transparent;
   font-size: 20px;
   border-bottom: 2px #000000 solid;
   margin-top: 20px;
+  transition: 0.3s;
+}
+
+.open-popup-btn:hover{
+  border-bottom: 2px #000000 dashed;
+  scale: 1.02;
 }
 
 .register-link-container__text,
-.login-link-container__text{
+.login-link-container__text {
   font-size: 20px;
   margin-bottom: 20px;
 }

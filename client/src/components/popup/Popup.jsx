@@ -12,7 +12,7 @@ export function Popup({ active, setActive, setIsInfoEdit, children }) {
   return (
     <div className={active ? "popup-background active" : "popup-background"} onClick={handleClosePopup}>
       <div className="popup-container" onClick={(e) => e.stopPropagation()}>
-        <div className='close-moddal-btn' onClick={handleClosePopup}>
+        <div className='close-modal-btn' onClick={handleClosePopup}>
           <span></span>
           <span></span>
         </div>

@@ -13,6 +13,7 @@
   align-items: center;
   column-gap: 15px;
   width: calc(100% - 30px);
+  transition: 0.3s;
 
   .literature {
     background-image: url('../assets/icons/literature.png');
@@ -79,6 +80,12 @@
   }
 }
 
+.leisure-container__left-side:hover{
+  border: 1px #000000 solid;
+  border-radius: 5px;
+  box-shadow: #0000007a 5px 5px;
+}
+
 .left-side__image {
   width: 50px;
   height: 50px;
@@ -107,6 +114,11 @@
   transition: 0.3s;
 }
 
+.leisure-container__favorite-btn:hover{
+  scale: 1.1;
+  filter: brightness(0) saturate(100%) invert(19%) sepia(4%) saturate(24%) hue-rotate(327deg) brightness(100%) contrast(81%);
+}
+
 .leisure-container__favorite-btn.active{
   background-image: url('../assets/icons/favorite.svg');
 }
@@ -117,10 +129,3 @@
   text-align: center;
   margin-top: 5px;
 }
-
-// .ymaps-2-1-79-svg-icon {
-//   width: 40px !important;
-//   height: 40px !important;
-//   background-image: url('../assets/img/food.png') !important;
-//   background-size: cover !important;
-// }

@@ -36,6 +36,13 @@
   font-size: 25px;
   color: #000000;
   background-color: transparent;
+  transition: 0.3s;
+}
+
+.left-links__item:hover,
+.navigation__skip-link:hover{
+  scale: 1.1;
+  border-bottom: 1px #000000 dashed;
 }
 
 .left-links__item.active{

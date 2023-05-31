@@ -29,4 +29,11 @@
   padding-top: 13px;
   text-align: center;
   margin-top: 10px;
+  transition: 0.3s;
+}
+
+.leisure-site-btn:hover{
+  color: #E7CC40;
+  scale: 1.02;
+  box-shadow: #00000065 5px 5px;
 }

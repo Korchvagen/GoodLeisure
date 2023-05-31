@@ -1,6 +1,15 @@
 .logo-container{
   display: flex;
   align-items: center;
+  transition: 0.3s;
+}
+
+.logo-container:hover{
+  scale: 1.03;
+
+  .logo-container__title{
+    color: #fdd377;
+  }
 }
 
 .logo-container__image{
@@ -14,4 +23,5 @@
   font-size: 25px;
   color: #C9C9C9;
   margin-left: 15px;
+  transition: 0.3s;
 }

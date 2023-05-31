@@ -54,6 +54,12 @@
   right: 10px;
   top: 10px;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.edit-btn:hover{
+  scale: 1.1;
+  filter: brightness(0) saturate(100%) invert(19%) sepia(4%) saturate(24%) hue-rotate(327deg) brightness(100%) contrast(81%);
 }
 
 .info-container__frame{
@@ -75,6 +81,19 @@
   display: flex;
   align-items: center;
   margin-top: 30px;
+  transition: 0.3s;
+}
+
+.options-link:hover{
+  scale: 1.05;
+
+  .options-link__image{
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(353deg) brightness(104%) contrast(101%);
+  }
+
+  .options-link__text{
+    color: #ffffff;
+  }
 }
 
 .options-link__image {
@@ -83,11 +102,13 @@
   background-image: url('../../assets/icons/options.svg');
   background-size: cover;
   margin-right: 10px;
+  transition: 0.3s;
 }
 
 .options-link__text{
   font-size: 25px;
   color: #E7CC40;
+  transition: 0.3s;
 }
 
 .profile-container__interests{

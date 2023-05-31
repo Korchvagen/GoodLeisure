@@ -9,6 +9,12 @@
   font-size: 20px;
   color: #C9C9C9;
   background-color: transparent;
+  transition: 0.3s;
+}
+
+.languages-container__btn:hover{
+  color: #fdd377;
+  scale: 1.1;
 }
 
 .languages-container__btn.active{
