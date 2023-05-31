@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Interests } from '../components/popup/Interests.jsx';
-import sliderImage from '../assets/img/slider-1.png';
 import { fetchAuthMe, selectAuth, selectIsNewUser } from '../redux/slices/auth.js';
 import { fetchInterests } from '../redux/slices/interests.js';
 import { PopupInterests } from '../components/popup/PopupInterests.jsx';
@@ -12,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { fetchFavorites } from '../redux/slices/favorites.js';
 import { fetchProfile } from '../redux/slices/profile.js';
 import { setCoords } from '../redux/slices/coords.js';
+import { Slider } from '../components/Slider.jsx';
 
 export const MainPage = () => {
   const dispatch = useDispatch();
@@ -49,20 +49,7 @@ export const MainPage = () => {
           <p className='left-side__text'>{t('main.upper-text')}</p>
           <Link to={"/selection"} className='left-side__start-btn'>{t('main.selection-btn')}</Link>
         </div>
-        <div className='content__slider'>
-          <div className="slider-container">
-            <div className='slider-container__images'>
-              <img src={sliderImage} alt="Slider Image" />
-            </div>
-          </div>
-          <div className='slider__buttons'>
-            <div className='slider__buttons__item active'></div>
-            <div className='slider__buttons__item'></div>
-            <div className='slider__buttons__item'></div>
-            <div className='slider__buttons__item'></div>
-            <div className='slider__buttons__item'></div>
-          </div>
-        </div>
+        <Slider />
       </div>
       <p className='description-text'>{t('main.lower-text')}</p>
       <PopupInterests active={isPopupActive}>
