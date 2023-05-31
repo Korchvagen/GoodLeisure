@@ -17,5 +17,11 @@
     color: #C9C9C9;
     text-decoration: none;
     margin-left: 40px;
+    transition: 0.3s;
+  }
+
+  a:hover{
+    scale: 1.05;
+    color: #fdd377;
   }
 }

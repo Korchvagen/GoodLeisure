@@ -28,11 +28,7 @@ export function Languages() {
   return (
     <div className="languages-container">
       <button ref={ruBtn}
-        className={
-          window.localStorage.getItem('lang') === "ru" ?
-            'languages-container__btn ru active'
-            :
-            'languages-container__btn ru'}
+        className="languages-container__btn ru active"
         value="ru"
         onClick={handleChangeLanguage}>
         Ru

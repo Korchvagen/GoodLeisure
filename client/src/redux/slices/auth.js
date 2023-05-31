@@ -183,8 +183,6 @@ const authSlice = createSlice({
 
 export const selectAuth = (state) => Boolean(state.auth.data?._id);
 
-export const selectIsNewUser = (state) => Boolean(state.auth.data?.token);
-
 export const selectErrors = (state) => state.auth.data?.errors;
 
 export const selectMessage = (state) => state.auth.data?.message;

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Interests } from '../components/popup/Interests.jsx';
-import { fetchAuthMe, selectAuth, selectIsNewUser } from '../redux/slices/auth.js';
-import { fetchInterests } from '../redux/slices/interests.js';
+import { fetchAuthMe, selectAuth } from '../redux/slices/auth.js';
+import { fetchInterests, selectIsNewUser } from '../redux/slices/interests.js';
 import { PopupInterests } from '../components/popup/PopupInterests.jsx';
 import '../styles/pages/main.scss';
 import { SearchBar } from '../components/SearchBar.jsx';
